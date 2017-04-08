@@ -4,6 +4,11 @@
 export M2_HOME=$HOME/Tools/apache-maven-3.3.9
 export PATH=$PATH:$M2_HOME/bin
 
+#----------------------------------------------------------------------------------
+# Angular-cli
+#----------------------------------------------------------------------------------
+alias ng="/Volumes/Stonehall/juanca/Tools/node/lib/node_modules/@angular/cli/bin/ng"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
