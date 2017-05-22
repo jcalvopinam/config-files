@@ -6,8 +6,8 @@ target/
 .classpath
 .factorypath
 .project
-.settingss
-.DS_Store
+.settings
+.springBeans
 
 ### IntelliJ IDEA ###
 .idea
@@ -22,9 +22,9 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-.settings/
-target/
 
-### Logs
+### Logs ###
 logs/
 
+### mac OS ###
+.DS_Store
