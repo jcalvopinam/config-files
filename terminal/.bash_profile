@@ -25,57 +25,6 @@ test -f ~/.git-completion.bash && . $_
 export M2_HOME=$HOME/Tools/apache-maven-3.3.9
 export PATH=$PATH:$M2_HOME/bin
 
-# Wrapper function for Maven's mvn command.
-mvn-color()
-{
-  # Filter mvn output using sed
-  # mvn $@ | sed -e "s/\(\[INFO\]\ \-.*\)/${TEXT_BLUE}${BOLD}\1/g" \
-  #              -e "s/\(\[INFO\]\ \[.*\)/${RESET_FORMATTING}${BOLD}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[INFO\]\ BUILD SUCCESSFUL\)/${BOLD}${TEXT_GREEN}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[INFO\]\ Start.*\)/${BOLD}${TEXT_GREEN}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[WARNING\].*\)/${BOLD}${TEXT_YELLOW}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[ERROR\].*\)/${BOLD}${TEXT_RED}\1${RESET_FORMATTING}/g" \
-  #              -e "s/Tests run: \([^,]*\), Failures: \([^,]*\), Errors: \([^,]*\), Skipped: \([^,]*\)/${BOLD}${TEXT_GREEN}Tests run: \1${RESET_FORMATTING}, Failures: ${BOLD}${TEXT_RED}\2${RESET_FORMATTING}, Errors: ${BOLD}${TEXT_RED}\3${RESET_FORMATTING}, Skipped: ${BOLD}${TEXT_YELLOW}\4${RESET_FORMATTING}/g"
-    mvn $@ | sed -e "s/\(\[INFO\]\ \-.*\)/${BACKGROUND_WHITE}${TEXT_BLUE}\1/g" \
-        -e "s/\(\[INFO\]\ \[.*\)/${RESET_FORMATTING}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[INFO\]\ BUILD SUCCESSFUL\)/${BACKGROUND_BLACK}${TEXT_CYAN}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[INFO\]\ Start.*\)/${BACKGROUND_BLACK}${TEXT_CYAN}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[WARNING\].*\)/${BACKGROUND_BLACK}${TEXT_YELLOW}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[ERROR\].*\)/${BACKGROUND_WHITE}${TEXT_RED}\1${RESET_FORMATTING}/g" \
-        -e "s/Tests run: \([^,]*\), Failures: \([^,]*\), Errors: \([^,]*\), Skipped: \([^,]*\)/${TEXT_GREEN}Tests run: \1${RESET_FORMATTING}, Failures: ${TEXT_RED}\2${RESET_FORMATTING}, Errors: ${TEXT_RED}\3${RESET_FORMATTING}, Skipped: ${TEXT_CYAN}\4${RESET_FORMATTING}/g"
-    
-  # Make sure formatting is reset
-    echo -ne ${RESET_FORMATTING}
-}
-
-#Also for debuggins
-mvnDebug-color()
-{
-  # Filter mvn output using sed
-  # mvn $@ | sed -e "s/\(\[INFO\]\ \-.*\)/${TEXT_BLUE}${BOLD}\1/g" \
-  #              -e "s/\(\[INFO\]\ \[.*\)/${RESET_FORMATTING}${BOLD}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[INFO\]\ BUILD SUCCESSFUL\)/${BOLD}${TEXT_GREEN}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[INFO\]\ Start.*\)/${BOLD}${TEXT_GREEN}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[WARNING\].*\)/${BOLD}${TEXT_YELLOW}\1${RESET_FORMATTING}/g" \
-  #              -e "s/\(\[ERROR\].*\)/${BOLD}${TEXT_RED}\1${RESET_FORMATTING}/g" \
-  #              -e "s/Tests run: \([^,]*\), Failures: \([^,]*\), Errors: \([^,]*\), Skipped: \([^,]*\)/${BOLD}${TEXT_GREEN}Tests run: \1${RESET_FORMATTING}, Failures: ${BOLD}${TEXT_RED}\2${RESET_FORMATTING}, Errors: ${BOLD}${TEXT_RED}\3${RESET_FORMATTING}, Skipped: ${BOLD}${TEXT_YELLOW}\4${RESET_FORMATTING}/g"
-    mvnDebug $@ | sed -e "s/\(\[INFO\]\ \-.*\)/${BACKGROUND_WHITE}${TEXT_BLUE}\1/g" \
-        -e "s/\(\[INFO\]\ \[.*\)/${RESET_FORMATTING}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[INFO\]\ BUILD SUCCESSFUL\)/${BACKGROUND_BLACK}${TEXT_CYAN}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[INFO\]\ Start.*\)/${BACKGROUND_BLACK}${TEXT_CYAN}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[WARNING\].*\)/${BACKGROUND_BLACK}${TEXT_YELLOW}\1${RESET_FORMATTING}/g" \
-        -e "s/\(\[ERROR\].*\)/${BACKGROUND_WHITE}${TEXT_RED}\1${RESET_FORMATTING}/g" \
-        -e "s/Tests run: \([^,]*\), Failures: \([^,]*\), Errors: \([^,]*\), Skipped: \([^,]*\)/${TEXT_GREEN}Tests run: \1${RESET_FORMATTING}, Failures: ${TEXT_RED}\2${RESET_FORMATTING}, Errors: ${TEXT_RED}\3${RESET_FORMATTING}, Skipped: ${TEXT_CYAN}\4${RESET_FORMATTING}/g"
-    
-  # Make sure formatting is reset
-    echo -ne ${RESET_FORMATTING}
-}
-
-# Override the mvn command with the colorized one.
-alias mvn="mvn-color"
-# Override the mvnDebug command with the colorized one.
-alias mvnDebug="mvnDebug-color"
-
 
 #----------------------------------------------------------------------------------
 # Derby setup
@@ -84,22 +33,26 @@ alias mvnDebug="mvnDebug-color"
 #export PATH=$PATH:$DERBY_HOME/bin
 #export CLASSPATH=$DERBY_HOME/lib/derby.jar:$DERBY_HOME/lib/derbytools.jar:
 
+
 #----------------------------------------------------------------------------------
 # Java setup
 #----------------------------------------------------------------------------------
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
-export PATH=$PATH:$JAVA_HOME
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
+#export PATH=$PATH:$JAVA_HOME
+
 
 #----------------------------------------------------------------------------------
 # Nodejs setup
 #----------------------------------------------------------------------------------
-export NODE_MODULE_HOME=$HOME/Tools/node
-export PATH=$PATH:$NODE_MODULE_HOME
+export NODEJS_HOME=$HOME/Tools/node/bin
+export PATH=$PATH:$NODEJS_HOME
+
 
 #----------------------------------------------------------------------------------
 # Angular-cli
 #----------------------------------------------------------------------------------
 alias ng="/Volumes/Stonehall/juanca/Tools/node/lib/node_modules/@angular/cli/bin/ng"
+
 
 #----------------------------------------------------------------------------------
 # Python setup
@@ -109,6 +62,13 @@ PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 
 #----------------------------------------------------------------------------------
 export PATH
+
+
+#----------------------------------------------------------------------------------
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+#----------------------------------------------------------------------------------
+export SDKMAN_DIR="/Volumes/Stonehall/juanca/.sdkman"
+[[ -s "/Volumes/Stonehall/juanca/.sdkman/bin/sdkman-init.sh" ]] && source "/Volumes/Stonehall/juanca/.sdkman/bin/sdkman-init.sh"
 
 
 # WELCOME SCREEN
