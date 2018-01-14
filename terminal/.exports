@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Exports
+
+#----------------------------------------------------------------------------------
+# Maven setup
+#----------------------------------------------------------------------------------
+M2_HOME=$HOME/Tools/apache-maven-3.3.9
+export PATH=$PATH:$M2_HOME/bin
+
+
+#----------------------------------------------------------------------------------
+# Derby setup
+#----------------------------------------------------------------------------------
+#DERBY_HOME=$HOME/Tools/db-derby-10.12.1.1-bin
+#export PATH=$PATH:$DERBY_HOME/bin
+#export CLASSPATH=$DERBY_HOME/lib/derby.jar:$DERBY_HOME/lib/derbytools.jar:
+
+
+#----------------------------------------------------------------------------------
+# Java setup
+#----------------------------------------------------------------------------------
+#JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
+#export PATH=$PATH:$JAVA_HOME
+
+
+#----------------------------------------------------------------------------------
+# Python setup
+#----------------------------------------------------------------------------------
+# The original version is saved in .bash_profile.pysave
+PYTHON_HOME=/Library/Frameworks/Python.framework/Versions/3.6/bin
+export PATH=$PATH:$PYTHON_HOME/bin
+
+
+#----------------------------------------------------------------------------------
+# Nodejs setup
+#----------------------------------------------------------------------------------
+NODEJS_HOME=$HOME/Tools/node
+export PATH=$PATH:$NODEJS_HOME/bin
+
+
+#----------------------------------------------------------------------------------
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+#----------------------------------------------------------------------------------
+export SDKMAN_DIR="/Volumes/Stonehall/juanca/.sdkman"
+[[ -s "/Volumes/Stonehall/juanca/.sdkman/bin/sdkman-init.sh" ]] && source "/Volumes/Stonehall/juanca/.sdkman/bin/sdkman-init.sh"
