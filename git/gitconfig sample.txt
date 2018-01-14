@@ -2,7 +2,7 @@
 [user]
 # Please adapt and uncomment the following lines:
 name = Juan Calvopina
-email = juan.calvopina+dev@gmail.com
+email = juan.calvopina@gmail.com
 [core]
     autocrlf = false
 [alias]
