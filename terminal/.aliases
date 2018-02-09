@@ -43,7 +43,8 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 #----------------------------------------------------------------------------------
 # Flush Directory Service cache
 #----------------------------------------------------------------------------------
-alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+#alias flushDNS="dscacheutil -flushcache && killall -HUP mDNSResponder"
+alias flushDNS="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 
 
 #----------------------------------------------------------------------------------
