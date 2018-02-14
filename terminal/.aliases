@@ -46,7 +46,6 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 #alias flushDNS="dscacheutil -flushcache && killall -HUP mDNSResponder"
 alias flushDNS="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
 
-
 #----------------------------------------------------------------------------------
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 #----------------------------------------------------------------------------------
@@ -98,3 +97,9 @@ alias ng="/Volumes/Stonehall/juanca/Tools/node/lib/node_modules/@angular/cli/bin
 # Print each PATH entry on a separate line
 #----------------------------------------------------------------------------------
 alias path='echo -e ${PATH//:/\\n}'
+
+
+#----------------------------------------------------------------------------------
+# SublimeText
+#----------------------------------------------------------------------------------
+alias subl="open -a /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
