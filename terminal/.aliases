@@ -16,6 +16,7 @@ alias -- -="cd -"
 # Always enable colored `ls` output
 #----------------------------------------------------------------------------------
 alias ls='ls -F -G'
+alias ll='ls -la -F -G'
 
 
 #----------------------------------------------------------------------------------
@@ -103,3 +104,9 @@ alias path='echo -e ${PATH//:/\\n}'
 # SublimeText
 #----------------------------------------------------------------------------------
 alias subl="open -a /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+
+#----------------------------------------------------------------------------------
+# Udemy-dl
+#----------------------------------------------------------------------------------
+alias udemy-dl="python /Volumes/Stonehall/juanca/Tools/udemy-dl/udemy-dl.py"
