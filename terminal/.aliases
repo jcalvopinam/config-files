@@ -16,7 +16,8 @@ alias -- -="cd -"
 # Always enable colored `ls` output
 #----------------------------------------------------------------------------------
 alias ls='ls -F -G'
-alias ll='ls -la -F -G'
+alias ll='ls -l -F -G'
+alias la='ls -la -F -G'
 
 
 #----------------------------------------------------------------------------------
@@ -46,6 +47,7 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 #----------------------------------------------------------------------------------
 #alias flushDNS="dscacheutil -flushcache && killall -HUP mDNSResponder"
 alias flushDNS="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
+
 
 #----------------------------------------------------------------------------------
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
@@ -110,3 +112,15 @@ alias subl="open -a /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/s
 # Udemy-dl
 #----------------------------------------------------------------------------------
 alias udemy-dl="python /Volumes/Stonehall/juanca/Tools/udemy-dl/udemy-dl.py"
+
+
+#----------------------------------------------------------------------------------
+# Count all files in the current folder
+#----------------------------------------------------------------------------------
+alias totalfiles="find . -type f | wc -l"
+
+
+#----------------------------------------------------------------------------------
+# Count all files by sub folder in the current folder
+#----------------------------------------------------------------------------------
+alias totalfilesd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
