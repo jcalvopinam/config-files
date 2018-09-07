@@ -8,38 +8,38 @@ prompt_git() {
 	local s='';
 	local branchName='';
 
-	# Check if the current directory is in a Git repository.
+	# Checks if the current directory is in a Git repository.
 	if [ $(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}") == '0' ]; then
 
-		# check if the current directory is in .git before running git checks
+		# checks if the current directory is in .git before running git checks
 		if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
 
-			# Ensure the index is up to date.
+			# Ensures the index is up to date.
 			git update-index --really-refresh -q &>/dev/null;
 
-			# Check for uncommitted changes in the index.
+			# Checks for uncommitted changes in the index.
 			if ! $(git diff --quiet --ignore-submodules --cached); then
 				s+='+';
 			fi;
 
-			# Check for unstaged changes.
+			# Checks for unstaged changes.
 			if ! $(git diff-files --quiet --ignore-submodules --); then
 				s+='!';
 			fi;
 
-			# Check for untracked files.
+			# Checks for untracked files.
 			if [ -n "$(git ls-files --others --exclude-standard)" ]; then
 				s+='?';
 			fi;
 
-			# Check for stashed files.
+			# Checks for stashed files.
 			if $(git rev-parse --verify refs/stash &>/dev/null); then
 				s+='$';
 			fi;
 
 		fi;
 
-		# Get the short symbolic ref.
+		# Gets the short symbolic ref.
 		# If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
 		# Otherwise, just give up.
 		branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
@@ -54,7 +54,7 @@ prompt_git() {
 	fi;
 }
 
-# Use Git’s colored diff when available
+# Uses Git’s colored diff when available
 hash git &>/dev/null;
 if [ $? -eq 0 ]; then
 	function diff() {
@@ -62,9 +62,18 @@ if [ $? -eq 0 ]; then
 	}
 fi;
 
+# Gets the name of the parent branch
+function git_parent() {
+	git show-branch -a \
+	| grep '\*' \
+	| grep -v `git rev-parse --abbrev-ref HEAD` \
+	| head -n1 \
+	| sed 's/.*\[\(.*\)\].*/\1/' \
+	| sed 's/[\^~].*//'
+}
 
 #----------------------------------------------------------------------------------
-# Create a new directory and enter it
+# Creates a new directory and enter it
 #----------------------------------------------------------------------------------
 function mkd() {
 	mkdir -p "$@" && cd "$_";
@@ -89,7 +98,7 @@ function fs() {
 
 
 #----------------------------------------------------------------------------------
-# Run `dig` and display the most useful info
+# Runs `dig` and display the most useful info
 #----------------------------------------------------------------------------------
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer;
