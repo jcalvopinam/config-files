@@ -48,7 +48,10 @@ prompt_git() {
 
 		[ -n "${s}" ] && s=" [${s}]";
 
-		echo -e "${1}${branchName}${2}${s}";
+		# PS1 defaulf
+		# echo -e "${1}${branchName}${2}${s}";
+		# PS1 custom git
+		echo -e "${1}(${branchName}${s}) ${2}";
 	else
 		return;
 	fi;
