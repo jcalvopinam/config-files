@@ -129,3 +129,42 @@ function escape() {
 function showtree() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
+
+
+#----------------------------------------------------------------------------------
+# Extract and open project with IntelliJ, currently this only supports "zip" files.
+#                    The command uio means Unzip Intellij Open
+# Keep in mind that the "idea" command must be enabled, if you aren't sure, please
+# open IntelliJ and go to "Tools > Create Command-line Launcher..." and hit "OK"
+# sample how to use: uio project-name.zip
+# > uio demo.zip
+#----------------------------------------------------------------------------------
+function uio() {
+    project=$1
+    filename=$(basename -- "$project")
+    extension="${filename##*.}"
+    filename="${filename%.*}"
+
+    if [ "$project" = "" ]; then
+        echo " ::Please enter the file name..."
+    else
+        if [[ ${extension} == "zip" ]]; then
+            unzip -q $project
+            echo " ::Checking the project structure ..."
+            cd $filename
+            if [ -e pom.xml ] || [ -e build.gradle ]; then
+                echo " ::Opening the project" $filename
+                cd ..
+                idea $filename & 
+                sleep 5
+                echo " "
+            else
+                cd ..
+                rm -rf $filename
+                echo " ::The structure of the project is not maven nor gradle"
+            fi
+        else
+            echo " :: Extension file doesn't support...."
+        fi
+    fi
+}
