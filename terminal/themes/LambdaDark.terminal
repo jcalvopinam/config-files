@@ -463,14 +463,16 @@
 	<key>UseBoldFonts</key>
 	<false/>
 	<key>WindowTitle</key>
-	<string>LambdaYS</string>
+	<string>LambdaDark</string>
 	<key>columnCount</key>
 	<integer>150</integer>
 	<key>name</key>
-	<string>LambdaBlue</string>
+	<string>LambdaDark</string>
 	<key>rowCount</key>
 	<integer>40</integer>
 	<key>type</key>
 	<string>Window Settings</string>
+	<key>useOptionAsMetaKey</key>
+	<true/>
 </dict>
 </plist>
