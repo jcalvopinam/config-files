@@ -1,0 +1,26 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+name = Juan Calvopina
+email = juan.calvopina@gmail.com
+[core]
+    autocrlf = input
+[diff]
+    tool = p4merge
+[difftool "p4merge"]
+    path = /Applications/p4merge.app/Contents/MacOS/p4merge
+[difftool]
+    promt = false
+[merge]
+    tool = p4merge
+[mergetool "p4merge"]
+    path = /Applications/p4merge.app/Contents/MacOS/p4merge
+[mergetool]
+    promt = false
+[alias]
+    log2 = log --pretty=format:'%h %Cblue%ad%Creset %ae %Cgreen%s%Creset' --date=format:'%Y-%m-%d %H:%M:%S%z'
+    # Log display from screencast, with train tracks.
+    log3 = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+    # Other useful aliases:
+    unstage = reset HEAD
+    current-branch = !git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'
