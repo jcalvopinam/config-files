@@ -127,3 +127,9 @@ alias totalfiles="find . -type f | wc -l"
 # Count all files by sub folder in the current folder
 #----------------------------------------------------------------------------------
 alias totalfilesd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
+
+
+#----------------------------------------------------------------------------------
+# ToggleTheme script
+#----------------------------------------------------------------------------------
+alias toggleTheme='. /Volumes/Stonehall/juanca/codespace/config-files/mac/scripts/toggle-theme.sh'
