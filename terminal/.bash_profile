@@ -1,5 +1,5 @@
 # Load the shell dotfiles, and then some:
-for file in /Volumes/Stonehall/juanca/codespace/config-files/terminal/.{path,bash_prompt,exports,aliases,functions,extra}; do
+for file in /Volumes/Stonehall/juanca/codespace/config-files/terminal/.{path,bash_prompt,exports,alias,functions,extra}; do
     [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;

@@ -4,12 +4,12 @@
 #----------------------------------------------------------------------------------
 # Easier navigation: 
 #----------------------------------------------------------------------------------
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ~="cd ~"
-alias -- -="cd -"
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ~='cd ~'
+alias -- -='cd -'
 
 
 #----------------------------------------------------------------------------------
@@ -31,8 +31,8 @@ alias egrep='egrep --color=auto'
 #----------------------------------------------------------------------------------
 # IP addresses
 #----------------------------------------------------------------------------------
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
+alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias localip='ipconfig getifaddr en0'
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 
@@ -45,34 +45,34 @@ alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'
 #----------------------------------------------------------------------------------
 # Flush Directory Service cache
 #----------------------------------------------------------------------------------
-#alias flushDNS="dscacheutil -flushcache && killall -HUP mDNSResponder"
-alias flushDNS="sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache"
+#alias flushDNS='dscacheutil -flushcache && killall -HUP mDNSResponder'
+alias flushDNS='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
 
 
 #----------------------------------------------------------------------------------
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 #----------------------------------------------------------------------------------
-alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+alias lscleanup='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
 
 
 #----------------------------------------------------------------------------------
 # Recursively delete `.DS_Store` files
 #----------------------------------------------------------------------------------
-alias cleanup="find . -depth -type f \( -name ".DS_Store" -o -name "Informaci*.txt" -o -name "*.url" \) -delete"
+alias cleanup="find . -depth -type f \( -name '.DS_Store' -o -name 'Informaci*.txt' -o -name '*.url' \) -delete"
 
 
 #----------------------------------------------------------------------------------
 # Show/hide hidden files in Finder
 #----------------------------------------------------------------------------------
-alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
 
 
 #----------------------------------------------------------------------------------
 # Hide/show all desktop icons (useful when presenting)
 #----------------------------------------------------------------------------------
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop='defaults write com.apple.finder CreateDesktop -bool true && killall Finder'
+alias hidedesktop='defaults write com.apple.finder CreateDesktop -bool false && killall Finder'
 
 
 #----------------------------------------------------------------------------------
@@ -87,13 +87,13 @@ alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Re
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 #----------------------------------------------------------------------------------
-alias map="xargs -n1"
+alias map='xargs -n1'
 
 
 #----------------------------------------------------------------------------------
 # Angular-cli
 #----------------------------------------------------------------------------------
-alias ng="/Volumes/Stonehall/juanca/Tools/node/lib/node_modules/@angular/cli/bin/ng"
+alias ng=$HOME'/Tools/node/lib/node_modules/@angular/cli/bin/ng'
 
 
 #----------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ alias path='echo -e ${PATH//:/\\n}'
 #----------------------------------------------------------------------------------
 # SublimeText
 #----------------------------------------------------------------------------------
-#alias subl="open -a /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+#alias subl='open -a /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 #----------------------------------------------------------------------------------
 # or you can create a symbolic link
 # cd /usr/local/bin/
@@ -114,13 +114,13 @@ alias path='echo -e ${PATH//:/\\n}'
 #----------------------------------------------------------------------------------
 # Udemy-dl
 #----------------------------------------------------------------------------------
-alias udemy-dl="python /Volumes/Stonehall/juanca/Tools/udemy-dl/udemy-dl.py"
+alias udemy-dl='python $HOME/Tools/udemy-dl/udemy-dl.py'
 
 
 #----------------------------------------------------------------------------------
 # Count all files in the current folder
 #----------------------------------------------------------------------------------
-alias totalfiles="find . -type f | wc -l"
+alias totalfiles='find . -type f | wc -l'
 
 
 #----------------------------------------------------------------------------------
@@ -132,4 +132,4 @@ alias totalfilesd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "
 #----------------------------------------------------------------------------------
 # ToggleTheme script
 #----------------------------------------------------------------------------------
-alias toggleTheme='. /Volumes/Stonehall/juanca/codespace/config-files/mac/scripts/toggle-theme.sh'
+alias toggleTheme='. $HOME/codespace/config-files/mac/scripts/toggle-theme.sh'
