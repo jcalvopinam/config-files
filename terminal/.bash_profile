@@ -12,6 +12,11 @@ complete -W "$(while read line; do echo ${line%%[, ]*}; done < ~/.ssh/known_host
 # curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 test -f /Volumes/Stonehall/juanca/codespace/config-files/git/.git-completion.bash && . $_
 
+# Docker autocompletion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
 
 #----------------------------------------------------------------------------------
 # WELCOME SCREEN
