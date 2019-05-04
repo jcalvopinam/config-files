@@ -6,10 +6,10 @@
 # Application path
 SRC_PATH=~/codespace/config-files/mac/scripts/.theme-settings
 SUBLIME_PATH=~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/
-INTELLIJ_PATH=~/Library/Preferences/IntelliJIdea2018.2/options/
+INTELLIJ_PATH=~/Library/Preferences/IntelliJIdea2019.1/options/
 
 # It checks if IntelliJ is opened
-if [ -e ~/Library/Preferences/IntelliJIdea2018.3/port ]; then
+if [ -e ~/Library/Preferences/IntelliJIdea2019.1/port ]; then
     echo ":: [ERROR] It is not possible to update the IntelliJ theme because it is currently open! Please switch from the IDE."
 fi
 
