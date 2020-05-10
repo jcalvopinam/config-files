@@ -8,4 +8,7 @@ find "$currentPath" -name ".DS_Store" -depth -type f -delete
 find "$currentPath" -name "Informaci*.txt" -depth -type f -delete
 echo "...The files were deleted!"
 
+rm -rf /Volumes/Stonehall/juanca/Library/LaunchAgents/com.google.*
+rm -rf /Volumes/Stonehall/juanca/Library/LaunchAgents/com.spotify.webhelper.plist
+
 exit;
