@@ -1,0 +1,18 @@
+{
+  "color_scheme": "Packages/Brackets Color Scheme/Brackets Light.sublime-color-scheme",
+  "font_face": "Menlo",
+  "font_size": 11,
+  "ignored_packages":
+  [
+    "Vintage"
+  ],
+  "line_padding_bottom": 1,
+  "line_padding_top": 1,
+  "margin": 5,
+  "tab_size": 2,
+  "theme": "Soda Light 3.sublime-theme",
+  "translate_tabs_to_spaces": true,
+  "ui_native_titlebar": true,
+  "ui_separator": true,
+  "ui_wide_scrollbars": false
+}
