@@ -21,6 +21,10 @@
     "copyFormatting": false,
     "launchMode": "default",
 
+    // Height and width of the window
+    "initialCols": 150,
+    "initialRows": 35,
+
     // A profile specifies a command to execute paired with information about how it should look and feel.
     // Each one of them will appear in the 'New Tab' dropdown,
     //   and can be invoked from the commandline with `wt.exe -p xxx`
