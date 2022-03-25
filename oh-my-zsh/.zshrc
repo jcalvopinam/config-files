@@ -9,6 +9,7 @@ export ZSH=$HOME"/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+#ZSH_THEME="jonathan"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -63,7 +64,11 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git, docker
+    docker
+    docker-compose
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -98,9 +103,23 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #if [ -f ~/.bash_profile ]; then . ~/.bash_profile; fi
-source $HOME/codespace/config-files/terminal/.alias
-source $HOME/codespace/config-files/terminal/.exports
-source $HOME/codespace/config-files/terminal/.functions
+source $HOME/.alias
+source $HOME/.exports
+source $HOME/.functions
 
 export SDKMAN_DIR=$HOME"/.sdkman"
 [[ -s $HOME"/.sdkman/bin/sdkman-init.sh" ]] && source $HOME"/.sdkman/bin/sdkman-init.sh"
+
+export NVM_DIR="$HOME/.nvm"
+    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
+    [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+
+######################################################################
+# docker
+#autoload -Uz compinit
+######################################################################
+
+fpath=(~/.zsh/completion $fpath)
+autoload compinit
+compinit -i
+######################################################################
