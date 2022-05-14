@@ -68,7 +68,7 @@
       "float" : 5
     },
     "gestures" : {
-      "string" : "[10,{\"flags\":0,\"trail\":2},19,{\"flags\":0,\"trail\":2},31,{\"flags\":1835008,\"trail\":4},11,{\"flags\":0,\"trail\":1},30,{\"flags\":1835008,\"trail\":3},0,{\"flags\":0,\"trail\":3},4,{\"flags\":0,\"trail\":3},1,{\"flags\":0,\"trail\":4},2,{\"flags\":0,\"trail\":1},5,{\"flags\":0,\"trail\":4}]"
+      "string" : "[10,{\"flags\":0,\"trail\":2},0,{\"flags\":0,\"trail\":3},5,{\"flags\":0,\"trail\":4},4,{\"flags\":0,\"trail\":3},11,{\"flags\":0,\"trail\":1},31,{\"flags\":1835008,\"trail\":4},2,{\"flags\":0,\"trail\":1},1,{\"flags\":0,\"trail\":4},19,{\"flags\":0,\"trail\":2},30,{\"flags\":1835008,\"trail\":3}]"
     },
     "helperRelaunch" : {
       "int" : 3
@@ -80,7 +80,7 @@
       "bool" : false
     },
     "hookshotStatusIcon" : {
-      "int" : 2
+      "int" : 3
     },
     "iCloudSync" : {
       "int" : 0
@@ -251,7 +251,7 @@
       "float" : 1
     },
     "subsequentExecutionMode" : {
-      "int" : 1
+      "int" : 2
     },
     "SUEnableAutomaticChecks" : {
       "bool" : false
@@ -301,16 +301,8 @@
       "keyCode" : 8,
       "modifierFlags" : 1572864
     },
-    "firstTwoThirds" : {
-      "keyCode" : 123,
-      "modifierFlags" : 786432
-    },
     "larger" : {
       "keyCode" : 126,
-      "modifierFlags" : 1572864
-    },
-    "lastTwoThirds" : {
-      "keyCode" : 124,
       "modifierFlags" : 786432
     },
     "nextDisplay" : {
@@ -327,9 +319,9 @@
     },
     "smaller" : {
       "keyCode" : 125,
-      "modifierFlags" : 1572864
+      "modifierFlags" : 786432
     }
   },
-  "timestamp" : 673642404.64569497,
+  "timestamp" : 673675131.28065097,
   "version" : "111"
 }
