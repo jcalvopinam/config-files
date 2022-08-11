@@ -15,6 +15,11 @@ set foldcolumn=2
 hi foldcolumn guibg=#302d38
 hi VertSplit guibg=#302d38 guifg=#302d38
 
+hi Normal guibg=NONE ctermbg=NONE
+hi EndOfBuffer guifg=bg guibg=bg
+hi LineNr guibg=bg
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
+
 " Color palette "{{{
 "-------------------------------------------------------------------------------
 let s:vmode  = "gui"

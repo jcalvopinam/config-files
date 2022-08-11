@@ -1,33 +1,31 @@
 syntax enable
+set nolist
+set rnu
+set number
+set showmatch
+set noshowmode
+set showcmd
 set termguicolors
 set expandtab
 set autoindent
-set number
-syntax on
-set clipboard=unnamedplus
 set cursorline
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+set mouse=a
+set laststatus=2
+set encoding=utf-8
+set fileformat=unix
 set colorcolumn=120
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
-hi Normal guibg=NONE ctermbg=NONE
-source $HOME/.config/nvim/lotus.vim
-source $HOME/.config/nvim/lotusbar.vim
-
-nnoremap ,<space> :CHADopen<CR>
 nnoremap <space>x :wq!<CR>
 
 let g:indentLine_color_gui = '#ea4c88'
 let g:indentLine_char = '⏽ '
 
-set noshowmode
+source $HOME/.config/nvim/lotus.vim
+source $HOME/.config/nvim/lotusbar.vim
 
-hi EndOfBuffer guifg=bg guibg=bg
-hi LineNr guibg=bg
-set foldcolumn=2
-hi foldcolumn guibg=bg
-hi VertSplit guibg=#302d38 guifg=#302d38
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
 colorscheme nord
