@@ -44,10 +44,14 @@ export PATH=$PATH:$PYTHON_HOME/bin
 
 
 #----------------------------------------------------------------------------------
+# I'm using NodeVersionManager nvm
+#----------------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------------
 # Nodejs setup
 #----------------------------------------------------------------------------------
-NODEJS_HOME=$HOME/Tools/node
-export PATH=$PATH:$NODEJS_HOME/bin
+#NODEJS_HOME=$HOME/Tools/node
+#export PATH=$PATH:$NODEJS_HOME/bin
 
 
 #----------------------------------------------------------------------------------
@@ -55,3 +59,5 @@ export PATH=$PATH:$NODEJS_HOME/bin
 #----------------------------------------------------------------------------------
 export SDKMAN_DIR=$HOME"/.sdkman"
 [[ -s $HOME"/.sdkman/bin/sdkman-init.sh" ]] && source $HOME"/.sdkman/bin/sdkman-init.sh"
+
+source /usr/local/opt/fzf/shell/completion.zsh && source /usr/local/opt/fzf/shell/key-bindings.zsh

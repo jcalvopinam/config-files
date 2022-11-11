@@ -10,7 +10,16 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~='cd ~'
 alias -- -='cd -'
+alias cat=/usr/local/bin/bat
+alias catn=/bin/cat
+alias catl='/usr/local/bin/bat --paging=never'
 
+#----------------------------------------------------------------------------------
+# Always enable colored `lsd` output
+#----------------------------------------------------------------------------------
+#alias ls='lsd -F'
+#alias ll='lsd -l -F'
+#alias la='lsd -la -F'
 
 #----------------------------------------------------------------------------------
 # Always enable colored `ls` output
@@ -18,7 +27,6 @@ alias -- -='cd -'
 alias ls='ls -F -G'
 alias ll='ls -l -F -G'
 alias la='ls -la -F -G'
-
 
 #----------------------------------------------------------------------------------
 # Always enable colored `grep` output
@@ -31,34 +39,17 @@ alias egrep='egrep --color=auto'
 #----------------------------------------------------------------------------------
 # IP addresses
 #----------------------------------------------------------------------------------
-alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias localip='ipconfig getifaddr en0'
-alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-
-
-#----------------------------------------------------------------------------------
-# Show active network interfaces
-#----------------------------------------------------------------------------------
-alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
-
-
-#----------------------------------------------------------------------------------
-# Flush Directory Service cache
-#----------------------------------------------------------------------------------
-#alias flushDNS='dscacheutil -flushcache && killall -HUP mDNSResponder'
-alias flushDNS='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
+alias publicIp='dig +short myip.opendns.com @resolver1.opendns.com'
+alias localIp='ipconfig getifaddr en0'
+alias localIps="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }' | sort"
 
 
 #----------------------------------------------------------------------------------
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 #----------------------------------------------------------------------------------
-alias lscleanup='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
-
-
-#----------------------------------------------------------------------------------
-# Recursively delete `.DS_Store` files
-#----------------------------------------------------------------------------------
+alias cleanupLauchServices='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
 alias cleanup="find . -depth -type f \( -name '.DS_Store' -o -name 'Informaci*.txt' -o -name '*.url' \) -delete"
+alias flushDNS='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
 
 
 #----------------------------------------------------------------------------------
@@ -91,12 +82,6 @@ alias map='xargs -n1'
 
 
 #----------------------------------------------------------------------------------
-# Angular-cli
-#----------------------------------------------------------------------------------
-alias ng=$HOME'/Tools/node/lib/node_modules/@angular/cli/bin/ng'
-
-
-#----------------------------------------------------------------------------------
 # Print each PATH entry on a separate line
 #----------------------------------------------------------------------------------
 alias path='echo -e ${PATH//:/\\n}'
@@ -111,39 +96,24 @@ alias path='echo -e ${PATH//:/\\n}'
 # cd /usr/local/bin/
 # ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl 
 
-#----------------------------------------------------------------------------------
-# Udemy-dl
-#----------------------------------------------------------------------------------
-alias udemy-dl='python $HOME/Tools/udemy-dl/udemy-dl.py'
-
 
 #----------------------------------------------------------------------------------
-# Count all files in the current folder
+# Counters
 #----------------------------------------------------------------------------------
 alias totalfiles='find . -type f | wc -l'
-
-
-#----------------------------------------------------------------------------------
-# Count all files by sub folder in the current folder
-#----------------------------------------------------------------------------------
-alias totalfilesd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
+alias totalfilesfolder='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
 
 
 #----------------------------------------------------------------------------------
 # ToggleTheme script
 #----------------------------------------------------------------------------------
-alias toggleTheme='. $HOME/codespace/config-files/mac/scripts/toggle-theme.sh'
+#alias toggleTheme='. $HOME/codespace/config-files/mac/scripts/toggle-theme.sh'
 
 
 #----------------------------------------------------------------------------------
-# Check free memory
+# memory
 #----------------------------------------------------------------------------------
 alias mem='top -l 1 -s 0 | grep PhysMem'
-
-
-#----------------------------------------------------------------------------------
-# Free memory
-#----------------------------------------------------------------------------------
 alias freeMem='sudo purge'
 
 
@@ -160,6 +130,12 @@ alias lsTree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
 
 #----------------------------------------------------------------------------------
-# Parent branch
+# Git alias
 #----------------------------------------------------------------------------------
-alias git-parent-branch='git show-branch | sed "s/].*//" | grep "\*" | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed "s/^.*\[//"'
+alias gpb='git show-branch | sed "s/].*//" | grep "\*" | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed "s/^.*\[//"'
+
+
+#----------------------------------------------------------------------------------
+# Folders
+#----------------------------------------------------------------------------------
+alias space='cd ~/space'
