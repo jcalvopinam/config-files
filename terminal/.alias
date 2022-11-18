@@ -2,7 +2,7 @@
 # Alias
 
 #----------------------------------------------------------------------------------
-# Easier navigation: 
+# Easier navigation
 #----------------------------------------------------------------------------------
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -10,6 +10,10 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~='cd ~'
 alias -- -='cd -'
+
+#----------------------------------------------------------------------------------
+# Bat setup
+#----------------------------------------------------------------------------------
 alias cat=/usr/local/bin/bat
 alias catn=/bin/cat
 alias catl='/usr/local/bin/bat --paging=never'
@@ -22,19 +26,18 @@ alias catl='/usr/local/bin/bat --paging=never'
 #alias la='lsd -la -F'
 
 #----------------------------------------------------------------------------------
-# Always enable colored `ls` output
+# Colored `ls` output
 #----------------------------------------------------------------------------------
 alias ls='ls -F -G'
 alias ll='ls -l -F -G'
 alias la='ls -la -F -G'
 
 #----------------------------------------------------------------------------------
-# Always enable colored `grep` output
+# Colored `grep` output
 #----------------------------------------------------------------------------------
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-
 
 #----------------------------------------------------------------------------------
 # IP addresses
@@ -43,59 +46,18 @@ alias publicIp='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localIp='ipconfig getifaddr en0'
 alias localIps="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }' | sort"
 
-
-#----------------------------------------------------------------------------------
-# Clean up LaunchServices to remove duplicates in the “Open With” menu
-#----------------------------------------------------------------------------------
-alias cleanupLauchServices='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
-alias cleanup="find . -depth -type f \( -name '.DS_Store' -o -name 'Informaci*.txt' -o -name '*.url' \) -delete"
-alias flushDNS='sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache'
-
-
-#----------------------------------------------------------------------------------
-# Show/hide hidden files in Finder
-#----------------------------------------------------------------------------------
-alias showfiles='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
-alias hidefiles='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
-
-
-#----------------------------------------------------------------------------------
-# Hide/show all desktop icons (useful when presenting)
-#----------------------------------------------------------------------------------
-alias showdesktop='defaults write com.apple.finder CreateDesktop -bool true && killall Finder'
-alias hidedesktop='defaults write com.apple.finder CreateDesktop -bool false && killall Finder'
-
-
-#----------------------------------------------------------------------------------
-# Merge PDF files
-# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
-#----------------------------------------------------------------------------------
-alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
-
-
-#----------------------------------------------------------------------------------
-# Intuitive map function
-# For example, to list all directories that contain a certain file:
-# find . -name .gitattributes | map dirname
-#----------------------------------------------------------------------------------
-alias map='xargs -n1'
-
-
 #----------------------------------------------------------------------------------
 # Print each PATH entry on a separate line
 #----------------------------------------------------------------------------------
 alias path='echo -e ${PATH//:/\\n}'
-
 
 #----------------------------------------------------------------------------------
 # SublimeText
 #----------------------------------------------------------------------------------
 #alias subl='open -a /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 #----------------------------------------------------------------------------------
-# or you can create a symbolic link
-# cd /usr/local/bin/
+# or you can create a symbolic link: cd /usr/local/bin/
 # ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl 
-
 
 #----------------------------------------------------------------------------------
 # Counters
@@ -103,37 +65,20 @@ alias path='echo -e ${PATH//:/\\n}'
 alias totalfiles='find . -type f | wc -l'
 alias totalfilesfolder='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
 
-
 #----------------------------------------------------------------------------------
 # ToggleTheme script
 #----------------------------------------------------------------------------------
 #alias toggleTheme='. $HOME/codespace/config-files/mac/scripts/toggle-theme.sh'
-
-
-#----------------------------------------------------------------------------------
-# memory
-#----------------------------------------------------------------------------------
-alias mem='top -l 1 -s 0 | grep PhysMem'
-alias freeMem='sudo purge'
-
 
 #----------------------------------------------------------------------------------
 # Reload alias
 #----------------------------------------------------------------------------------
 alias reload='. ~/.bash_profile'
 
-
 #----------------------------------------------------------------------------------
 # List folders as tree
 #----------------------------------------------------------------------------------
-alias lsTree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-
-
-#----------------------------------------------------------------------------------
-# Git alias
-#----------------------------------------------------------------------------------
-alias gpb='git show-branch | sed "s/].*//" | grep "\*" | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -n1 | sed "s/^.*\[//"'
-
+alias lstree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
 #----------------------------------------------------------------------------------
 # Folders
