@@ -1,31 +1,27 @@
 #!/usr/bin/env bash
 # Exports
 
-#----------------------------------------------------------------------------------
-# Maven, Gradle and Java were commented because I'm using SDKMAN
-#----------------------------------------------------------------------------------
+export PATH=/usr/local/bin/:$PATH
 
-
+#----------------------------------------------------------------------------------
+# For Maven, Gradle and Java > sdkman
+# For NodeJs > NodeVersionManager nvm / FastNodeManager fnm
 #----------------------------------------------------------------------------------
 # Maven setup
-#----------------------------------------------------------------------------------
 #M2_HOME=$HOME/Tools/apache-maven-3.3.9
 #export PATH=$PATH:$M2_HOME/bin
-
-
 #----------------------------------------------------------------------------------
 # Gradle setup
-#----------------------------------------------------------------------------------
 #GRADLE_HOME=$HOME/Tools/gradle-4.5.1
 #export PATH=$PATH:$GRADLE_HOME/bin
-
-
 #----------------------------------------------------------------------------------
 # Java setup
-#----------------------------------------------------------------------------------
 #JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
 #export PATH=$PATH:$JAVA_HOME
-
+#----------------------------------------------------------------------------------
+# Node setup
+#NODEJS_HOME=$HOME/Tools/node
+#export PATH=$PATH:$NODEJS_HOME/bin
 
 #----------------------------------------------------------------------------------
 # Derby setup
@@ -34,7 +30,6 @@
 #export PATH=$PATH:$DERBY_HOME/bin
 #export CLASSPATH=$DERBY_HOME/lib/derby.jar:$DERBY_HOME/lib/derbytools.jar:
 
-
 #----------------------------------------------------------------------------------
 # Python setup
 #----------------------------------------------------------------------------------
@@ -42,22 +37,47 @@
 PYTHON_HOME=/Library/Frameworks/Python.framework/Versions/3.6/bin
 export PATH=$PATH:$PYTHON_HOME/bin
 
+#----------------------------------------------------------------------------------
+#GCP Credentials
+#----------------------------------------------------------------------------------
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/jcalvopina/space/IdeaProjects/alison-project/siseg-ecuador-a8e0b760cb7f.json"
 
 #----------------------------------------------------------------------------------
-# I'm using NodeVersionManager nvm
+# NVM setup
 #----------------------------------------------------------------------------------
+#export NVM_DIR="$HOME/.nvm"
+# [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"   # load nvm command
+# [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # load nvm completion
+#export NVM_LAZY_LOAD=true                                                         # NVM load
+#export NVM_COMPLETION=true                                                        # NVM completition
 
 #----------------------------------------------------------------------------------
-# Nodejs setup
+# FNM setup
 #----------------------------------------------------------------------------------
-#NODEJS_HOME=$HOME/Tools/node
-#export PATH=$PATH:$NODEJS_HOME/bin
+export FNM_DIR="$HOME/.fnm"
+  [ -s "$(brew --prefix)/opt/fnm/fnm.sh" ] && . "$(brew --prefix)/opt/fnm/fnm.sh"   # loads fnm command
+  [ -s "$(brew --prefix)/opt/fnm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/fnm/etc/bash_completion.d/nvm" # load fnm completion
 
+eval "$(fnm env --use-on-cd)"
 
 #----------------------------------------------------------------------------------
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# Android Studio setup
+#----------------------------------------------------------------------------------
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+#----------------------------------------------------------------------------------
+# GENERAL
+#----------------------------------------------------------------------------------
+export GPG_TTY=\$(tty)                                                             # git Signing commits
+#export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST                                   # saving dump files into ZSH cache folder
+#export LANG=en_US.UTF-8                                                           # set your language environment
+
+#----------------------------------------------------------------------------------
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 #----------------------------------------------------------------------------------
 export SDKMAN_DIR=$HOME"/.sdkman"
 [[ -s $HOME"/.sdkman/bin/sdkman-init.sh" ]] && source $HOME"/.sdkman/bin/sdkman-init.sh"
-
-source /usr/local/opt/fzf/shell/completion.zsh && source /usr/local/opt/fzf/shell/key-bindings.zsh
