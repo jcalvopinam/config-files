@@ -2,12 +2,12 @@
 
 ## Install
 
-```sh
+```shell
 brew install gpg2 gnupg pinentry-mac
 ```
 
 ## Configure
-```sh
+```shell
 mkdir ~/.gnupg
 echo 'pinentry-program $(brew --prefix)/bin/pinentry-mac\nallow-loopback-pinentry' > ~/.gnupg/gpg-agent.conf
 echo 'use-agent\npinentry-mode loopback' > ~/.gnupg/gpg.conf
@@ -15,7 +15,7 @@ echo 'export GPG_TTY=\$(tty)' >> ~/.zshrc
 ```
 
 ## Generate the GPG key
-```sh
+```shell
 gpg --full-gen-key
 
 # begining ooutput
@@ -72,14 +72,14 @@ uid                      Juan Calvopina <juan.calvopina@gmail.com>
 ```
 
 ## Permissions
-```sh
+```shell
 chown -R $(whoami) ~/.gnupg/  
 chmod 600 ~/.gnupg/*
 chmod 700 ~/.gnupg
 ```
 
 ## Verification
-```sh
+```shell
 gpg -k
 ```
 
@@ -144,7 +144,7 @@ YKBMAxB2PWr7WoJ5UqbO
 * Insert a title and paste the PGP PUBLIC KEY BLOCK [official documentation](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
 
 ## Configure Git
-```sh
+```shell
 git config --global commit.gpgsign true
 git config --global tag.gpgsign true
 git config --global gpg.program $(which gpg)
@@ -152,7 +152,7 @@ git config --global user.signingkey E875714A #<---- answer E875714A
 ```
 
 ## Sign and verify the commit
-```sh
+```shell
 git commit -m "My first signed commit"
 # enter your password
 git log --show-signature -1
@@ -171,18 +171,32 @@ Date:   Fri Nov 11 00:47:40 2022 -0500
 ```
 
 
-### Troubleshoting
+### troubleshooting
 
-* If you get this error:
+#### Error: gpg failed
 ```sh
 error: gpg failed to sign the data
 ``` 
  
- Then run the daemon and try again
+* Fix: run the daemon and try again
  ```sh
  gpg-agent --daemon
 ```
 
+#### Error: signing failed
+```sh
+gpg: signing failed: No secret key
+```
+
+* Fix: List the secret keys available in GPG.
+```sh
+gpg --list-secret-keys --keyid-format=short
+```
+* Copy your key and set it in your user in git
+```sh
+git config user.signingkey <your key>
+```
 
 ### Resources
 * [Cómo firmar y verificar tus commits con una llave GPG](https://platzi.com/blog/como-firmar-y-verificar-tus-commits-con-una-llave-gpg/)
+* [https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374](https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374)
