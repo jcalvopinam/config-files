@@ -1,3 +1,7 @@
+source $HOME/.config/nvim/autoload/plugged/lotus/lotus.vim
+source $HOME/.config/nvim/autoload/plugged/lotus/lotusbar.vim
+source $HOME/.config/nvim/vim-plug/plugins.vim
+
 syntax enable
 set nolist
 set rnu
@@ -14,6 +18,7 @@ set incsearch
 set ignorecase
 set smartcase
 set mouse=a
+set t_Co=256
 set laststatus=2
 set encoding=utf-8
 set fileformat=unix
@@ -25,7 +30,8 @@ nnoremap <space>x :wq!<CR>
 let g:indentLine_color_gui = '#ea4c88'
 let g:indentLine_char = '⏽ '
 
-source $HOME/.config/nvim/lotus.vim
-source $HOME/.config/nvim/lotusbar.vim
-
-colorscheme nord
+" theme's name
+colorscheme onehalfdark
+"let g:airline_theme='onehalfdark'
+" lightline
+let g:lightline = { 'colorscheme': 'onehalfdark' }
