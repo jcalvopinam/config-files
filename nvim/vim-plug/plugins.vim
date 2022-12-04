@@ -15,6 +15,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Auto pairs for '(' '[' '{'
     Plug 'jiangmiao/auto-pairs'
     Plug 'sonph/onehalf', { 'rtp': 'vim' }
-    Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
