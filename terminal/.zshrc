@@ -18,6 +18,7 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(
     git
     sudo
+    z
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
@@ -28,6 +29,7 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.alias
 source $HOME/.exports
 source $HOME/.functions
+source $HOME/.work
 source /usr/local/opt/fzf/shell/completion.zsh && source /usr/local/opt/fzf/shell/key-bindings.zsh
 
 fpath=(~/.zsh/completion $fpath)
@@ -42,3 +44,4 @@ compinit -i
 #bindkey "^[[3~" delete-char
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
+

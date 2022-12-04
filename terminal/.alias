@@ -21,15 +21,14 @@ alias catl='/usr/local/bin/bat --paging=never'
 #----------------------------------------------------------------------------------
 # Always enable colored `lsd` output
 #----------------------------------------------------------------------------------
-#alias ls='lsd -F'
-#alias ll='lsd -l -F'
-#alias la='lsd -la -F'
+alias lsd='lsd --group-directories-first'
+alias lsdt='lsd --group-directories-first --tree'
 
 #----------------------------------------------------------------------------------
 # Colored `ls` output
 #----------------------------------------------------------------------------------
 alias ls='ls -F -G'
-alias ll='ls -l -F -G'
+alias ll='ls -ltr -F -G'
 alias la='ls -la -F -G'
 
 #----------------------------------------------------------------------------------
@@ -42,9 +41,9 @@ alias egrep='egrep --color=auto'
 #----------------------------------------------------------------------------------
 # IP addresses
 #----------------------------------------------------------------------------------
-alias publicIp='dig +short myip.opendns.com @resolver1.opendns.com'
-alias localIp='ipconfig getifaddr en0'
-alias localIps="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }' | sort"
+alias ipp='dig +short myip.opendns.com @resolver1.opendns.com'
+alias ipl='ipconfig getifaddr en0'
+alias ipls="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }' | sort"
 
 #----------------------------------------------------------------------------------
 # Print each PATH entry on a separate line
@@ -73,14 +72,16 @@ alias totalfilesfolder='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''e
 #----------------------------------------------------------------------------------
 # Reload alias
 #----------------------------------------------------------------------------------
-alias reload='. ~/.bash_profile'
+alias rbash='source ~/.bash_profile'
+alias rzshrc='source ~/.zshrc'
 
 #----------------------------------------------------------------------------------
 # List folders as tree
 #----------------------------------------------------------------------------------
-alias lstree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias lst="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
 #----------------------------------------------------------------------------------
 # Folders
 #----------------------------------------------------------------------------------
 alias space='cd ~/space'
+
