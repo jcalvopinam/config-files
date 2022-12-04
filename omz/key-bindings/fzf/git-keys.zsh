@@ -36,9 +36,13 @@ fzf-git-switch() {
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
   selected=( $(git switch  $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse --border --no-sort --reverse -m --ansi)))
   local ret=$?
-  echo $selected
-  zle accept-line
-  return $ret
+  if [ -n "$selected" ]; then
+    echo $selected
+    zle accept-line
+  else
+    zle reset-prompt
+  fi
+    return $ret
 }
 zle     -N            fzf-git-switch
 bindkey -M emacs '^S' fzf-git-switch
@@ -60,3 +64,22 @@ bindkey -M emacs '^P' fzf-git-pull
 bindkey -M vicmd '^P' fzf-git-pull
 bindkey -M viins '^P' fzf-git-pull
 
+# CTRL-D - Git diff
+fzf-git-diff() {
+  local selected
+  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
+  selected=( $(git diff $@ --name-only | fzf --no-height --pointer='->' --header="`date`" -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" --preview "git diff $@  --abbrev --color=always  -- {-1}"))
+  local ret=$?
+  if [ -n "$selected" ]; then
+    nvim $selected
+    zle accept-line
+  else
+    zle reset-prompt
+  fi
+  return $ret
+}
+zle     -N            fzf-git-diff
+bindkey -M emacs '^D' fzf-git-diff
+bindkey -M vicmd '^D' fzf-git-diff
+bindkey -M viins '^D' fzf-git-diff
+(END)
