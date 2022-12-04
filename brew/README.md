@@ -46,6 +46,11 @@ brew install mdcat
 brew install nvim 
 ```
 
+### **[duf](https://github.com/muesli/duf/)**: Disk Usage/Free Utility (Linux, BSD, macOS & Windows)
+```sh
+brew install duf
+```
+
 ## Desktop application
 ### **[App Cleaner](https://freemacsoft.net/appcleaner/):** AppCleaner is a small application which allows you to thoroughly uninstall unwanted apps.
 ```sh
@@ -125,3 +130,4 @@ brew install --cask spotify
 ```sh
 brew install --cask suspicious-package
 ```
+
