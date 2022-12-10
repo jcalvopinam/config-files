@@ -2,9 +2,20 @@
 # Functions
 
 #----------------------------------------------------------------------------------
-# Git
+# Uses Git’s colored diff when available
+hash git &>/dev/null;
 #----------------------------------------------------------------------------------
-gprompt() {
+if [ $? -eq 0 ]; then
+    function diff() {
+        git diff --no-index --color-words "$@";
+    }
+fi;
+
+
+#----------------------------------------------------------------------------------
+# Shows git prompt
+#----------------------------------------------------------------------------------
+function gprompt() {
     local s='';
     local branchName='';
 
@@ -57,15 +68,18 @@ gprompt() {
     fi;
 }
 
-# Uses Git’s colored diff when available
-hash git &>/dev/null;
-if [ $? -eq 0 ]; then
-    function diff() {
-        git diff --no-index --color-words "$@";
-    }
-fi;
 
+#----------------------------------------------------------------------------------
+# Shows git tree
+#----------------------------------------------------------------------------------
+function gtree() {
+    tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+
+
+#----------------------------------------------------------------------------------
 # Gets the name of the parent branch
+#----------------------------------------------------------------------------------
 function gparent() {
     git show-branch -a \
     | grep '\*' \
@@ -75,8 +89,50 @@ function gparent() {
     | sed 's/[\^~].*//'
 }
 
+
 #----------------------------------------------------------------------------------
-# Creates a new directory and enter it
+# Shows git diff
+#----------------------------------------------------------------------------------
+function gdiff() {
+  git diff $@ --name-only | fzf --no-height --pointer='->' --header="`date`" -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" --preview "git diff $@  --abbrev --color=always  -- {-1}"
+}
+
+
+#----------------------------------------------------------------------------------
+# Shows git log
+#----------------------------------------------------------------------------------
+function glogg() {
+  git log $@ --abbrev --oneline --decorate --color --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit | fzf --no-height --pointer='->' --header="`date`" -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'}
+}
+
+
+#----------------------------------------------------------------------------------
+# Shows git branches
+#----------------------------------------------------------------------------------
+function gbranch() {
+    selected=( $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse --border --no-sort --reverse -m --ansi))
+    echo $selected | pbcopy
+}
+
+
+#----------------------------------------------------------------------------------
+# Shows git branches and switch it
+#----------------------------------------------------------------------------------
+function gswitch() {
+  git switch $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse --border --no-sort --reverse -m --ansi)
+}
+
+
+#----------------------------------------------------------------------------------
+# Shows git status
+#----------------------------------------------------------------------------------
+function gstatus() {
+  git status -s | awk '{print $2 " " $1}'| fzf --no-sort --reverse --preview 'git diff --color=always {+1}' --bind=ctrl-j:preview-down --bind=ctrl-k:preview-up --preview-window=right:60%:wrap
+}
+
+
+#----------------------------------------------------------------------------------
+# Creates a new folder and enter it
 #----------------------------------------------------------------------------------
 function mkd() {
     mkdir -p "$@" && cd "$_";
@@ -84,7 +140,16 @@ function mkd() {
 
 
 #----------------------------------------------------------------------------------
-# Determine size of a file or total size of a directory
+# Deletes file/folder with scrub utility
+#----------------------------------------------------------------------------------
+function rmk() {
+    scrub -p dod $1
+    shred -zun 10 -v $1
+}
+
+
+#----------------------------------------------------------------------------------
+# Gets the size of a file or total size of a directory
 #----------------------------------------------------------------------------------
 function file-size() {
     if du -b /dev/null > /dev/null 2>&1; then
@@ -101,7 +166,7 @@ function file-size() {
 
 
 #----------------------------------------------------------------------------------
-# Runs `dig` and display the most useful info
+# Gets the most useful info
 #----------------------------------------------------------------------------------
 function digga() {
     dig +nocmd "$1" any +multiline +noall +answer;
@@ -117,17 +182,6 @@ function utf8() {
     if [ -t 1 ]; then
         echo ""; # newline
     fi;
-}
-
-
-#----------------------------------------------------------------------------------
-# `showtree` is a shorthand for `tree` with hidden files and color enabled, ignoring
-# the `.git` directory, listing directories first. The output gets piped into
-# `less` with options to preserve color and line numbers, unless the output is
-# small enough for one screen.
-#----------------------------------------------------------------------------------
-function gtree() {
-    tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
 
 
@@ -169,7 +223,10 @@ function uio() {
     fi
 }
 
+
+#----------------------------------------------------------------------------------
 # Set 'man' colors
+#----------------------------------------------------------------------------------
 function man() {
     env \
     LESS_TERMCAP_mb=$'\e[01;31m' \
@@ -182,10 +239,12 @@ function man() {
     man "$@"
 }
 
-# fzf improvement
-function cdp(){
 
-    if [ "$1" = "h" ]; then
+#----------------------------------------------------------------------------------
+# Finds files inside of the current path
+#----------------------------------------------------------------------------------
+function ff() {
+    selected=( $(if [ "$1" = "h" ]; then
         fzf -m --reverse --preview-window down:20 --preview '[[ $(file --mime {}) =~ binary ]] &&
                     echo {} is a binary file ||
                      (bat --style=numbers --color=always {} ||
@@ -202,26 +261,25 @@ function cdp(){
                               coderay {} ||
                               rougify {} ||
                               cat {}) 2> /dev/null | head -500'
+    fi))
+
+    nvim $selected
+}
+
+
+#----------------------------------------------------------------------------------
+# Finds folders inside of the current path
+#----------------------------------------------------------------------------------
+function fd() {
+    local cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
+    -o -type d -print 2> /dev/null | cut -b3-"}"
+
+    local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore ${FZF_DEFAULT_OPTS-} ${FZF_ALT_C_OPTS-}" $(__fzfcmd) +m)"
+
+    if [[ -z "$dir" ]]; then
+        return 0
     fi
+
+    cd -- ${(q)dir}
 }
 
-function rmk() {
-    scrub -p dod $1
-    shred -zun 10 -v $1
-}
-
-gdiff() {
-  git diff $@ --name-only | fzf --no-height --pointer='->' --header="`date`" -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" --preview "git diff $@  --abbrev --color=always  -- {-1}"
-}
-
-glogg() {
-  git log $@ --abbrev --oneline --decorate --color --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit | fzf --no-height --pointer='->' --header="`date`" -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'}
-}
-
-gbranch() {
-  git switch $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse --border --no-sort --reverse -m --ansi)
-}
-
-gstatus() {
-  git status -s | awk '{print $2 " " $1}'| fzf --no-sort --reverse --preview 'git diff --color=always {+1}' --bind=ctrl-j:preview-down --bind=ctrl-k:preview-up --preview-window=right:60%:wrap
-}
