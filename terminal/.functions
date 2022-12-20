@@ -287,7 +287,9 @@ function fd() {
 # Clean duplicated entries
 #----------------------------------------------------------------------------------
 function czsh() {
+    cd ~
     cat -n .zsh_history | sort -t ';' -uk2 | sort -nk1 | cut -f2- > .zsh_clean_history
     rm -rf .zsh_history .zcompdump* .zsh_sessions
     mv .zsh_clean_history .zsh_history
+    cd -
 }
