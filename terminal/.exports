@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Exports
 
-export PATH=/usr/local/bin/:$PATH
+#export PATH=/usr/local/bin/:$PATH
+export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
 
 #----------------------------------------------------------------------------------
 # For Maven, Gradle and Java > sdkman

@@ -18,7 +18,7 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(
     git
     sudo
-    z
+    #z
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
