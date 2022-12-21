@@ -127,9 +127,10 @@ function gbranch() {
 # Shows git branches and switch it
 #----------------------------------------------------------------------------------
 function gswitch() {
-  git switch $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse --border --no-sort --reverse -m --ansi)
+  git switch $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | \
+    fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse \
+    --border --no-sort --reverse -m --ansi)
 }
-
 
 #----------------------------------------------------------------------------------
 # Shows git status
