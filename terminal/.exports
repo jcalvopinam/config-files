@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Exports
 
-#export PATH=/usr/local/bin/:$PATH
 export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
 
 #----------------------------------------------------------------------------------
@@ -59,7 +58,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/jcalvopina/space/IdeaProjects/alis
 #  [ -s "$(brew --prefix)/opt/fnm/fnm.sh" ] && . "$(brew --prefix)/opt/fnm/fnm.sh"   # loads fnm command
 #  [ -s "$(brew --prefix)/opt/fnm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/fnm/etc/bash_completion.d/nvm" # load fnm completion
 
-eval "$(fnm env --use-on-cd)"
+eval "$(fnm env --use-on-cd)"q
 
 #----------------------------------------------------------------------------------
 # Android Studio setup
