@@ -136,7 +136,9 @@ function gswitch() {
 # Shows git status
 #----------------------------------------------------------------------------------
 function gstatus() {
-  git status -s | awk '{print $2 " " $1}'| fzf --no-sort --reverse --preview 'git diff --color=always {+1}' --bind=ctrl-j:preview-down --bind=ctrl-k:preview-up --preview-window=right:60%:wrap
+  git status -s | awk '{print $2 " " $1}'| fzf --no-sort --reverse \
+  --preview 'git diff --color=always {+1}' --bind=ctrl-j:preview-down \
+  --bind=ctrl-k:preview-up --preview-window=right:60%:wrap
 }
 
 
