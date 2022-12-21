@@ -94,7 +94,9 @@ function gparent() {
 # Shows git diff
 #----------------------------------------------------------------------------------
 function gdiff() {
-  git diff $@ --name-only | fzf --no-height --pointer='->' --header="`date`" -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" --preview "git diff $@  --abbrev --color=always  -- {-1}"
+  git diff $@ --name-only | fzf --no-height --pointer='->' --header="`date`" \
+  -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" \
+  --preview "git diff $@  --abbrev --color=always  -- {-1}"
 }
 
 
