@@ -9,13 +9,6 @@ export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
 #----------------------------------------------------------------------------------
 
 #----------------------------------------------------------------------------------
-# Derby setup
-#----------------------------------------------------------------------------------
-#DERBY_HOME=$HOME/Tools/db-derby-10.12.1.1-bin
-#export PATH=$PATH:$DERBY_HOME/bin
-#export CLASSPATH=$DERBY_HOME/lib/derby.jar:$DERBY_HOME/lib/derbytools.jar:
-
-#----------------------------------------------------------------------------------
 # Python setup
 #----------------------------------------------------------------------------------
 # The original version is saved in .bash_profile.pysave
