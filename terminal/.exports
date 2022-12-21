@@ -21,15 +21,6 @@ export PATH=$PATH:$PYTHON_HOME/bin
 export GOOGLE_APPLICATION_CREDENTIALS="/Users/jcalvopina/space/IdeaProjects/alison-project/siseg-ecuador-a8e0b760cb7f.json"
 
 #----------------------------------------------------------------------------------
-# NVM setup
-#----------------------------------------------------------------------------------
-#export NVM_DIR="$HOME/.nvm"
-# [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"   # load nvm command
-# [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # load nvm completion
-#export NVM_LAZY_LOAD=true                                                         # NVM load
-#export NVM_COMPLETION=true                                                        # NVM completition
-
-#----------------------------------------------------------------------------------
 # FNM setup
 #----------------------------------------------------------------------------------
 #export FNM_DIR="$HOME/.fnm"
