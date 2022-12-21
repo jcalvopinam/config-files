@@ -7,9 +7,7 @@ export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
 # For Maven, Gradle and Java > sdkman
 # For NodeJs > NodeVersionManager nvm / FastNodeManager fnm
 #----------------------------------------------------------------------------------
-# Maven setup
-#M2_HOME=$HOME/Tools/apache-maven-3.3.9
-#export PATH=$PATH:$M2_HOME/bin
+
 #----------------------------------------------------------------------------------
 # Gradle setup
 #GRADLE_HOME=$HOME/Tools/gradle-4.5.1
