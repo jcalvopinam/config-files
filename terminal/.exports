@@ -82,3 +82,11 @@ export GPG_TTY=\$(tty)                                                          
 #----------------------------------------------------------------------------------
 export SDKMAN_DIR=$HOME"/.sdkman"
 [[ -s $HOME"/.sdkman/bin/sdkman-init.sh" ]] && source $HOME"/.sdkman/bin/sdkman-init.sh"
+
+#----------------------------------------------------------------------------------
+# FZF setup for default command
+# this exclude all files and folders defined in the .gitignore file
+# It's is required to be defined using:
+# git config --global core.excludesFile ~/.gitignore_global
+#----------------------------------------------------------------------------------
+export FZF_DEFAULT_COMMAND=" rg --files --hidden "
