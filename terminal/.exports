@@ -9,10 +9,6 @@ export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
 #----------------------------------------------------------------------------------
 
 #----------------------------------------------------------------------------------
-# Java setup
-#JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
-#export PATH=$PATH:$JAVA_HOME
-#----------------------------------------------------------------------------------
 # Node setup
 #NODEJS_HOME=$HOME/Tools/node
 #export PATH=$PATH:$NODEJS_HOME/bin
