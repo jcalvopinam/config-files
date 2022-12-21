@@ -116,7 +116,9 @@ function glogg() {
 # Shows git branches
 #----------------------------------------------------------------------------------
 function gbranch() {
-    selected=( $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse --border --no-sort --reverse -m --ansi))
+    selected=( $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | \
+    fzf --pointer='->' --header="`date`" --height 30% --inline-info \
+        --layout reverse --border --no-sort --reverse -m --ansi))
     echo $selected | pbcopy
 }
 
