@@ -23,7 +23,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/jcalvopina/space/IdeaProjects/alis
 #----------------------------------------------------------------------------------
 # FNM setup
 #----------------------------------------------------------------------------------
-eval "$(fnm env --use-on-cd)"q
+eval "$(fnm env --use-on-cd)"
 
 #----------------------------------------------------------------------------------
 # Android Studio setup
