@@ -25,4 +25,5 @@
   "folder_exclude_patterns": ["node_modules", ".gradle", "build", "Pods", "target"],
   "binary_file_patterns": ["*.rar", "*.tar.gz", "*.7z", "*.dmg"],
   "fallback_encoding": "UTF-8",
+  "save_on_focus_lost": true
 }
