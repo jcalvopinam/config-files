@@ -39,6 +39,7 @@ ln -s ~/space/config-files/terminal/.alias ~/
 ln -s ~/space/config-files/terminal/.exports ~/
 ln -s ~/space/config-files/terminal/.functions ~/
 ln -s ~/space/config-files/terminal/.zshrc ~/
+ln -s ~/space/config-files/terminal/.fzf.zsh ~/
 ln -s ~/space/config-files/git/.gitignore_global ~/
 
 ln -s ~/space/config-files/bat ~/.config/
