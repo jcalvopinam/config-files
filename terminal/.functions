@@ -173,9 +173,21 @@ function glogg() {
 # Shows git branches
 #----------------------------------------------------------------------------------
 function gbranch() {
-    selected=( $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | \
-    fzf --pointer='->' --header="`date`" --height 30% --inline-info \
-        --layout reverse --border --no-sort --reverse -m --ansi))
+    selected=( $(_git_check || return
+        bash "$__fzf_git" branches |
+        fzf -m --ansi \
+        --prompt ' Search branch: ' \
+        --header-lines 2 \
+        --preview-window down,border-top,75% \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
+        --layout reverse \
+        --border \
+        --bind 'ctrl-/:change-preview-window(down,70%|hidden|)' \
+        --bind "ctrl-o:execute-silent:bash $__fzf_git branch {}" \
+        --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" \
+        --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' "$@" |
+      sed 's/^..//' | cut -d' ' -f1))
     echo $selected | pbcopy
 }
 
