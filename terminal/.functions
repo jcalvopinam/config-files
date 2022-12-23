@@ -9,6 +9,9 @@ if [[ $# -eq 1 ]]; then
   branches() {
     git branch "$@" --sort=-committerdate --sort=-HEAD --format=$'%(HEAD) %(color:yellow)%(refname:short) %(color:green)(%(committerdate:relative))\t%(color:blue)%(subject)%(color:reset)' --color=always | column -ts$'\t'
   }
+  bswitch() {
+    git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'}
+  }
   refs() {
     git for-each-ref --sort=-creatordate --sort=-HEAD --color=always --format=$'%(refname) %(color:green)(%(creatordate:relative))\t%(color:blue)%(subject)%(color:reset)' |
       eval "$1" |
@@ -19,6 +22,10 @@ if [[ $# -eq 1 ]]; then
     branches)
       echo $'ESC (exit) ╱ ALT-A (show all branches)\n'
       branches
+      ;;
+    bswitch)
+      echo $'ENTER (switch) ╱ ESC (exit) ╱ ALT-A (show all branches)\n'
+      bswitch
       ;;
     all-branches)
       echo $'ESC (exit)\n'
@@ -196,9 +203,26 @@ function gbranch() {
 # Shows git branches and switch it
 #----------------------------------------------------------------------------------
 function gswitch() {
-  git switch $(git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'} | \
-    fzf --pointer='->' --header="`date`" --height 30% --inline-info --layout reverse \
-    --border --no-sort --reverse -m --ansi)
+  currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
+  selected=( $(_git_check || return
+        bash "$__fzf_git" bswitch |
+        fzf -m --ansi \
+        --prompt ' Search branch to switch: ' \
+        --header "$currentBranch " \
+        --header-lines 2 \
+        --preview-window down,border-top,40% \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
+        --layout reverse \
+        --border \
+        --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" ))
+
+    if [[ -z "$selected" ]]; then
+        return 0
+    fi
+
+    git switch $selected
+    git pull
 }
 
 #----------------------------------------------------------------------------------
