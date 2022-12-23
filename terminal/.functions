@@ -301,8 +301,12 @@ function fd() {
     -o -name '*.photoslibrary' -o -name 'classes' \\) \
     -prune -o -type d -print 2> /dev/null | cut -b3-"}"
 
-    local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} \
-        --reverse --bind=ctrl-z:ignore ${FZF_DEFAULT_OPTS-} ${FZF_ALT_C_OPTS-}" $(__fzfcmd) +m)"
+    local dir="$(eval "$cmd" | fzf -m \
+        --height ${FZF_TMUX_HEIGHT:-40%} \
+        --prompt '📁 Search folder: ' \
+        --header $'Press <ESC> to exit.\n\n' \
+        --border \
+        --reverse)"
 
     if [[ -z "$dir" ]]; then
         return 0
