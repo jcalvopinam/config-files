@@ -51,6 +51,11 @@ brew install nvim
 brew install duf
 ```
 
+### **[rg](https://github.com/BurntSushi/ripgrep)**: `ripgrep` is an alternative to `grep` command
+```sh
+brew install rg``
+```
+
 ## Desktop application
 ### **[App Cleaner](https://freemacsoft.net/appcleaner/):** AppCleaner is a small application which allows you to thoroughly uninstall unwanted apps.
 ```sh
