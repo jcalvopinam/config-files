@@ -2,14 +2,71 @@
 # Functions
 
 #----------------------------------------------------------------------------------
-# Uses Git’s colored diff when available
-hash git &>/dev/null;
+# Some functions were adapted from: https://github.com/junegunn/fzf-git.sh
+# MIT License
 #----------------------------------------------------------------------------------
-if [ $? -eq 0 ]; then
-    function diff() {
-        git diff --no-index --color-words "$@";
-    }
-fi;
+if [[ $# -eq 1 ]]; then
+  branches() {
+    git branch "$@" --sort=-committerdate --sort=-HEAD --format=$'%(HEAD) %(color:yellow)%(refname:short) %(color:green)(%(committerdate:relative))\t%(color:blue)%(subject)%(color:reset)' --color=always | column -ts$'\t'
+  }
+  refs() {
+    git for-each-ref --sort=-creatordate --sort=-HEAD --color=always --format=$'%(refname) %(color:green)(%(creatordate:relative))\t%(color:blue)%(subject)%(color:reset)' |
+      eval "$1" |
+      sed 's#^refs/remotes/#\x1b[95mremote-branch\t\x1b[33m#; s#^refs/heads/#\x1b[92mbranch\t\x1b[33m#; s#^refs/tags/#\x1b[96mtag\t\x1b[33m#; s#refs/stash#\x1b[91mstash\t\x1b[33mrefs/stash#' |
+      column -ts$'\t'
+  }
+  case "$1" in
+    branches)
+      echo $'ESC (exit) ╱ ALT-A (show all branches)\n'
+      branches
+      ;;
+    all-branches)
+      echo $'ESC (exit)\n'
+      branches -a
+      ;;
+    refs)
+      echo $'ESC (exit) ╱ ALT-E (examine in editor) ╱ ALT-A (show all refs)\n'
+      refs 'grep -v ^refs/remotes'
+      ;;
+    all-refs)
+      echo $'ESC (exit) ╱ ALT-E (examine in editor)\n'
+      refs 'cat'
+      ;;
+    nobeep) ;;
+    *) exit 1 ;;
+  esac
+elif [[ $# -gt 1 ]]; then
+  set -e
+
+  branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+  if [[ $branch = HEAD ]]; then
+    branch=$(git describe --exact-match --tags 2> /dev/null || git rev-parse --short HEAD)
+  fi
+
+  exit 0
+fi
+
+__fzf_git=${BASH_SOURCE[0]:-${(%):-%x}}
+__fzf_git=$(readlink -f "$__fzf_git" 2> /dev/null || /usr/bin/ruby --disable-gems -e 'puts File.expand_path(ARGV.first)' "$__fzf_git" 2> /dev/null)
+
+
+#----------------------------------------------------------------------------------
+# Internal functions
+#----------------------------------------------------------------------------------
+_git_fzf() {
+  fzf-tmux -p80%,60% -- \
+    --layout=reverse --multi --height=50% --min-height=20 --border \
+    --color='header:italic:underline' \
+    --preview-window='right,50%,border-left' \
+    --bind='ctrl-/:change-preview-window(down,50%,border-top|hidden|)' "$@"
+}
+
+_git_check() {
+  git rev-parse HEAD > /dev/null 2>&1 && return
+
+  [[ -n $TMUX ]] && tmux display-message "Not in a git repository"
+  return 1
+}
 
 
 #----------------------------------------------------------------------------------
