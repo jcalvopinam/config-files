@@ -214,9 +214,18 @@ function gstash() {
 # Shows git status
 #----------------------------------------------------------------------------------
 function gstatus() {
-  git status -s | awk '{print $2 " " $1}'| fzf --no-sort --reverse \
-  --preview 'git diff --color=always {+1}' --bind=ctrl-j:preview-down \
-  --bind=ctrl-k:preview-up --preview-window=right:60%:wrap
+    git status -s | awk '{print $2 " " $1}'| \
+    fzf -m -e --ansi \
+        --prompt '📁 Search file: ' \
+        --header $'ESC (exit) ╱ CTRL-J (down) ╱ CTRL-K (up) \n\n' \
+        --preview-window right,70% \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
+        --layout reverse \
+        --border \
+        --bind=ctrl-j:preview-down \
+        --bind=ctrl-k:preview-up \
+        --preview 'git diff --color=always {+1}'
 }
 
 
