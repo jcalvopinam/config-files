@@ -158,9 +158,14 @@ function gparent() {
 # Shows git diff
 #----------------------------------------------------------------------------------
 function gdiff() {
-  git diff $@ --name-only | fzf --no-height --pointer='->' --header="`date`" \
-  -e --no-sort --reverse -m --ansi --preview-window="right:70%,wrap" \
-  --preview "git diff $@  --abbrev --color=always  -- {-1}"
+    git diff $@ --name-only | \
+        fzf -m -e --ansi \
+        --prompt '📁 Search files: ' \
+        --header $'ESC (exit) ╱ ENTER (open in editor)\n\n' \
+        --preview-window right:70%,wrap \
+        --layout reverse \
+        --border \
+        --preview "git diff $@  --abbrev --color=always  -- {-1}" | xargs nvim
 }
 
 
