@@ -329,46 +329,17 @@ function man() {
 #----------------------------------------------------------------------------------
 function ff() {
     local rgfilter=" rg --files --follow --no-ignore-vcs --hidden -g '!{*/Library/*,.photoslibrary/*,node_modules/*,.git/*,**/build/*}' "
-    selected=( \
-        $(if [ "$1" = "-r" ]; then
-            fzf -m \
-                --prompt '📁 Search file: ' \
-                --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
-                --preview-window right,60% \
-                --tiebreak begin \
-                --color hl:underline,hl+:underline \
-                --layout reverse \
-                --border \
-                --preview '[[ $(file --mime {}) =~ binary ]] &&
-                echo {} is a binary file ||
-                (bat --style=numbers --color=always {} ||
-                    highlight -O ansi -l {} ||
-                    coderay {} ||
-                    rougify {} ||
-                    cat {}) 2> /dev/null | head -500'
-        else
-            fzf -m \
-                --prompt '📁 Search file: ' \
-                --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
-                --preview-window right,60% \
-                --tiebreak begin \
-                --color hl:underline,hl+:underline \
-                --layout reverse \
-                --border \
-                --reverse --preview '[[ $(file --mime {}) =~ binary ]] &&
-                echo {} is a binary file ||
-                (bat --style=numbers --color=always {} ||
-                    highlight -O ansi -l {} ||
-                    coderay {} ||
-                    rougify {} ||
-                    cat {}) 2> /dev/null | head -500'
-        fi))
-
-    if [[ -z "$selected" ]]; then
-        return 0
-    fi
-
-    nvim $selected
+    fzf -m -e --ansi \
+        --prompt '📁 Search file: ' \
+        --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
+        --preview-window right,60% \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
+        --layout reverse \
+        --border \
+        --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
+            (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
+                coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim
 }
 
 
