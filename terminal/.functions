@@ -347,24 +347,18 @@ function ff() {
 # Finds folders inside of the current path
 #----------------------------------------------------------------------------------
 function fd() {
-    cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \
+    cmd="command find -L . -mindepth 1 \
     \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \
     -o -fstype 'proc' -o -name 'node_modules' -o -name 'build' -o -name 'Library' \
     -o -name '*.photoslibrary' -o -name 'classes' \\) \
-    -prune -o -type d -print 2> /dev/null | cut -b3-"}"
+    -prune -o -type d -print 2> /dev/null | cut -b3-"
 
-    dir="$(eval "$cmd" | \
+    cd $(eval "$cmd" | \
         fzf -e --ansi \
             --prompt '📁 Search folder: ' \
             --header $'ESC (exit)\n\n' \
             --layout reverse \
-            --border)"
-
-    if [[ -z "$dir" ]]; then
-        return 0
-    fi
-
-    cd -- ${(q)dir}
+            --border)
 }
 
 
