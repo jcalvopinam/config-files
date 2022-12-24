@@ -230,6 +230,25 @@ function gswitch() {
     git pull
 }
 
+
+#----------------------------------------------------------------------------------
+# Shows git tags
+#----------------------------------------------------------------------------------
+function gtag() {
+    _git_check || return
+    git tag --sort -version:refname |
+    fzf -m -e --ansi \
+        --prompt '📛 Search tag: ' \
+        --header $'ESC (exit)\n\n' \
+        --preview-window right,70% \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
+        --layout reverse \
+        --border \
+        --preview 'git show --color=always {}' "$@" | pbcopy
+}
+
+
 #----------------------------------------------------------------------------------
 # Shows git status
 #----------------------------------------------------------------------------------
