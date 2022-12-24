@@ -207,9 +207,9 @@ function gbranch() {
 # Shows git branches and switch it
 #----------------------------------------------------------------------------------
 function gswitch() {
-  currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
-  selected=( $(_git_check || return
-        bash "$__fzf_git" bswitch |
+    currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
+    _git_check || return
+    bash "$__fzf_git" bswitch |
         fzf -m --ansi \
         --prompt ' Search branch to switch: ' \
         --header "$currentBranch " \
@@ -219,14 +219,8 @@ function gswitch() {
         --color hl:underline,hl+:underline \
         --layout reverse \
         --border \
-        --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" ))
-
-    if [[ -z "$selected" ]]; then
-        return 0
-    fi
-
-    git switch $selected
-    git pull
+        --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" |
+        xargs git switch; git pull
 }
 
 
