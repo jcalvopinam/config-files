@@ -12,12 +12,6 @@ if [[ $# -eq 1 ]]; then
   bswitch() {
     git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'}
   }
-  refs() {
-    git for-each-ref --sort=-creatordate --sort=-HEAD --color=always --format=$'%(refname) %(color:green)(%(creatordate:relative))\t%(color:blue)%(subject)%(color:reset)' |
-      eval "$1" |
-      sed 's#^refs/remotes/#\x1b[95mremote-branch\t\x1b[33m#; s#^refs/heads/#\x1b[92mbranch\t\x1b[33m#; s#^refs/tags/#\x1b[96mtag\t\x1b[33m#; s#refs/stash#\x1b[91mstash\t\x1b[33mrefs/stash#' |
-      column -ts$'\t'
-  }
   case "$1" in
     branches)
       echo $'ESC (exit) ╱ ALT-A (show all branches)\n'
@@ -30,14 +24,6 @@ if [[ $# -eq 1 ]]; then
     all-branches)
       echo $'ESC (exit)\n'
       branches -a
-      ;;
-    refs)
-      echo $'ESC (exit) ╱ ALT-E (examine in editor) ╱ ALT-A (show all refs)\n'
-      refs 'grep -v ^refs/remotes'
-      ;;
-    all-refs)
-      echo $'ESC (exit) ╱ ALT-E (examine in editor)\n'
-      refs 'cat'
       ;;
     nobeep) ;;
     *) exit 1 ;;
@@ -102,7 +88,7 @@ function gparent() {
 #----------------------------------------------------------------------------------
 function gdiff() {
     git diff $@ --name-only | \
-        fzf -m -e --ansi \
+    fzf -m -e --ansi \
         --prompt '📁 Search files: ' \
         --header $'ESC (exit) ╱ ENTER (open in editor)\n\n' \
         --preview-window right:70%,wrap \
@@ -118,15 +104,15 @@ function gdiff() {
 function glogg() {
     git log $@ --abbrev --oneline --decorate --color --abbrev-commit \
     --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | \
-        fzf -m -e --ansi \
-        --prompt ' Search by hash, message or author: ' \
+    fzf -m -e --ansi \
+        --prompt '☘️ Search by hash, message or author: ' \
         --header $'ESC (exit)\n\n' \
         --preview-window right:70%,wrap \
         --tiebreak begin \
         --color hl:underline,hl+:underline \
         --layout reverse \
         --border \
-        --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'}
+        --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'} | pbcopy
 }
 
 
@@ -136,7 +122,7 @@ function glogg() {
 function gbranch() {
     _git_check || return
     bash "$__fzf_git" branches |
-        fzf -m --ansi \
+    fzf -m -e --ansi \
         --prompt ' Search branch: ' \
         --header-lines 2 \
         --preview-window down,border-top,75% \
@@ -159,7 +145,7 @@ function gswitch() {
     currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
     _git_check || return
     bash "$__fzf_git" bswitch |
-        fzf -m --ansi \
+    fzf -e --ansi \
         --prompt ' Search branch to switch: ' \
         --header "$currentBranch " \
         --header-lines 2 \
@@ -225,7 +211,7 @@ function gstatus() {
         --border \
         --bind=ctrl-j:preview-down \
         --bind=ctrl-k:preview-up \
-        --preview 'git diff --color=always {+1}'
+        --preview 'git diff --color=always {+1}' | xargs nvim
 }
 
 
@@ -390,18 +376,18 @@ function ff() {
 # Finds folders inside of the current path
 #----------------------------------------------------------------------------------
 function fd() {
-    local cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \
+    cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \
     \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \
     -o -fstype 'proc' -o -name 'node_modules' -o -name 'build' -o -name 'Library' \
     -o -name '*.photoslibrary' -o -name 'classes' \\) \
     -prune -o -type d -print 2> /dev/null | cut -b3-"}"
 
-    local dir="$(eval "$cmd" | fzf -m \
-        --height ${FZF_TMUX_HEIGHT:-40%} \
-        --prompt '📁 Search folder: ' \
-        --header $'Press <ESC> to exit.\n\n' \
-        --border \
-        --reverse)"
+    dir="$(eval "$cmd" | \
+        fzf -e --ansi \
+            --prompt '📁 Search folder: ' \
+            --header $'ESC (exit)\n\n' \
+            --layout reverse \
+            --border)"
 
     if [[ -z "$dir" ]]; then
         return 0
@@ -409,6 +395,7 @@ function fd() {
 
     cd -- ${(q)dir}
 }
+
 
 #----------------------------------------------------------------------------------
 # Clean duplicated entries
