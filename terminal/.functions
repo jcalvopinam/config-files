@@ -348,6 +348,10 @@ function ff() {
             fzf -m \
                 --prompt '📁 Search file: ' \
                 --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
+                --preview-window right,60% \
+                --tiebreak begin \
+                --color hl:underline,hl+:underline \
+                --layout reverse \
                 --border \
                 --preview '[[ $(file --mime {}) =~ binary ]] &&
                 echo {} is a binary file ||
@@ -360,6 +364,10 @@ function ff() {
             fzf -m \
                 --prompt '📁 Search file: ' \
                 --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
+                --preview-window right,60% \
+                --tiebreak begin \
+                --color hl:underline,hl+:underline \
+                --layout reverse \
                 --border \
                 --reverse --preview '[[ $(file --mime {}) =~ binary ]] &&
                 echo {} is a binary file ||
