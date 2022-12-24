@@ -185,8 +185,8 @@ function glogg() {
 # Shows git branches
 #----------------------------------------------------------------------------------
 function gbranch() {
-    selected=( $(_git_check || return
-        bash "$__fzf_git" branches |
+    _git_check || return
+    bash "$__fzf_git" branches |
         fzf -m --ansi \
         --prompt ' Search branch: ' \
         --header-lines 2 \
@@ -199,8 +199,7 @@ function gbranch() {
         --bind "ctrl-o:execute-silent:bash $__fzf_git branch {}" \
         --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" \
         --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' "$@" |
-      sed 's/^..//' | cut -d' ' -f1))
-    echo $selected | pbcopy
+        sed 's/^..//' | cut -d' ' -f1 | pbcopy
 }
 
 
