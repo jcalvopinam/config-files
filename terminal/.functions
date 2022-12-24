@@ -116,11 +116,17 @@ function gdiff() {
 # Shows git log
 #----------------------------------------------------------------------------------
 function glogg() {
-  git log $@ --abbrev --oneline --decorate --color \
-  --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" \
-  --abbrev-commit | fzf --no-height --pointer='->' --header="`date`" -e --no-sort \
-  --reverse -m --ansi --preview-window="right:70%,wrap" \
-  --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'}
+    git log $@ --abbrev --oneline --decorate --color --abbrev-commit \
+    --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | \
+        fzf -m -e --ansi \
+        --prompt ' Search by hash, message or author: ' \
+        --header $'ESC (exit)\n\n' \
+        --preview-window right:70%,wrap \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
+        --layout reverse \
+        --border \
+        --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'}
 }
 
 
