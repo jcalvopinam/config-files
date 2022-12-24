@@ -198,15 +198,15 @@ function gstash() {
     _git_check || return
     git stash list | \
     fzf -m -e --ansi -d: \
-    --prompt '🥡 Search stashes: ' \
-    --header $'ESC (exit) ╱ CTRL-X (drop stash)\n\n' \
-    --preview-window right,70% \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
-    --preview 'git show --color=always {1}' "$@" | cut -d: -f1
+        --prompt '🥡 Search stash: ' \
+        --header $'ESC (exit) ╱ CTRL-X (drop stash)\n\n' \
+        --preview-window right,70% \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
+        --layout reverse \
+        --border \
+        --bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
+        --preview 'git show --color=always {1}' "$@" | cut -d: -f1
 }
 
 
