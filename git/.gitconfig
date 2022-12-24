@@ -9,7 +9,8 @@
 [pull]
     ff = only
 [push]
-    autosetupremote = true
+    autoSetupRemote = true
+    default = current
 [diff]
     tool = p4merge
 [difftool "p4merge"]
