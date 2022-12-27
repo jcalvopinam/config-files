@@ -102,10 +102,10 @@ function gdiff() {
 # Shows git log
 #----------------------------------------------------------------------------------
 function glogg() {
-    git log $@ --abbrev --oneline --decorate --color --abbrev-commit \
-    --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | \
+    git log --abbrev --oneline --decorate --color --abbrev-commit \
+    --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" $@ | \
     fzf -m -e --ansi \
-        --prompt '☘️ Search by hash, message or author: ' \
+        --prompt '🧵 Search (hash/message/author): ' \
         --header $'ESC (exit)\n\n' \
         --preview-window right:70%,wrap \
         --tiebreak begin \
