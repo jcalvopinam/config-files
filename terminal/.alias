@@ -17,6 +17,7 @@ alias -- -='cd -'
 alias cat=/usr/local/bin/bat
 alias catn=/bin/cat
 alias catl='/usr/local/bin/bat --paging=never'
+alias icat='kitty +kitten icat'
 
 #----------------------------------------------------------------------------------
 # Always enable colored `lsd` output
