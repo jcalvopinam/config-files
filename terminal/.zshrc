@@ -21,6 +21,15 @@ plugins=(
 )
 
 #----------------------------------------------------------------------------------
+# Load configuration for omz
+#----------------------------------------------------------------------------------
+[ -f ~/.oh-my-zsh/oh-my-zsh.sh ] && source ~/.oh-my-zsh/oh-my-zsh.sh
+
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit
+compinit -i
+
+#----------------------------------------------------------------------------------
 # Load custom configuration
 #----------------------------------------------------------------------------------
 [ -f ~/.alias ] && source ~/.alias
@@ -33,13 +42,3 @@ plugins=(
 # if doesn't work try with: $(brew --prefix)/opt/fzf/install
 #----------------------------------------------------------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-#----------------------------------------------------------------------------------
-# Load configuration for omz
-#----------------------------------------------------------------------------------
-[ -f ~/.oh-my-zsh/oh-my-zsh.sh ] && source ~/.oh-my-zsh/oh-my-zsh.sh
-
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit
-compinit -i
-
