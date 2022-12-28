@@ -11,3 +11,8 @@ fi
 # Key bindings
 # ------------
 source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+
+#----------------------------------------------------------------------------------
+# Load configuration for custom fzf commands
+#----------------------------------------------------------------------------------
+[ -f ~/.fzf-commands ] && source ~/.fzf-commands
