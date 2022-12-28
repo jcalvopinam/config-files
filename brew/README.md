@@ -136,3 +136,7 @@ brew install --cask spotify
 brew install --cask suspicious-package
 ```
 
+### **[Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts)**: Font with ligatures
+```sh
+brew install --cask homebrew/cask-fonts/font-hack-nerd-font
+```
