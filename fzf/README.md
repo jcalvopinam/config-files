@@ -1,4 +1,4 @@
-# Git shortcuts
+# FZF configuration
 
 ## Make sure you have installed `fzf`
   ```sh
@@ -20,7 +20,7 @@
   ```
 
 ## Shortcuts
-* CTRL-W - Git log
-* CTRL-B - List the git branches
-* CTRL-S - Git branch switch
-* CTRL-P - Git pull
+* `CTRL-W` - Git log
+* `CTRL-B` - List the git branches
+* `CTRL-S` - Git branch switch
+* `CTRL-D` - Git diff
