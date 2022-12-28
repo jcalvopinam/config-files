@@ -3,23 +3,24 @@
 ## Configuration files for most tools I use
 
 * ads-block
-* bat
-* git
-* hyper
-* kitty
-* maven
-* omz
-* sublime-text
-* windows-terminal
 * amethyst
+* bat
 * brew
+* fzf
+* git
 * gpg
+* hyper
 * intellij-idea
+* kitty
 * mac
+* maven
 * nvim 
+* omz
 * rectangle-pro
 * slack
+* sublime-text
 * terminal
+* windows-terminal
 
 
 ## Suggestion
@@ -38,8 +39,10 @@
 ln -s ~/space/config-files/terminal/.alias ~/
 ln -s ~/space/config-files/terminal/.exports ~/
 ln -s ~/space/config-files/terminal/.functions ~/
-ln -s ~/space/config-files/terminal/.zshrc ~/
+ln -s ~/space/config-files/terminal/.fzf-commands ~/
 ln -s ~/space/config-files/terminal/.fzf.zsh ~/
+ln -s ~/space/config-files/terminal/.zshrc ~/
+
 ln -s ~/space/config-files/git/.gitignore_global ~/
 ln -s ~/space/config-files/git/.gitconfig ~/
 
