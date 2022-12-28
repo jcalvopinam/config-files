@@ -9,9 +9,14 @@
   brew install fzf
   ```
 
+## Add custom configuration for fzf commands
+  ```sh
+  cat fzf-load-commands.zsh >> ~/.fzf.zsh
+  ```
+
 ## Add new shorcuts for git
   ```sh
-  cat git-keys.zsh >> /usr/local/opt/fzf/shell/key-bindings.zsh
+  cat fzf-shorcuts.zsh >> /usr/local/opt/fzf/shell/key-bindings.zsh
   ```
 
 ## Shortcuts
