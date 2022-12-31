@@ -4,6 +4,7 @@
 [core]
     autocrlf = input
     excludesFile = /Users/jcalvopina/.gitignore_global
+    eol = lf
 [init]
     defaultBranch = main
 [pull]
