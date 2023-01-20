@@ -72,7 +72,7 @@ function gdiff() {
         --preview-window right:70%,wrap \
         --layout reverse \
         --border \
-        --preview "git diff $@  --abbrev --color=always  -- {-1}" | xargs nvim
+        --preview "git diff $@  --abbrev --color=always  -- {-1}" | xargs nvim -p
 }
 
 
@@ -189,7 +189,7 @@ function gstatus() {
         --border \
         --bind=ctrl-j:preview-down \
         --bind=ctrl-k:preview-up \
-        --preview 'git diff --color=always {+1}' | xargs nvim
+        --preview 'git diff --color=always {+1}' | xargs nvim -p
 }
 
 
@@ -208,7 +208,7 @@ function ff() {
         --border \
         --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
             (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
-                coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim
+                coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim -p
 }
 
 
