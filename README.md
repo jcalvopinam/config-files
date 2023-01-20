@@ -49,9 +49,5 @@ ln -s ~/space/config-files/git/.gitconfig ~/
 ln -s ~/space/config-files/bat ~/.config/
 ln -s ~/space/config-files/kitty ~/.config/
 
-mkdir -p ~/.config/nvim
-ln -s ~/space/config-files/nvim/init.vim ~/.config/nvim/
-ln -s ~/space/config-files/nvim/colors ~/.config/nvim/
-
 ln -s ~/space/config-files/sublime-text/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 ```
