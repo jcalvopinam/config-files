@@ -65,14 +65,14 @@ _git_check() {
 # Shows git diff
 #----------------------------------------------------------------------------------
 function gdiff() {
-    git diff $@ --name-only | \
-    fzf -m -e --ansi \
-        --prompt ' Search files: ' \
-        --header $'ESC (exit) ╱ ENTER (open in editor)\n\n' \
-        --preview-window right:70%,wrap \
-        --layout reverse \
-        --border \
-        --preview "git diff $@  --abbrev --color=always  -- {-1}" | xargs nvim -p
+  git diff $@ --name-only | \
+  fzf -m -e --ansi \
+    --prompt ' Search files: ' \
+    --header $'ESC (exit) ╱ ENTER (open in editor)\n\n' \
+    --preview-window right:70%,wrap \
+    --layout reverse \
+    --border \
+    --preview "git diff $@  --abbrev --color=always  -- {-1}" | xargs nvim -p
 }
 
 
@@ -80,17 +80,17 @@ function gdiff() {
 # Shows git log
 #----------------------------------------------------------------------------------
 function glogg() {
-    git log --abbrev --oneline --decorate --color --abbrev-commit \
-    --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" $@ | \
-    fzf -m -e --ansi \
-        --prompt ' Search (hash/message/author): ' \
-        --header $'ESC (exit)\n\n' \
-        --preview-window right:70%,wrap \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'} | pbcopy
+  git log --abbrev --oneline --decorate --color --abbrev-commit \
+  --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" $@ | \
+  fzf -m -e --ansi \
+    --prompt ' Search (hash/message/author): ' \
+    --header $'ESC (exit)\n\n' \
+    --preview-window right:70%,wrap \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'} | pbcopy
 }
 
 
@@ -98,21 +98,21 @@ function glogg() {
 # Shows git branches
 #----------------------------------------------------------------------------------
 function gbranch() {
-    _git_check || return
-    bash "$__fzf_git" branches |
-    fzf -m -e --ansi \
-        --prompt ' Search branch: ' \
-        --header-lines 2 \
-        --preview-window down,border-top,75% \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --bind 'ctrl-/:change-preview-window(down,70%|hidden|)' \
-        --bind "ctrl-o:execute-silent:bash $__fzf_git branch {}" \
-        --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" \
-        --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' "$@" |
-        sed 's/^..//' | cut -d' ' -f1 | pbcopy
+  _git_check || return
+  bash "$__fzf_git" branches |
+  fzf -m -e --ansi \
+    --prompt ' Search branch: ' \
+    --header-lines 2 \
+    --preview-window down,border-top,75% \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --bind 'ctrl-/:change-preview-window(down,70%|hidden|)' \
+    --bind "ctrl-o:execute-silent:bash $__fzf_git branch {}" \
+    --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" \
+    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' "$@" |
+    sed 's/^..//' | cut -d' ' -f1 | pbcopy
 }
 
 
@@ -120,20 +120,20 @@ function gbranch() {
 # Shows git branches and switch it
 #----------------------------------------------------------------------------------
 function gswitch() {
-    currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
-    _git_check || return
-    bash "$__fzf_git" bswitch |
-    fzf -e --ansi \
-        --prompt ' Search branch to switch: ' \
-        --header "$currentBranch " \
-        --header-lines 2 \
-        --preview-window down,border-top,40% \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" |
-        xargs git switch; git pull
+  currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
+  _git_check || return
+  bash "$__fzf_git" bswitch |
+  fzf -e --ansi \
+    --prompt ' Search branch to switch: ' \
+    --header "$currentBranch " \
+    --header-lines 2 \
+    --preview-window down,border-top,40% \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" |
+    xargs git switch; git pull
 }
 
 
@@ -141,17 +141,17 @@ function gswitch() {
 # Shows git tags
 #----------------------------------------------------------------------------------
 function gtag() {
-    _git_check || return
-    git tag --sort -version:refname |
-    fzf -m -e --ansi \
-        --prompt ' Search tag: ' \
-        --header $'ESC (exit)\n\n' \
-        --preview-window right,70% \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --preview 'git show --color=always {}' "$@" | pbcopy
+  _git_check || return
+  git tag --sort -version:refname |
+  fzf -m -e --ansi \
+    --prompt ' Search tag: ' \
+    --header $'ESC (exit)\n\n' \
+    --preview-window right,70% \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --preview 'git show --color=always {}' "$@" | pbcopy
 }
 
 
@@ -159,18 +159,18 @@ function gtag() {
 # Shows git stashes
 #----------------------------------------------------------------------------------
 function gstash() {
-    _git_check || return
-    git stash list | \
-    fzf -m -e --ansi -d: \
-        --prompt ' Search stash: ' \
-        --header $'ESC (exit) ╱ CTRL-X (drop stash)\n\n' \
-        --preview-window right,70% \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
-        --preview 'git show --color=always {1}' "$@" | cut -d: -f1
+  _git_check || return
+  git stash list | \
+  fzf -m -e --ansi -d: \
+    --prompt ' Search stash: ' \
+    --header $'ESC (exit) ╱ CTRL-X (drop stash)\n\n' \
+    --preview-window right,70% \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
+    --preview 'git show --color=always {1}' "$@" | cut -d: -f1
 }
 
 
@@ -178,18 +178,31 @@ function gstash() {
 # Shows git status
 #----------------------------------------------------------------------------------
 function gstatus() {
-    git status -s | awk '{print $2 " " $1}'| \
-    fzf -m -e --ansi \
-        --prompt ' Search file: ' \
-        --header $'ESC (exit) ╱ CTRL-J (down) ╱ CTRL-K (up) \n\n' \
-        --preview-window right,70% \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --bind=ctrl-j:preview-down \
-        --bind=ctrl-k:preview-up \
-        --preview 'git diff --color=always {+1}' | xargs nvim -p
+  git status -s | awk '{print $2 " " $1}'| \
+  fzf -m -e --ansi \
+    --prompt ' Search file: ' \
+    --header $'ESC (exit) ╱ CTRL-J (down) ╱ CTRL-K (up) \n\n' \
+    --preview-window right,70% \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --bind=ctrl-j:preview-down \
+    --bind=ctrl-k:preview-up \
+    --preview 'git diff --color=always {+1}' | xargs nvim -p
+}
+
+
+#----------------------------------------------------------------------------------
+# Gets the name of the parent branch
+#----------------------------------------------------------------------------------
+function gparent() {
+  git show-branch \
+  | grep '\*' \
+  | grep -v `git rev-parse --abbrev-ref HEAD` \
+  | head -n1 \
+  | sed 's/.*\[\(.*\)\].*/\1/' \
+  | sed 's/[\^~].*//'
 }
 
 
@@ -197,18 +210,18 @@ function gstatus() {
 # Finds files inside of the current path
 #----------------------------------------------------------------------------------
 function ff() {
-    local rgfilter=" rg --files --follow --no-ignore-vcs --hidden -g '!{*/Library/*,.photoslibrary/*,node_modules/*,.git/*,**/build/*}' "
-    fzf -m -e --ansi \
-        --prompt ' Search file: ' \
-        --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
-        --preview-window right,60% \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
-            (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
-                coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim -p
+  local rgfilter=" rg --files --follow --no-ignore-vcs --hidden -g '!{*/Library/*,.photoslibrary/*,node_modules/*,.git/*,**/build/*}' "
+  fzf -m -e --ansi \
+    --prompt ' Search file: ' \
+    --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
+    --preview-window right,60% \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
+        (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
+        coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim -p
 }
 
 
@@ -216,30 +229,16 @@ function ff() {
 # Finds folders inside of the current path
 #----------------------------------------------------------------------------------
 function fd() {
-    cmd="command find -L . -mindepth 1 \
-    \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \
-    -o -fstype 'proc' -o -name 'node_modules' -o -name 'build' -o -name 'Library' \
-    -o -name '*.photoslibrary' -o -name 'classes' \\) \
-    -prune -o -type d -print 2> /dev/null | cut -b3-"
+  cmd="command find -L . -mindepth 1 \
+  \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \
+  -o -fstype 'proc' -o -name 'node_modules' -o -name 'build' -o -name 'Library' \
+  -o -name '*.photoslibrary' -o -name 'classes' \\) \
+  -prune -o -type d -print 2> /dev/null | cut -b3-"
 
     cd $(eval "$cmd" | \
-        fzf -e --ansi \
-            --prompt ' Search folder: ' \
-            --header $'ESC (exit)\n\n' \
-            --layout reverse \
-            --border)
+      fzf -e --ansi \
+        --prompt ' Search folder: ' \
+        --header $'ESC (exit)\n\n' \
+        --layout reverse \
+        --border)
 }
-
-#----------------------------------------------------------------------------------
-# Gets the name of the parent branch
-#----------------------------------------------------------------------------------
-function gparent() {
-    git show-branch \
-    | grep '\*' \
-    | grep -v `git rev-parse --abbrev-ref HEAD` \
-    | head -n1 \
-    | sed 's/.*\[\(.*\)\].*/\1/' \
-    | sed 's/[\^~].*//'
-}
-
-
