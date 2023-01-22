@@ -65,6 +65,10 @@ _git_check() {
 # Shows git diff
 #----------------------------------------------------------------------------------
 function gdiff() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   git diff $@ --name-only | \
   fzf -m -e --ansi \
     --prompt ' Search files: ' \
@@ -80,6 +84,10 @@ function gdiff() {
 # Shows git log
 #----------------------------------------------------------------------------------
 function glogg() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   git log --abbrev --oneline --decorate --color --abbrev-commit \
   --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" $@ | \
   fzf -m -e --ansi \
@@ -98,6 +106,10 @@ function glogg() {
 # Shows git branches
 #----------------------------------------------------------------------------------
 function gbranch() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   _git_check || return
   bash "$__fzf_git" branches |
   fzf -m -e --ansi \
@@ -120,6 +132,10 @@ function gbranch() {
 # Shows git branches and switch it
 #----------------------------------------------------------------------------------
 function gswitch() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
   _git_check || return
   bash "$__fzf_git" bswitch |
@@ -141,6 +157,10 @@ function gswitch() {
 # Shows git tags
 #----------------------------------------------------------------------------------
 function gtag() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   _git_check || return
   git tag --sort -version:refname |
   fzf -m -e --ansi \
@@ -159,6 +179,10 @@ function gtag() {
 # Shows git stashes
 #----------------------------------------------------------------------------------
 function gstash() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   _git_check || return
   git stash list | \
   fzf -m -e --ansi -d: \
@@ -178,6 +202,10 @@ function gstash() {
 # Shows git status
 #----------------------------------------------------------------------------------
 function gstatus() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   git status -s | awk '{print $2 " " $1}'| \
   fzf -m -e --ansi \
     --prompt ' Search file: ' \
@@ -197,6 +225,10 @@ function gstatus() {
 # Gets the name of the parent branch
 #----------------------------------------------------------------------------------
 function gparent() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
   git show-branch \
   | grep '\*' \
   | grep -v `git rev-parse --abbrev-ref HEAD` \
