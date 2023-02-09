@@ -48,6 +48,7 @@ ln -s ~/space/config-files/git/.gitconfig ~/
 
 ln -s ~/space/config-files/bat ~/.config/
 ln -s ~/space/config-files/kitty ~/.config/
+ln -s ~/space/config-files/iTerm/com.googlecode.iterm2.plist ~/Library/Preferences/
 
 ln -s ~/space/config-files/sublime-text/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 ```
