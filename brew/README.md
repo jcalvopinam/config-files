@@ -51,9 +51,14 @@ brew install nvim
 brew install duf
 ```
 
+### **[p7zip](https://p7zip.sourceforge.net/)**: It is fork of `7zip` with additional codecs and improvements
+```sh
+brew install p7zip
+```
+
 ### **[rg](https://github.com/BurntSushi/ripgrep)**: `ripgrep` is an alternative to `grep` command
 ```sh
-brew install rg``
+brew install rg
 ```
 
 ## Desktop application
@@ -82,6 +87,11 @@ brew install --cask dbeaver-community
 brew install --cask easyfind
 ```
 
+### **[Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts)**: Font with ligatures
+```sh
+brew install --cask homebrew/cask-fonts/font-hack-nerd-font
+```
+
 ### **[IINA](https://iina.io/)**: The modern media player for macOS.
 ```sh
 brew install --cask iina
@@ -91,6 +101,7 @@ brew install --cask iina
 ```sh
 brew install --cask kitty
 ```
+
 ### **[Libre Wolf](https://librewolf.net/):** A fork of Firefox, focused on privacy, security and freedom.
 ```sh
 brew install --cask librewolf
@@ -104,6 +115,11 @@ brew install --cask maccy
 ### **[MonitorControl](https://github.com/MonitorControl/MonitorControl):** Controls your external display brightness and volume and shows native OSD. Use menulet sliders or the keyboard, including native Apple keys!
 ```sh
 brew install --cask monitorcontrol
+```
+
+### **[Raycast](https://raycas.com)** Alternative to spotlight
+```sh
+brew install --cask raycast
 ```
 
 ### **[OSB](https://obsproject.com/)**: Free and open source software for video recording and live streaming.
@@ -134,9 +150,4 @@ brew install --cask spotify
 ### **[Suspicious Package](https://www.mothersruin.com/software/SuspiciousPackage/)**: An Application for Inspecting macOS Installer Packages
 ```sh
 brew install --cask suspicious-package
-```
-
-### **[Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts)**: Font with ligatures
-```sh
-brew install --cask homebrew/cask-fonts/font-hack-nerd-font
 ```
