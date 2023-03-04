@@ -1,4 +1,4 @@
-#config-files
+# config-files
 
 ## Configuration files for most tools I use
 
@@ -16,7 +16,9 @@
 * maven
 * nvim 
 * omz
+* raycast
 * rectangle-pro
+* sdkman
 * slack
 * sublime-text
 * terminal
@@ -33,6 +35,11 @@
   git clone https://github.com/jcalvopinam/config-files.git
 ```
 
+* Install SDKMAN
+```shell
+curl -s "https://get.sdkman.io" | bash
+```
+
 * Create symbolic links that point to the files
 
 ```shell
@@ -46,9 +53,12 @@ ln -s ~/space/config-files/terminal/.zshrc ~/
 ln -s ~/space/config-files/git/.gitignore_global ~/
 ln -s ~/space/config-files/git/.gitconfig ~/
 
+mkdir ~/.config
 ln -s ~/space/config-files/bat ~/.config/
 ln -s ~/space/config-files/kitty ~/.config/
+ln -s ~/space/config-files/raycast ~/.config/
 ln -s ~/space/config-files/iTerm/com.googlecode.iterm2.plist ~/Library/Preferences/
 
-ln -s ~/space/config-files/sublime-text/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+mkdir -p ~/Library/Application\ Support/Sublime\ Text/Packages/User
+ln -s ~/space/config-files/sublime-text/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text/Packages/User
 ```
