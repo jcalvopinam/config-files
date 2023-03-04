@@ -18,7 +18,7 @@ ln -s ~/space/config-files/omz/themes/ys-jc.zsh-theme ~/.oh-my-zsh/themes/
 ## Plugins' installation
 ### History
 ```shell
-cat history.zsh >> ~/.oh-my-zsh/lib/history.zsh
+cat ~/space/config-files/omz/plugins/history/history.zsh >> ~/.oh-my-zsh/lib/history.zsh
 ```
 
 ### zsh-autosuggestions
