@@ -11,9 +11,10 @@ export PATH=/usr/local/bin/:/usr/local/sbin/:$PATH
 #----------------------------------------------------------------------------------
 # Python setup
 #----------------------------------------------------------------------------------
-# The original version is saved in .bash_profile.pysave
-PYTHON_HOME=/Library/Frameworks/Python.framework/Versions/3.6/bin
-export PATH=$PATH:$PYTHON_HOME/bin
+alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 #----------------------------------------------------------------------------------
 #GCP Credentials
