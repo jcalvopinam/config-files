@@ -16,6 +16,11 @@ brew install awscli
 brew install bat
 ```
 
+### **[pyenv](https://github.com/pyenv/pyenv):** Command-line to switch between different versions of Python
+```sh
+brew install pyenv
+```
+
 ### **[fzf](https://github.com/junegunn/fzf):** Command-line fuzzy finder written in Go
 ```sh
 brew install fzf
