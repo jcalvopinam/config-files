@@ -27,15 +27,6 @@ export GOOGLE_APPLICATION_CREDENTIALS="/Users/jcalvopina/space/IdeaProjects/alis
 eval "$(fnm env --use-on-cd)"
 
 #----------------------------------------------------------------------------------
-# Android Studio setup
-#----------------------------------------------------------------------------------
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-#----------------------------------------------------------------------------------
 # GENERAL
 #----------------------------------------------------------------------------------
 export GPG_TTY=\$(tty)                                                             # git Signing commits
