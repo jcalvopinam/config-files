@@ -21,6 +21,11 @@ brew install bat
 brew install pyenv
 ```
 
+### **[fnm](https://github.com/Schniz/fnm):** Command-line to switch between different versions of Node
+```sh
+brew install fnm
+```
+
 ### **[fzf](https://github.com/junegunn/fzf):** Command-line fuzzy finder written in Go
 ```sh
 brew install fzf
