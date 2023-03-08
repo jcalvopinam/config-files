@@ -242,7 +242,8 @@ function gparent() {
 # Finds files inside of the current path
 #----------------------------------------------------------------------------------
 function ff() {
-  local rgfilter=" rg --files --follow --no-ignore-vcs --hidden -g '!{*/Library/*,.photoslibrary/*,node_modules/*,.git/*,**/build/*}' "
+  local rgfilter=" rg --files --follow --no-ignore-vcs --hidden \
+    -g '!{*/Library/*,.photoslibrary/*,node_modules/*,.git/*,**/build/*,**/target/*}' "
   fzf -m -e --ansi \
     --prompt ' Search file: ' \
     --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
@@ -264,7 +265,7 @@ function fd() {
   cmd="command find -L . -mindepth 1 \
   \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \
   -o -fstype 'proc' -o -name 'node_modules' -o -name 'build' -o -name 'Library' \
-  -o -name '*.photoslibrary' -o -name 'classes' \\) \
+  -o -name '*.photoslibrary' -o -name 'classes' -o -name 'target' \\) \
   -prune -o -type d -print 2> /dev/null | cut -b3-"
 
     cd $(eval "$cmd" | \
