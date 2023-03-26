@@ -13,7 +13,7 @@ bindkey -M vicmd '\ew' fzf-git-log
 bindkey -M viins '\ew' fzf-git-log
 
 
-# CTRL-A - List all git branches
+# ALT-A - List all git branches
 fzf-git-branch() {
   gbranch
 }
@@ -23,7 +23,7 @@ bindkey -M vicmd '\ea' fzf-git-branch
 bindkey -M viins '\ea' fzf-git-branch
 
 
-# CTRL-E - Git branch switch
+# ALT-E - Git branch switch
 fzf-git-switch() {
   gswitch
 }
@@ -33,7 +33,7 @@ bindkey -M vicmd '\ee' fzf-git-switch
 bindkey -M viins '\ee' fzf-git-switch
 
 
-# CTRL-D - Git diff
+# ALT-D - Git diff
 fzf-git-diff() {
   gdiff
 }
@@ -56,7 +56,7 @@ fzf-git-parent() {
   gparent
 }
 zle     -N             fzf-git-parent
-bindkey -M emacs '\er' fzf-git-parent
-bindkey -M vicmd '\er' fzf-git-parent
-bindkey -M viins '\er' fzf-git-parent
+bindkey -M emacs '\ep' fzf-git-parent
+bindkey -M vicmd '\ep' fzf-git-parent
+bindkey -M viins '\ep' fzf-git-parent
 
