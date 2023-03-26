@@ -22,15 +22,16 @@ alias icat='kitty +kitten icat'
 #----------------------------------------------------------------------------------
 # Always enable colored `lsd` output
 #----------------------------------------------------------------------------------
-alias lsd='lsd --group-directories-first'
-alias lsdt='lsd --group-directories-first --tree'
+alias ls='lsd --classify'
+alias ll='lsd -ltrh --group-directories-first --classify'
+alias la='lsd -lah --group-directories-first --classify'
 
 #----------------------------------------------------------------------------------
 # Colored `ls` output
 #----------------------------------------------------------------------------------
-alias ls='ls -F -G'
-alias ll='ls -ltrh -F -G'
-alias la='ls -lah -F -G'
+#alias ls='ls -F -G'
+#alias ll='ls -ltrh -F -G'
+#alias la='ls -lah -F -G'
 
 #----------------------------------------------------------------------------------
 # Colored `grep` output
@@ -52,18 +53,10 @@ alias ipls="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}
 alias path='echo -e ${PATH//:/\\n}'
 
 #----------------------------------------------------------------------------------
-# SublimeText
-#----------------------------------------------------------------------------------
-#alias subl='open -a /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-#----------------------------------------------------------------------------------
-# or you can create a symbolic link: cd /usr/local/bin/
-# ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl 
-
-#----------------------------------------------------------------------------------
 # Counters
 #----------------------------------------------------------------------------------
-alias totalfiles='find . -type f | wc -l'
-alias totalfilesfolder='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
+alias tf='find . -type f | wc -l'
+alias tfd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
 
 #----------------------------------------------------------------------------------
 # ToggleTheme script
@@ -86,3 +79,4 @@ alias lst="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 #----------------------------------------------------------------------------------
 alias space='cd ~/space'
 
+alias eh!='nvim ~/.zsh_history'
