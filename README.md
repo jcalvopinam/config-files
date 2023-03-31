@@ -6,6 +6,7 @@
 * amethyst
 * bat
 * brew
+* docker
 * fzf
 * git
 * gpg
@@ -52,6 +53,9 @@ ln -s ~/space/config-files/terminal/.zshrc ~/
 
 ln -s ~/space/config-files/git/.gitignore_global ~/
 ln -s ~/space/config-files/git/.gitconfig ~/
+
+ln -s /Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion /usr/local/share/zsh/site-functions/_docker
+ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion /usr/local/share/zsh/site-functions/_docker-compose
 
 mkdir ~/.config
 ln -s ~/space/config-files/bat ~/.config/
