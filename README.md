@@ -23,6 +23,7 @@
 * slack
 * sublime-text
 * terminal
+* vim
 * windows-terminal
 
 
