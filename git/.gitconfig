@@ -24,3 +24,9 @@
     path = /Applications/p4merge.app/Contents/MacOS/p4merge
 [mergetool]
     promt = false
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+    ui = true
