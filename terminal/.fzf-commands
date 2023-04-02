@@ -242,12 +242,18 @@ function gparent() {
 # Finds files inside of the current path
 #----------------------------------------------------------------------------------
 function ff() {
-  local rgfilter=" rg --files --follow --no-ignore-vcs --hidden \
-    -g '!{*/Library/*,.photoslibrary/*,node_modules/*,.git/*,**/build/*,**/target/*}' "
-  fzf -m -e --ansi \
+  find . -type f \
+    -not -path "*/node_modules/*" \
+    -not -path "*/target/*" \
+    -not -path "*/.zsh_sessions/*" \
+    -not -path "*/.npm-global/*" \
+    -not -path "*/.node*/*" \
+    -not -path "*/build/*" \
+    | fzf -m -e --ansi \
     --prompt ' Search file: ' \
     --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
     --preview-window right,60% \
+    --bind='ctrl-space:toggle-preview' \
     --tiebreak begin \
     --color hl:underline,hl+:underline \
     --layout reverse \
@@ -255,8 +261,8 @@ function ff() {
     --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
         (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
         coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim -p
-}
 
+}
 
 #----------------------------------------------------------------------------------
 # Finds folders inside of the current path
