@@ -137,3 +137,15 @@ function ubrew() {
     brew autoremove --dry-run
     brew doctor
 }
+
+#----------------------------------------------------------------------------------
+# Reset and clean current branch
+#----------------------------------------------------------------------------------
+function cbranch() {
+  if ! git ls-files >& /dev/null; then
+    echo $'Git project not found\n'
+    return ;
+  fi
+  git reset --hard
+  git clean -f -d
+}
