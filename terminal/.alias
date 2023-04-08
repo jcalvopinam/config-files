@@ -25,6 +25,7 @@ alias icat='kitty +kitten icat'
 alias ls='lsd --classify'
 alias ll='lsd -ltrh --group-directories-first --classify'
 alias la='lsd -lah --group-directories-first --classify'
+alias lt='lsd --tree --group-directories-first'
 
 #----------------------------------------------------------------------------------
 # Colored `ls` output
@@ -79,4 +80,7 @@ alias lst="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 #----------------------------------------------------------------------------------
 alias space='cd ~/space'
 
+#----------------------------------------------------------------------------------
+# General
+#----------------------------------------------------------------------------------
 alias eh!='nvim ~/.zsh_history'
