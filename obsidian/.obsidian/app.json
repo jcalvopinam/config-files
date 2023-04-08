@@ -1,0 +1,13 @@
+{
+  "readableLineLength": false,
+  "alwaysUpdateLinks": true,
+  "defaultViewMode": "source",
+  "strictLineBreaks": true,
+  "spellcheck": true,
+  "attachmentFolderPath": "./resources",
+  "livePreview": true,
+  "showInlineTitle": false,
+  "showUnsupportedFiles": true,
+  "showFrontmatter": false,
+  "showLineNumber": true
+}

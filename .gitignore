@@ -1,3 +1,4 @@
 .DS_Store
 **/**/license.txt
 **/.idea/*
+**/.obsidian/workspace*.json

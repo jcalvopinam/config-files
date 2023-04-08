@@ -1,0 +1,10 @@
+{
+  "theme": "system",
+  "translucency": false,
+  "cssTheme": "Ebullientworks",
+  "baseFontSize": 18,
+  "accentColor": "",
+  "showViewHeader": true,
+  "baseFontSizeAction": true,
+  "interfaceFontFamily": "Inter"
+}
