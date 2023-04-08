@@ -149,3 +149,28 @@ function cbranch() {
   git reset --hard
   git clean -f -d
 }
+
+#----------------------------------------------------------------------------------
+# Gets the total memory consumed by app
+#----------------------------------------------------------------------------------
+function appmem() {
+  ps aux | grep -i "$1" | grep -v "grep" | awk '
+  # Adds up the amount of memory used by each process.
+  {sum+=$6}
+
+  # At the end of the output, print the total amount in MB or GB
+  END {
+    # If the total amount is less than 1 GB, shows the amount in MB
+    if (sum < 1048576) {
+      size = sum / 1024;    # Divide by 1024 to convert to MB
+      unit = "MB";          # Add MB text
+    }
+    # Otherwise, it shows the quantity in GB
+    else {
+      size = sum / 1048576; # Divide by 1048576 to convert to GB
+      unit = "GB";          # Add GB text
+    }
+    # Print the amount rounded to 2 decimal places
+    printf "%.2f %s", size, unit;
+  }'
+}
