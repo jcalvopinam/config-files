@@ -8,8 +8,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias ~='cd ~'
-alias -- -='cd -'
 
 #----------------------------------------------------------------------------------
 # Bat setup
@@ -20,7 +18,7 @@ alias catl='/usr/local/bin/bat --paging=never'
 alias icat='kitty +kitten icat'
 
 #----------------------------------------------------------------------------------
-# Always enable colored `lsd` output
+# `lsd` configuration - It requires to install lsd command
 #----------------------------------------------------------------------------------
 alias ls='lsd --classify'
 alias ll='lsd -ltrh --group-directories-first --classify'
@@ -28,11 +26,12 @@ alias la='lsd -lah --group-directories-first --classify'
 alias lt='lsd --tree --group-directories-first'
 
 #----------------------------------------------------------------------------------
-# Colored `ls` output
+# `ls` configuration
 #----------------------------------------------------------------------------------
 #alias ls='ls -F -G'
 #alias ll='ls -ltrh -F -G'
 #alias la='ls -lah -F -G'
+#alias lt="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
 #----------------------------------------------------------------------------------
 # Colored `grep` output
@@ -44,7 +43,7 @@ alias egrep='egrep --color=auto'
 #----------------------------------------------------------------------------------
 # IP addresses
 #----------------------------------------------------------------------------------
-alias ipp='dig +short myip.opendns.com @resolver1.opendns.com'
+alias ipp='curl -s https://checkip.amazonaws.com'
 alias ipl='ipconfig getifaddr en0'
 alias ipls="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }' | sort"
 
@@ -60,25 +59,17 @@ alias tf='find . -type f | wc -l'
 alias tfd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
 
 #----------------------------------------------------------------------------------
-# ToggleTheme script
-#----------------------------------------------------------------------------------
-#alias toggleTheme='. $HOME/codespace/config-files/mac/scripts/toggle-theme.sh'
-
-#----------------------------------------------------------------------------------
 # Reload alias
 #----------------------------------------------------------------------------------
-alias rbash='source ~/.bash_profile'
 alias rzshrc='source ~/.zshrc'
-
-#----------------------------------------------------------------------------------
-# List folders as tree
-#----------------------------------------------------------------------------------
-alias lst="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 
 #----------------------------------------------------------------------------------
 # Folders
 #----------------------------------------------------------------------------------
 alias space='cd ~/space'
+alias doc='cd ~/Documents'
+alias dk='cd ~/Desktop'
+alias dl='cd ~/Downloads'
 
 #----------------------------------------------------------------------------------
 # General
