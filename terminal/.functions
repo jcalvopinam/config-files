@@ -183,3 +183,17 @@ function appmem() {
     printf "%.2f %s", size, unit;
   }'
 }
+
+#----------------------------------------------------------------------------------
+# Shows a pop-up message with sound
+#----------------------------------------------------------------------------------
+function cmd-notification() {
+  message=""
+  if [ $# -eq 0 ]; then
+    message="End process"
+  else
+    message="$1"
+  fi
+  osascript -e "display notification \"$message\" sound name \"Basso\""
+}
+
