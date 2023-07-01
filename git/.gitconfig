@@ -30,3 +30,5 @@
     interactive = auto
     status = auto
     ui = true
+[alias]
+    cane = commit --amend --no-edit
