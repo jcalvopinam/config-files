@@ -89,7 +89,7 @@ function glogg() {
     return ;
   fi
   git log --abbrev --oneline --decorate --color --abbrev-commit \
-  --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" $@ | \
+  --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | sed 's/Merged in //' $@ | \
   fzf -m -e --ansi \
     --prompt ' Search (hash/message/author): ' \
     --header $'ESC (exit)\n\n' \
