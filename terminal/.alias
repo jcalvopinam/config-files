@@ -12,9 +12,9 @@ alias .....='cd ../../../..'
 #----------------------------------------------------------------------------------
 # Bat setup
 #----------------------------------------------------------------------------------
-alias cat=/usr/local/bin/bat
+alias cat=/opt/homebrew/bin/bat
 alias catn=/bin/cat
-alias catl='/usr/local/bin/bat --paging=never'
+alias catl='/opt/homebrew/bin/bat --paging=never'
 alias icat='kitty +kitten icat'
 
 #----------------------------------------------------------------------------------
