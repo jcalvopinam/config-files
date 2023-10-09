@@ -16,7 +16,7 @@
 
 ## Add new shorcuts for git
   ```shell
-  cat ~/space/config-files/fzf/fzf-shorcuts.zsh >> /usr/local/opt/fzf/shell/key-bindings.zsh
+  cat ~/space/config-files/fzf/fzf-shorcuts.zsh >> /opt/homebrew/opt/fzf/shell/key-bindings.zsh
   ```
 
 ## Shortcuts
