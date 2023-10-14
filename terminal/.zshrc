@@ -13,8 +13,11 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 #----------------------------------------------------------------------------------
 plugins=(
+    copybuffer
+    dirhistory
     git
     sudo
+    z
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
