@@ -64,14 +64,18 @@ alias tfd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(f
 alias rzshrc='source ~/.zshrc'
 
 #----------------------------------------------------------------------------------
-# Folders
+# Files& Folders
 #----------------------------------------------------------------------------------
 alias space='cd ~/space'
 alias doc='cd ~/Documents'
 alias dk='cd ~/Desktop'
 alias dl='cd ~/Downloads'
+alias cpwd='echo $(pwd) | pbcopy'
+alias cfile='clipcopy $1'
 
 #----------------------------------------------------------------------------------
 # General
 #----------------------------------------------------------------------------------
 alias eh!='nvim ~/.zsh_history'
+alias runp='lsof -i'
+alias wifipass='security find-generic-password -wa $1'
