@@ -3,8 +3,9 @@
     email = juan.calvopina@gmail.com
 [core]
     autocrlf = input
-    excludesFile = /Users/jcalvopina/.gitignore_global
+    editor = code --wait
     eol = lf
+    excludesFile = /Users/jcalvopina/.gitignore_global
 [init]
     defaultBranch = main
 [pull]
@@ -13,17 +14,17 @@
     autoSetupRemote = true
     default = current
 [diff]
-    tool = p4merge
-[difftool "p4merge"]
-    path = /Applications/p4merge.app/Contents/MacOS/p4merge
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
 [difftool]
-    promt = false
+    prompt = false
 [merge]
-    tool = p4merge
-[mergetool "p4merge"]
-    path = /Applications/p4merge.app/Contents/MacOS/p4merge
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [mergetool]
-    promt = false
+    prompt = false
 [color]
     branch = auto
     diff = auto
