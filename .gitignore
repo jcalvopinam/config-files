@@ -3,3 +3,5 @@
 **/.idea/*
 **/.obsidian/workspace*.json
 **/raycast/extensions/*
+**/obsidian/.obsidian/plugins/*
+**/obsidian/.obsidian/themes/*
