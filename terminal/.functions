@@ -201,3 +201,16 @@ function cmd-notification() {
   osascript -e "display notification \"$message\" sound name \"Basso\""
 }
 
+#----------------------------------------------------------------------------------
+# Gets the Colima IP
+#----------------------------------------------------------------------------------
+function ipc() {
+  result=$(colima status 2>&1)
+  ip=$(echo "$result" | awk '/address:/ {print $NF}' | tr -d '"')
+  if [ -z "$ip" ]; then
+    echo "$result" | awk -F 'msg=' '{print $2}' | cut -d'"' -f2
+  else
+    echo "$ip"
+  fi
+}
+
