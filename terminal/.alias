@@ -45,6 +45,7 @@ alias egrep='egrep --color=auto'
 #----------------------------------------------------------------------------------
 alias ipp='curl -s https://checkip.amazonaws.com'
 alias ipl='ipconfig getifaddr en0'
+alias ipvpn='ifconfig utun4 | awk "/inet / {print \$2}"'
 alias ipls="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }' | sort"
 
 #----------------------------------------------------------------------------------
