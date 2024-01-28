@@ -33,6 +33,7 @@ compinit -i
 [ -f ~/.alias ] && source ~/.alias
 [ -f ~/.exports ] && source ~/.exports
 [ -f ~/.functions ] && source ~/.functions
+[ -f ~/.docker_functions ] && source ~/.docker_functions
 [ -f ~/.work ] && source ~/.work
 
 #----------------------------------------------------------------------------------

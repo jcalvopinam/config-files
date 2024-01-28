@@ -48,6 +48,7 @@ curl -s "https://get.sdkman.io" | bash
 ln -s ~/space/config-files/terminal/.alias ~/
 ln -s ~/space/config-files/terminal/.exports ~/
 ln -s ~/space/config-files/terminal/.functions ~/
+ln -s ~/space/config-files/terminal/.docker_functions ~/
 ln -s ~/space/config-files/terminal/.fzf-commands ~/
 ln -s ~/space/config-files/terminal/.fzf.zsh ~/
 ln -s ~/space/config-files/terminal/.zshrc ~/
