@@ -2,7 +2,7 @@
 # Functions
 
 #----------------------------------------------------------------------------------
-# Creates a new folder and enter it
+# Creates a new folder and enter it. e.g.: mkd myProject
 #----------------------------------------------------------------------------------
 function mkd() {
     mkdir -p "$@" && cd "$_";
@@ -10,7 +10,7 @@ function mkd() {
 
 
 #----------------------------------------------------------------------------------
-# Deletes file/folder with scrub utility
+# Deletes file/folder with scrub utility. e.g.:rmk myFolder
 #----------------------------------------------------------------------------------
 function rmk() {
     scrub -p dod $1
@@ -19,9 +19,9 @@ function rmk() {
 
 
 #----------------------------------------------------------------------------------
-# Gets the size of a file or total size of a directory
+# Gets the size of a file or total size of a directory. e.g.: fsize ~/Downloads
 #----------------------------------------------------------------------------------
-function filesize() {
+function fsize() {
     if du -b /dev/null > /dev/null 2>&1; then
         local arg=-sbh;
     else
@@ -36,22 +36,10 @@ function filesize() {
 
 
 #----------------------------------------------------------------------------------
-# Gets the most useful info
+# Gets the most useful info about dns. e.g: digga google.com
 #----------------------------------------------------------------------------------
 function digga() {
     dig +nocmd "$1" any +multiline +noall +answer;
-}
-
-
-#----------------------------------------------------------------------------------
-# UTF-8-encode a string of Unicode symbols
-#----------------------------------------------------------------------------------
-function utf8() {
-    printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
-    # print a newline unless we’re piping the output to another program
-    if [ -t 1 ]; then
-        echo ""; # newline
-    fi;
 }
 
 
@@ -164,7 +152,7 @@ function clnav() {
 }
 
 #----------------------------------------------------------------------------------
-# Gets the total memory consumed by app
+# Gets the total memory consumed by app. e.g.: appname java
 #----------------------------------------------------------------------------------
 function appmem() {
   ps aux | grep -i "$1" | grep -v "grep" | awk '
@@ -189,7 +177,7 @@ function appmem() {
 }
 
 #----------------------------------------------------------------------------------
-# Shows a pop-up message with sound
+# Shows a pop-up message with sound. e.g.: cmd-notification hello
 #----------------------------------------------------------------------------------
 function cmd-notification() {
   message=""
