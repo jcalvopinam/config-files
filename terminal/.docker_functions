@@ -23,7 +23,7 @@ function di {
     docker inspect $1
 }
 
-function dl {
+function dlf {
     docker logs -f $1
 }
 
@@ -37,6 +37,14 @@ function dcr {
 
 function dsr {
     docker stop $1;docker rm $1
+}
+
+function dstp {
+    docker stop $1
+}
+
+function dstt {
+    docker start $1
 }
 
 function drmc {
