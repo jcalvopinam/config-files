@@ -80,7 +80,6 @@
       "key": "Y"
     }
   ],
-  "markdown:toggle-preview": [],
   "file-explorer:open": [
     {
       "modifiers": [
@@ -255,6 +254,14 @@
         "Alt"
       ],
       "key": "F1"
+    }
+  ],
+  "markdown:toggle-preview": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "E"
     }
   ]
 }
