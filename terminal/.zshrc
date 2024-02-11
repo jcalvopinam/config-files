@@ -30,10 +30,10 @@ compinit -i
 #----------------------------------------------------------------------------------
 # Load custom configuration
 #----------------------------------------------------------------------------------
-[ -f ~/.alias ] && source ~/.alias
+[ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.exports ] && source ~/.exports
 [ -f ~/.functions ] && source ~/.functions
-[ -f ~/.docker_functions ] && source ~/.docker_functions
+[ -f ~/.docker-commands ] && source ~/.docker-commands
 [ -f ~/.work ] && source ~/.work
 
 #----------------------------------------------------------------------------------
