@@ -99,7 +99,7 @@ function man() {
 
 
 #----------------------------------------------------------------------------------
-# Clean duplicated entries
+# Clean duplicated entries in the history
 #----------------------------------------------------------------------------------
 function czsh() {
     cd ~
@@ -120,7 +120,7 @@ function czsh() {
 }
 
 #----------------------------------------------------------------------------------
-# Clean duplicated entries
+# Uninstall a formula with brew
 #----------------------------------------------------------------------------------
 function ubrew() {
     brew uninstall --force $1     # It deletes the package, data and configuration
