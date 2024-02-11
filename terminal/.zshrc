@@ -8,8 +8,7 @@ ZSH_THEME="robbyrussell3"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 #----------------------------------------------------------------------------------
 plugins=(
-    copybuffer
-    dirhistory
+    copybuffer               # ctrl + o
     git
     sudo
     z
@@ -33,6 +32,7 @@ compinit -i
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.exports ] && source ~/.exports
 [ -f ~/.functions ] && source ~/.functions
+[ -f ~/.keybindings ] && source ~/.keybindings
 [ -f ~/.docker-commands ] && source ~/.docker-commands
 [ -f ~/.work ] && source ~/.work
 

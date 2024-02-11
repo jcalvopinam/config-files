@@ -1,0 +1,9 @@
+#----------------------------------------------------------------------------------
+# Move backward / forward with left / right arrow keys
+#----------------------------------------------------------------------------------
+bindkey -e
+bindkey "^[^[[A" beginning-of-line
+bindkey "^[^[[B" end-of-line
+bindkey "^[^[[C" forward-word
+bindkey "^[^[[D" backward-word
+
