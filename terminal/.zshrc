@@ -33,8 +33,8 @@ compinit -i
 [ -f ~/.exports ] && source ~/.exports
 [ -f ~/.functions ] && source ~/.functions
 [ -f ~/.keybindings ] && source ~/.keybindings
-[ -f ~/.docker-commands ] && source ~/.docker-commands
-[ -f ~/.work ] && source ~/.work
+#[ -f ~/.docker-commands ] && source ~/.docker-commands
+#[ -f ~/.work ] && source ~/.work
 
 #----------------------------------------------------------------------------------
 # Load configuration for fzf
