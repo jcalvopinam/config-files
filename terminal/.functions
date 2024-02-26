@@ -108,6 +108,13 @@ function czsh() {
         find / -type f -name ".DS_Store" -exec rm -rf {} \; 2>/dev/null
         echo "...done!"
     fi
+
+    # sort by commands
+    if [ "$1" = "s" ]; then
+      sort -t ';' -k2 ".zsh_history" > ".zsh_history.temp"
+      mv ".zsh_history.temp" ".zsh_history"
+    fi
+
     cd -
 }
 
