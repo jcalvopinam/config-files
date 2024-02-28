@@ -1,25 +1,28 @@
 #!/bin/bash
+# how to use: ./md5_verifier.sh hashes.txt
+
 current_folder=$(pwd)
+cd $HOME/Downloads/
 
-md5_file_name1="bb78064078fab15823a772c0c9d77c1e"
-md5_file_name2="b806d2320b1c8d466e43d0e42b8815ab"
-md5_file_name3="12528f03d5da4da3a355d552859667fc"
+declare -a hashes_file
+while IFS= read -r line || [[ -n "$line" ]]; do
+    hashes_file+=("$line")
+done < "$(dirname "$0")/$1" # Read the hashes from a file $1
 
-files=("file_name1.war" "file_name2.war" "file_name3.zip")
+files=("file_name1.war" "file_name3.war" "file_name3.zip")
 
 for file in "${files[@]}"; do
-  current_file="$HOME/Downloads/$file"
-
-  if [ -f "$current_file" ]; then
-    current_hash=$(md5 "$current_file" | awk '{ print $4 }')
-
-    if [ "$current_hash" = "$md5_file_name1" ] || \
-       [ "$current_hash" = "$md5_file_name2" ] || \
-       [ "$current_hash" = "$md5_file_name3" ]; then
-      echo -e "\033[0;32m :: ✓ $file \033[0m"
-    else
-      echo -e "\033[0;31m :: x $file \033[0m"
-    fi
+  if [ -f "$file" ]; then
+    current_hash=$(md5 "$file" | awk '{ print $4 }')
+    for hash_file in "${hashes_file[@]}"; do
+      hash_name=${hash_file%% *}
+      hash_value=${hash_file#* }
+      if [ "$current_hash" = "$hash_value" ] && [ "$file" = "$hash_name" ]; then
+        echo -e "\033[0;32m :: ✓ $hash_name \033[0m"
+        continue 2  # next file
+      fi
+    done
+    echo -e "\033[0;31m :: x $file \033[0m"
   else
     echo -e "\033[0;31m :: The file $file is not in the Downloads folder.\033[0m"
   fi
