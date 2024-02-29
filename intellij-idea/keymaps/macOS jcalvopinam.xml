@@ -1,0 +1,9 @@
+<keymap version="1" name="macOS jcalvopinam" parent="Mac OS X 10.5+">
+  <action id="RecentFiles">
+    <keyboard-shortcut first-keystroke="meta e" />
+    <keyboard-shortcut first-keystroke="alt e" />
+  </action>
+  <action id="RunAnything">
+    <keyboard-shortcut first-keystroke="alt x" />
+  </action>
+</keymap>
