@@ -71,6 +71,16 @@ brew install p7zip
 brew install rg
 ```
 
+### **[unrar](https://www.winrar.es/descargas/unrar)**: It is a tool for decompress rar files
+```sh
+brew install unrar
+```
+
+### **[tldr](https://github.com/tldr-pages/)**: It is a tool to simplify the beloved man pages with practical examples
+```sh
+brew install tldr
+```
+
 ## Desktop application
 ### **[App Cleaner](https://freemacsoft.net/appcleaner/):** AppCleaner is a small application which allows you to thoroughly uninstall unwanted apps.
 ```sh
@@ -160,4 +170,9 @@ brew install --cask spotify
 ### **[Suspicious Package](https://www.mothersruin.com/software/SuspiciousPackage/)**: An Application for Inspecting macOS Installer Packages
 ```sh
 brew install --cask suspicious-package
+```
+
+### **[klogg](https://github.com/variar/klogg)**: Application to search through all kinds of text log files using regular expressions
+```sh
+brew install --cask klogg
 ```
