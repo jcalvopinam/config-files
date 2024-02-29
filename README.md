@@ -65,6 +65,7 @@ ln -s ~/space/config-files/bat ~/.config/
 ln -s ~/space/config-files/kitty ~/.config/
 ln -s ~/space/config-files/raycast ~/.config/
 ln -s ~/space/config-files/iTerm/com.googlecode.iterm2.plist ~/Library/Preferences/
+ln -s ~/space/config-files/iTerm/com.googlecode.iterm2.private.plist ~/Library/Preferences/
 
 mkdir -p ~/Library/Application\ Support/Sublime\ Text/Packages/User
 ln -s ~/space/config-files/sublime-text/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text/Packages/User
