@@ -6,13 +6,14 @@ fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/usr/local/Cellar/fzf/0.46.1/shell/completion.zsh" 2> /dev/null
+FZF_PATH=$(dirname $(readlink  -f $(which fzf)))
+[[ $- == *i* ]] && source $FZF_PATH"/../shell/completion.zsh" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/usr/local/Cellar/fzf/0.46.1/shell/key-bindings.zsh"
+source $FZF_PATH"/../shell/key-bindings.zsh"
 
 #----------------------------------------------------------------------------------
 # Load configuration for custom fzf commands
 #----------------------------------------------------------------------------------
-[ -f ~/.fzf-commands ] && source ~/.fzf-commands
+[[ -f ~/.fzf-commands ]] && source ~/.fzf-commands
