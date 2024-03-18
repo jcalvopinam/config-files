@@ -1,5 +1,5 @@
 #!/bin/bash
-# how to use: ./md5_verifier.sh hashes.txt
+# how to use: ./md5_verifier.sh $HOME/Downloads/hashes.txt
 
 current_folder=$(pwd)
 cd $HOME/Downloads/
