@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Exports
 
-export PATH=/usr/local/bin/:/usr/local/sbin/:/usr/local/bin/:$PATH
-
-#----------------------------------------------------------------------------------
-# For Maven, Gradle and Java > sdkman
-#----------------------------------------------------------------------------------
+export PATH="/usr/local/bin/:\
+/usr/local/sbin/:\
+/usr/local/bin/:\
+$HOME/space/config-files/scripts/:\
+$PATH"
 
 #----------------------------------------------------------------------------------
 # Python setup
@@ -23,12 +23,10 @@ eval "$(fnm env --use-on-cd)"
 #----------------------------------------------------------------------------------
 # GENERAL
 #----------------------------------------------------------------------------------
-export GPG_TTY=\$(tty)                                                             # git Signing commits
+export GPG_TTY=$(tty)                                         # git Signing commits
 
 #----------------------------------------------------------------------------------
-# FZF setup for default command
-# this exclude all files and folders defined in the .gitignore file
-# It's is required to be defined using:
+# FZF: to exclude all files and folders defined in the .gitignore file
 # git config --global core.excludesFile ~/.gitignore_global
 #----------------------------------------------------------------------------------
 export FZF_DEFAULT_COMMAND=" rg --files --hidden "
