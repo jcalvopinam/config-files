@@ -1,0 +1,10 @@
+.idea
+.git
+.gradle
+node_modules
+target
+build
+gradle
+Library
+.photoslibrary
+classes
