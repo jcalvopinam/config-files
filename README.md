@@ -51,6 +51,7 @@ ln -s ~/space/config-files/terminal/.functions ~/
 ln -s ~/space/config-files/terminal/.keybindings ~/
 ln -s ~/space/config-files/terminal/.fzf.zsh ~/
 ln -s ~/space/config-files/terminal/.fzf-commands ~/
+ln -s ~/space/config-files/terminal/.fzf-ignore ~/
 ln -s ~/space/config-files/terminal/.docker-commands ~/
 ln -s ~/space/config-files/terminal/.zshrc ~/
 

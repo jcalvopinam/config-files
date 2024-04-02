@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+exclude=$(awk '{printf " -o -name '\''%s'\''", $1}' ~/.fzf-ignore)
+
 #----------------------------------------------------------------------------------
 # Some functions were adapted from: https://github.com/junegunn/fzf-git.sh
 # MIT License
@@ -71,15 +73,22 @@ function gdiff() {
   fi
 
   # Obtener la lista de archivos modificados
-  local modified_files=$(git diff $@ --name-only)
+  local modified_files=$(git diff --name-only)
 
   # Si no hay archivos modificados, salir
   [ -z "$modified_files" ] && echo "No files modified" && return
 
   # Utilizar fzf con la opción --preview para mostrar la lista y las diferencias
-  echo "$modified_files" | fzf -m --ansi --prompt ' Search files: ' \
-    --preview-window right:70%,wrap --layout reverse --border \
-    --preview "git diff $@ --color=always -- {} | bat --color=always --style=header,grid --line-range :500" | \
+  echo "$modified_files" | \
+  fzf -m --ansi \
+    --prompt ' Search files: ' \
+    --header $'ESC (exit)\n\n' \
+    --preview-window right:70%,wrap \
+    --tiebreak begin \
+    --color hl:underline,hl+:underline \
+    --layout reverse \
+    --border \
+    --preview "git -C \$(git rev-parse --show-toplevel) diff --color=always {} | bat --color=always --style=header,grid --line-range :500 | less -R" | \
     xargs -o -I {} git diff -p {}
 }
 
@@ -246,13 +255,8 @@ function gparent() {
 # Finds files inside of the current path
 #----------------------------------------------------------------------------------
 function ff() {
-  find . -type f \
-    -not -path "*/node_modules/*" \
-    -not -path "*/target/*" \
-    -not -path "*/.zsh_sessions/*" \
-    -not -path "*/.npm-global/*" \
-    -not -path "*/.node*/*" \
-    -not -path "*/build/*" \
+  find . -type f -maxdepth 5 | grep -vEf ~/.fzf-ignore \
+    | sed 's|^./||' \
     | fzf -m -e --ansi \
     --prompt ' Search file: ' \
     --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
@@ -265,23 +269,63 @@ function ff() {
     --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
         (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
         coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim -p
-
 }
 
 #----------------------------------------------------------------------------------
 # Finds folders inside of the current path
 #----------------------------------------------------------------------------------
 function fd() {
-  cmd="command find -L . -mindepth 1 \
-  \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \
-  -o -fstype 'proc' -o -name 'node_modules' -o -name 'build' -o -name 'Library' \
-  -o -name '*.photoslibrary' -o -name 'classes' -o -name 'target' \\) \
-  -prune -o -type d -print 2> /dev/null | cut -b3-"
-
+  cmd="command find -L . -mindepth 1 \\( -path '*/\\.*' $exclude \\) -prune -o -type d -print 2> /dev/null | cut -b3-"
     cd $(eval "$cmd" | \
       fzf -e --ansi \
         --prompt ' Search folder: ' \
         --header $'ESC (exit)\n\n' \
+        --preview-window right,60% \
+        --bind='ctrl-space:toggle-preview' \
+        --tiebreak begin \
+        --color hl:underline,hl+:underline \
         --layout reverse \
-        --border)
+        --border \
+        --preview 'ls {}')
+}
+
+#----------------------------------------------------------------------------------
+# Finds files and folders inside of the current path
+#----------------------------------------------------------------------------------
+function lsf(){
+  preview_command='
+    if [ -d {} ]; then
+      echo "-------  Folder: {} \n"
+      ls -1 {}
+      echo
+    else
+      echo "-------   File  : {} \n"
+      (bat --style=numbers --color=always {} || cat {})
+      echo
+    fi'
+
+  while true; do
+    selected=$((echo ".." && find . -maxdepth 1 | grep -Evf ~/.fzf-ignore | xargs basename) \
+    | sort \
+    | sed 's|^./||' \
+    | fzf -m -e --ansi -d: \
+      --prompt '  Search: ' \
+      --header $'ESC (exit)\n\n' \
+      --preview-window right,70% \
+      --tiebreak begin \
+      --color hl:underline,hl+:underline \
+      --layout reverse \
+      --border \
+      --preview "$preview_command")
+
+    if [ -z "$selected" ]; then
+        break
+    elif [ "$selected" = "." ]; then
+        cd ..
+    elif [ -f "$selected" ] && file "$selected" | grep -qE "text|ASCII"; then
+        nvim "$selected"
+    elif [ -d "$selected" ]; then
+        cd "$selected" || exit 1
+    fi
+  done
 }

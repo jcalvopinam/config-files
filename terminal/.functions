@@ -123,9 +123,9 @@ function czsh() {
 #----------------------------------------------------------------------------------
 function ubrew() {
     brew uninstall --force $1     # It deletes the package, data and configuration
-    # brew remove $1              # It deletes only the package
     brew cleanup $1
     brew autoremove --dry-run
+    brew cleanup
     brew doctor
 }
 
