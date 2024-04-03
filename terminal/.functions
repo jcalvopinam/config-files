@@ -201,3 +201,14 @@ function ipc() {
   fi
 }
 
+#----------------------------------------------------------------------------------
+# Enable / Disable WiFi
+#----------------------------------------------------------------------------------
+function dwifi() {
+  networksetup -setairportpower en0 off
+}
+
+function ewifi() {
+  networksetup -setairportpower en0 on
+}
+
