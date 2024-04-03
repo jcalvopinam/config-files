@@ -122,6 +122,11 @@ brew install --cask iina
 brew install --cask kitty
 ```
 
+### **[Loop](https://github.com/MrKai77/Loop):** It is a macOS app that simplifies window management.
+```sh
+brew install mrkai77/cask/loop
+```
+
 ### **[Libre Wolf](https://librewolf.net/):** A fork of Firefox, focused on privacy, security and freedom.
 ```sh
 brew install --cask librewolf
