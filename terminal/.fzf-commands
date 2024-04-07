@@ -88,7 +88,7 @@ function gdiff() {
     --color hl:underline,hl+:underline \
     --layout reverse \
     --border \
-    --preview "git -C \$(git rev-parse --show-toplevel) diff --color=always {} | bat --color=always --style=header,grid --line-range :500 | less -R" | \
+    --preview "git -C \"\$(git rev-parse --show-toplevel)\" diff --color=always {} | bat --color=always --style=header,grid --line-range :500 | less -R" | \
     xargs -o -I {} git diff -p {}
 }
 
