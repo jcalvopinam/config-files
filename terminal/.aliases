@@ -37,8 +37,10 @@ alias lt='lsd --tree --group-directories-first'
 # Colored `grep` output
 #----------------------------------------------------------------------------------
 alias grep='grep --color=auto'
+alias ggrep='ggrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias zgrep='zgrep --color=auto'
 
 #----------------------------------------------------------------------------------
 # IP addresses
