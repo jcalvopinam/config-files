@@ -121,10 +121,21 @@ function czsh() {
 #----------------------------------------------------------------------------------
 # Uninstall a formula with brew
 #----------------------------------------------------------------------------------
-function ubrew() {
+function unbrew() {
     brew uninstall --force $1     # It deletes the package, data and configuration
     brew cleanup $1
     brew autoremove --dry-run
+    brew cleanup
+    brew doctor
+}
+
+#----------------------------------------------------------------------------------
+# Force update/upgrade formulas and casks with brew
+#----------------------------------------------------------------------------------
+function upbrew() {
+    brew update
+    brew upgrade
+    brew upgrade --cask $(brew list --cask)
     brew cleanup
     brew doctor
 }
