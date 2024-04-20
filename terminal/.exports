@@ -8,9 +8,13 @@ $HOME/space/config-files/scripts/:\
 $PATH"
 
 #----------------------------------------------------------------------------------
+# Homebrew setup
+#----------------------------------------------------------------------------------
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+#----------------------------------------------------------------------------------
 # Python setup
 #----------------------------------------------------------------------------------
-alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
@@ -30,6 +34,11 @@ export GPG_TTY=$(tty)                                         # git Signing comm
 # git config --global core.excludesFile ~/.gitignore_global
 #----------------------------------------------------------------------------------
 export FZF_DEFAULT_COMMAND=" rg --files --hidden "
+
+#----------------------------------------------------------------------------------
+# Set colors for grep. Make sure you're using grep from brew
+#----------------------------------------------------------------------------------
+export GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
 #----------------------------------------------------------------------------------
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
