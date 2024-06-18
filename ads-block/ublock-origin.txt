@@ -1,0 +1,30 @@
+! 2023-10-05 https://stackoverflow.com
+stackoverflow.com##.js-consent-banner
+
+! 2023-10-06 https://apple.stackexchange.com
+apple.stackexchange.com##.js-consent-banner
+apple.stackexchange.com##.vertical-align-content
+apple.stackexchange.com##.overflow-hidden
+
+! 2023-10-07 https://superuser.com
+superuser.com###onetrust-consent-sdk
+
+! 2023-10-08 https://askubuntu.com
+askubuntu.com##.vertical-align-content
+
+! 2023-10-09 https://stackoverflow.com
+stackoverflow.com##.vertical-align-content
+
+! 2024-03-12 https://carterchen247.medium.com
+||miro.medium.com/v2/resize$image
+carterchen247.medium.com##.ug.uf.ue.m
+
+! 2024-03-15 https://www.deepl.com
+www.deepl.com##.focus-visible-light-container.StickyBanner-module--stickyBanner--s7FKj.writeAdvertisementBanner-module--root--AQza-.Banner-module--dialog--piqGl
+www.deepl.com##.min-\[1280px\]\:px-0.px-6.justify-between.items-center.flex
+www.deepl.com##.justify-between.items-center.flex.container-module--withResponsivePadding--eLkQK.false.container-module--xxxl--E2VkJ.container-module--container--IDKSF
+www.deepl.com##.lg\:px-\[70px\].sm\:px-8.bg-white.w-full
+www.deepl.com##.focus-visible-light-container.cookieBanner-module--container--m67zj
+www.deepl.com##div.lg\:px-\[70px\].p-8:nth-of-type(4)
+www.deepl.com##.mobile\:hidden > .lg\:px-\[70px\].p-8
+www.deepl.com##.pageFooterV2-module--footerOuterContainer--CwVcZ
