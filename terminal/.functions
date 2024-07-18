@@ -223,3 +223,20 @@ function ewifi() {
   networksetup -setairportpower en0 on
 }
 
+#----------------------------------------------------------------------------------
+# Theme switching depending on the current macOS appearance
+#----------------------------------------------------------------------------------
+function themeToggle() {
+  if [[ "$MACOS_CURRENT_THEME" == "Light" ]]; then
+    # lsd
+    mv ~/.config/lsd_light ~/.config/lsd 2>/dev/null
+
+    # bat
+    alias cat='/opt/homebrew/bin/bat --theme=OneHalfLight '
+    alias catl='/opt/homebrew/bin/bat --theme=OneHalfLight --paging=never '
+    alias bat='/opt/homebrew/bin/bat --theme=OneHalfLight '
+  else
+    # lsd
+    mv ~/.config/lsd ~/.config/lsd_light 2>/dev/null
+  fi
+}

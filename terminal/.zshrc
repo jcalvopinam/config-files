@@ -42,8 +42,8 @@ fi
 #----------------------------------------------------------------------------------
 # Load custom configuration
 #----------------------------------------------------------------------------------
-[[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.exports ]] && source ~/.exports
+[[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.functions ]] && source ~/.functions
 [[ -f ~/.keybindings ]] && source ~/.keybindings
 [[ -f ~/.docker-commands ]] && source ~/.docker-commands
@@ -59,3 +59,4 @@ fi
 # autoload
 #----------------------------------------------------------------------------------
 czsh
+themeToggle

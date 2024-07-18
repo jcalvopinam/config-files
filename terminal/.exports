@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 # Exports
 
+#----------------------------------------------------------------------------------
+# Custom CLI themes based on the current macOS appearence
+#----------------------------------------------------------------------------------
+if [[ $(defaults read ~/Library/Preferences/.GlobalPreferences.plist AppleInterfaceStyle 2>/dev/null) = Dark ]]; then
+  export MACOS_CURRENT_THEME='Dark'
+else
+  export MACOS_CURRENT_THEME='Light'
+fi
+
+#----------------------------------------------------------------------------------
+# Homebrew PATH
+#----------------------------------------------------------------------------------
 export PATH="/usr/local/bin/:\
 /usr/local/sbin/:\
 /usr/local/bin/:\
