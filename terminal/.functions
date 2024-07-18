@@ -5,35 +5,32 @@
 # Deletes file/folder with scrub utility. e.g.:rmk myFolder
 #----------------------------------------------------------------------------------
 function rmk() {
-    scrub -p dod $1
-    shred -zun 10 -v $1
+  scrub -p dod $1
+  shred -zun 10 -v $1
 }
-
 
 #----------------------------------------------------------------------------------
 # Gets the size of a file or total size of a directory. e.g.: fsize ~/Downloads
 #----------------------------------------------------------------------------------
 function fsize() {
-    if du -b /dev/null > /dev/null 2>&1; then
-        local arg=-sbh;
-    else
-        local arg=-sh;
-    fi
-    if [[ -n "$@" ]]; then
-        du $arg -- "$@";
-    else
-        du $arg .[^.]* ./*;
-    fi;
+  if du -b /dev/null >/dev/null 2>&1; then
+    local arg=-sbh
+  else
+    local arg=-sh
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg .[^.]* ./*
+  fi
 }
-
 
 #----------------------------------------------------------------------------------
 # Gets the most useful info about dns. e.g: digga google.com
 #----------------------------------------------------------------------------------
 function digga() {
-    dig +nocmd "$1" any +multiline +noall +answer;
+  dig +nocmd "$1" any +multiline +noall +answer
 }
-
 
 #----------------------------------------------------------------------------------
 # Extract and open project with IntelliJ, currently this only supports "zip" files.
@@ -44,41 +41,40 @@ function digga() {
 # > uio demo.zip
 #----------------------------------------------------------------------------------
 function uio() {
-    project=$1
-    filename=$(basename -- "$project")
-    extension="${filename##*.}"
-    filename="${filename%.*}"
+  project=$1
+  filename=$(basename -- "$project")
+  extension="${filename##*.}"
+  filename="${filename%.*}"
 
-    if [ "$project" = "" ]; then
-        echo " ::Please enter the file name..."
+  if [ "$project" = "" ]; then
+    echo " ::Please enter the file name..."
+  else
+    if [[ ${extension} == "zip" ]]; then
+      unzip -q $project
+      echo " ::Checking the project structure ..."
+      cd $filename
+      if [ -e pom.xml ] || [ -e build.gradle ]; then
+        echo " ::Opening the project" $filename
+        cd ..
+        idea $filename &
+        sleep 5
+        echo " "
+      else
+        cd ..
+        rm -rf $filename
+        echo " ::The structure of the project is not maven nor gradle"
+      fi
     else
-        if [[ ${extension} == "zip" ]]; then
-            unzip -q $project
-            echo " ::Checking the project structure ..."
-            cd $filename
-            if [ -e pom.xml ] || [ -e build.gradle ]; then
-                echo " ::Opening the project" $filename
-                cd ..
-                idea $filename & 
-                sleep 5
-                echo " "
-            else
-                cd ..
-                rm -rf $filename
-                echo " ::The structure of the project is not maven nor gradle"
-            fi
-        else
-            echo " :: Extension file doesn't support...."
-        fi
+      echo " :: Extension file doesn't support...."
     fi
+  fi
 }
-
 
 #----------------------------------------------------------------------------------
 # Set 'man' colors
 #----------------------------------------------------------------------------------
 function man() {
-    env \
+  env \
     LESS_TERMCAP_mb=$'\e[01;31m' \
     LESS_TERMCAP_md=$'\e[01;31m' \
     LESS_TERMCAP_me=$'\e[0m' \
@@ -89,64 +85,63 @@ function man() {
     man "$@"
 }
 
-
 #----------------------------------------------------------------------------------
 # Clean duplicated entries in the history
 #----------------------------------------------------------------------------------
 function czsh() {
-    cd ~
-    cat -n .zsh_history | sort -t ';' -uk2 | sort -nk1 | cut -f2- > .zsh_clean_history
+  cd ~
+  cat -n .zsh_history | sort -t ';' -uk2 | sort -nk1 | cut -f2- >.zsh_clean_history
 
-    set +o nomatch
-    rm -rf .zsh_history .zcompdump* .zsh_sessions
-    mv .zsh_clean_history .zsh_history
-    rm -rf .viminfo
-    set -o nomatch
+  set +o nomatch
+  rm -rf .zsh_history .zcompdump* .zsh_sessions
+  mv .zsh_clean_history .zsh_history
+  rm -rf .viminfo
+  set -o nomatch
 
-    if [ "$1" = "f" ]; then
-        echo "Please wait until the execution has been released"
-        find / -type f -name ".DS_Store" -exec rm -rf {} \; 2>/dev/null
-        echo "...done!"
-    fi
+  if [ "$1" = "f" ]; then
+    echo "Please wait until the execution has been released"
+    find / -type f -name ".DS_Store" -exec rm -rf {} \; 2>/dev/null
+    echo "...done!"
+  fi
 
-    # sort by commands
-    if [ "$1" = "s" ]; then
-      sort -t ';' -k2 ".zsh_history" > ".zsh_history.temp"
-      mv ".zsh_history.temp" ".zsh_history"
-    fi
+  # sort by commands
+  if [ "$1" = "s" ]; then
+    sort -t ';' -k2 ".zsh_history" >".zsh_history.temp"
+    mv ".zsh_history.temp" ".zsh_history"
+  fi
 
-    cd -
+  cd -
 }
 
 #----------------------------------------------------------------------------------
 # Uninstall a formula with brew
 #----------------------------------------------------------------------------------
 function unbrew() {
-    brew uninstall --force $1     # It deletes the package, data and configuration
-    brew cleanup $1
-    brew autoremove --dry-run
-    brew cleanup
-    brew doctor
+  brew uninstall --force $1 # It deletes the package, data and configuration
+  brew cleanup $1
+  brew autoremove --dry-run
+  brew cleanup
+  brew doctor
 }
 
 #----------------------------------------------------------------------------------
 # Force update/upgrade formulas and casks with brew
 #----------------------------------------------------------------------------------
 function upbrew() {
-    brew update
-    brew upgrade
-    brew upgrade --cask $(brew list --cask)
-    brew cleanup
-    brew doctor
+  brew update
+  brew upgrade
+  brew upgrade --cask $(brew list --cask)
+  brew cleanup
+  brew doctor
 }
 
 #----------------------------------------------------------------------------------
 # Reset and clean current branch
 #----------------------------------------------------------------------------------
 function cbranch() {
-  if ! git ls-files >& /dev/null; then
+  if ! git ls-files >&/dev/null; then
     echo $'Git project not found\n'
-    return ;
+    return
   fi
   git reset --hard
   git clean -f -d
@@ -223,3 +218,20 @@ function ewifi() {
   networksetup -setairportpower en0 on
 }
 
+#----------------------------------------------------------------------------------
+# Theme switching depending on the current macOS appearance
+#----------------------------------------------------------------------------------
+function themeToggle() {
+  if [[ "$MACOS_CURRENT_THEME" == "Light" ]]; then
+    # lsd
+    mv ~/.config/lsd_light ~/.config/lsd 2>/dev/null
+
+    # bat
+    alias cat='/usr/local/bin/bat --theme=OneHalfLight '
+    alias catl='/usr/local/bin/bat --theme=OneHalfLight --paging=never '
+    alias bat='/usr/local/bin/bat --theme=OneHalfLight '
+  else
+    # lsd
+    mv ~/.config/lsd ~/.config/lsd_light 2>/dev/null
+  fi
+}
