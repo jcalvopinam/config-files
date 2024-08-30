@@ -28,3 +28,7 @@ www.deepl.com##.focus-visible-light-container.cookieBanner-module--container--m6
 www.deepl.com##div.lg\:px-\[70px\].p-8:nth-of-type(4)
 www.deepl.com##.mobile\:hidden > .lg\:px-\[70px\].p-8
 www.deepl.com##.pageFooterV2-module--footerOuterContainer--CwVcZ
+www.deepl.com##.relative.bg-neutral-next-50 > .mobile\:hidden
+www.deepl.com##.focus-visible-light-container
+www.deepl.com##.pageFooterV2-module--footerOuterContainer--CwVcZ
+www.deepl.com##.justify-center.sm\:items-center.items-start.flex.bg-blue-next-100
