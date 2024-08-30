@@ -228,6 +228,9 @@ function ewifi() {
 #----------------------------------------------------------------------------------
 function themeToggle() {
   if [[ "$MACOS_CURRENT_THEME" == "Light" ]]; then
+    # zsh autosuggest highlight
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#9e9e9e'
+
     # lsd
     mv ~/.config/lsd_light ~/.config/lsd 2>/dev/null
 
