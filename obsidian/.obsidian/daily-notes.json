@@ -1,5 +1,6 @@
 {
-  "format": "DD-MMM-YYYY",
-  "folder": "0. notes",
-  "autorun": false
+  "format": "YYYY/MM-MMMM/DD-MMM-YYYY",
+  "folder": "0. journals",
+  "autorun": false,
+  "template": "x. templates/Daily summary"
 }

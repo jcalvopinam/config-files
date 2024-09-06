@@ -1,0 +1,5 @@
+.recent-files-title:before {
+  content: "\e924";
+  font-family: "IcoMoon-Free";
+  margin-right: 8px;
+}

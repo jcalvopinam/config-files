@@ -1,0 +1,59 @@
+/* updated snippet for version 1.6.3 */
+
+.nav-files-container > div > .nav-folder {
+  color: #1B1D20;
+  background-color: var(--folder-color);
+  --nav-item-color: black;
+  --nav-item-color-hover: black;
+  --nav-collapse-icon-color: black;
+  --nav-item-color-active: black;
+  border-radius: 10px;
+}
+.nav-files-container > div > .nav-folder:hover {
+  color: #1B1D20;
+  filter: brightness(0.9);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 2) {
+  color: #1B1D20;
+  --folder-color: rgb(243, 139, 168);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 3) {
+  color: #1B1D20;
+  --folder-color: rgb(235, 160, 172);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 4) {
+  color: #1B1D20;
+  --folder-color: rgb(250, 179, 135);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 5) {
+  color: #1B1D20;
+  --folder-color: rgb(249, 226, 175);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 6) {
+  color: #1B1D20;
+  --folder-color: rgb(166, 227, 161);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 7) {
+  color: #1B1D20;
+  --folder-color: rgb(148, 226, 213);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 8) {
+  color: #1B1D20;
+  --folder-color: rgb(137, 220, 235);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 9) {
+  color: #1B1D20;
+  --folder-color: rgb(116, 199, 236);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 10) {
+  color: #1B1D20;
+  --folder-color: rgb(135, 176, 249);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 11) {
+  color: #1B1D20;
+  --folder-color: rgb(180, 190, 254);
+}
+.nav-files-container > div > .nav-folder:nth-child(11n + 12) {
+  color: #1B1D20;
+  --folder-color: rgb(203, 166, 247);
+}

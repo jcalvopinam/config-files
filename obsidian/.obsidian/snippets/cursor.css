@@ -1,0 +1,10 @@
+/*for legacy editor*/
+.CodeMirror-activeline.CodeMirror-linebackground{
+  background-color: #468eeb33;
+}
+
+
+/*for live preview mode*/
+.cm-active.cm-line{
+  background-color: #468eeb33;
+}
