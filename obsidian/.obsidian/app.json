@@ -2,12 +2,13 @@
   "readableLineLength": false,
   "alwaysUpdateLinks": true,
   "defaultViewMode": "preview",
-  "strictLineBreaks": true,
+  "strictLineBreaks": false,
   "spellcheck": true,
-  "attachmentFolderPath": "./resources",
+  "attachmentFolderPath": "./assets",
   "livePreview": true,
   "showInlineTitle": false,
   "showUnsupportedFiles": true,
   "showFrontmatter": false,
-  "showLineNumber": true
+  "showLineNumber": true,
+  "propertiesInDocument": "source"
 }

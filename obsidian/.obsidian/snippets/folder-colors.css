@@ -1,0 +1,96 @@
+.nav-files-container > div > .nav-folder {
+    --nav-item-color: var(--folder-color);
+}
+.nav-files-container > div > .nav-folder:hover {
+    filter: brightness(0.9);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+2) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(235, 160, 172);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+2) .tree-item-children {
+    --nav-indentation-guide-color: var(--color-red);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+3) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(250, 179, 135);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+3) .tree-item-children {
+    --nav-indentation-guide-color: var(--color-orange);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+4) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(249, 226, 175);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+4) .tree-item-children {
+    --nav-indentation-guide-color: var(--color-yellow);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+5) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(166, 227, 161);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+5) .tree-item-children {
+    --nav-indentation-guide-color: var(--color-green);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+6) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(148, 226, 213);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+6) .tree-item-children {
+    --nav-indentation-guide-color: rgb(114, 174, 164);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+7) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(137, 220, 235);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+7) .tree-item-children {
+    --nav-indentation-guide-color: var(--color-cyan);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+8) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(116, 199, 236);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+8) .tree-item-children {
+    --nav-indentation-guide-color: rgb(103, 175, 208);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+9) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(135, 176, 249);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+9) .tree-item-children {
+    --nav-indentation-guide-color: var(--color-blue);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+10) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(180, 190, 254);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+10) .tree-item-children {
+    --nav-indentation-guide-color: var(--color-purple);
+}
+
+.nav-files-container > div > .nav-folder:nth-of-type(11n+11) > .tree-item-self {
+    color: #1B1D20;
+    background-color: rgb(203, 166, 247);
+    font-weight: 600;
+}
+.nav-files-container > div > .nav-folder:nth-of-type(11n+11) .tree-item-children {
+    --nav-indentation-guide-color: rgb(163, 133, 199);
+}
