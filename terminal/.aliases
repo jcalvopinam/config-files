@@ -24,6 +24,10 @@ alias ls='lsd --classify'
 alias ll='lsd -ltrh --group-directories-first --classify'
 alias la='lsd -lah --group-directories-first --classify'
 alias lt='lsd --tree --group-directories-first'
+alias ld='lsd --directory-only */'
+alias lda='lsd --directory-only (.*|*)/'
+alias lf='lsd --directory-only (|*)(^/)'
+alias lfa='lsd --directory-only (.*|*)(^/)'
 
 #----------------------------------------------------------------------------------
 # `ls` configuration
