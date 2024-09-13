@@ -101,13 +101,13 @@ function glogg() {
     echo $'Git project not found\n'
     return ;
   fi
-  git log --abbrev --oneline --decorate --color --abbrev-commit \
+  git log --date-order --abbrev --oneline --decorate --color --abbrev-commit \
   --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | sed 's/Merged in //' $@ | \
   fzf -m -e --ansi \
     --prompt ' Search (hash/message/author): ' \
     --header $'ESC (exit)\n\n' \
     --preview-window right:70%,wrap \
-    --tiebreak begin \
+    --tiebreak index \
     --color hl:underline,hl+:underline \
     --layout reverse \
     --border \
