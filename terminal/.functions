@@ -43,39 +43,41 @@ function digga() {
 # sample how to use: uio project-name.zip
 # > uio demo.zip
 #----------------------------------------------------------------------------------
-function uio() {
+if type idea &>/dev/null; then
+  function uio() {
     project=$1
     filename=$(basename -- "$project")
     extension="${filename##*.}"
     filename="${filename%.*}"
 
-    if [ "$project" = "" ]; then
-        echo " ::Please enter the file name..."
+    if [[ "$project" = "" ]]; then
+      echo " ::Please enter the file name..."
     else
-        if [[ ${extension} == "zip" ]]; then
-            unzip -q $project
-            echo " ::Checking the project structure ..."
-            cd $filename
-            if [ -e pom.xml ] || [ -e build.gradle ]; then
-                echo " ::Opening the project" $filename
-                cd ..
-                idea $filename & 
-                sleep 5
-                echo " "
-            else
-                cd ..
-                rm -rf $filename
-                echo " ::The structure of the project is not maven nor gradle"
-            fi
+      if [[ ${extension} == "zip" ]]; then
+        unzip -q $project
+        echo " ::Checking the project structure ..."
+        cd $filename
+        if [[ -e pom.xml ]] || [[ -e build.gradle ]]; then
+          echo " ::Opening the project" $filename
+          cd ..
+          idea $filename &
+          sleep 5
+          echo " "
         else
-            echo " :: Extension file doesn't support...."
+          cd ..
+          rm -rf $filename
+          echo " ::The structure of the project is not maven nor gradle"
         fi
+      else
+        echo " :: Extension file doesn't support...."
+      fi
     fi
-}
+  }
+fi
 
 
 #----------------------------------------------------------------------------------
-# Set 'man' colors
+# `man` colors
 #----------------------------------------------------------------------------------
 function man() {
     env \
@@ -93,7 +95,8 @@ function man() {
 #----------------------------------------------------------------------------------
 # Clean duplicated entries in the history
 #----------------------------------------------------------------------------------
-function czsh() {
+if [[ "$SHELL" = "/bin/zsh" ]]; then
+  function czsh() {
     cd ~
     cat -n .zsh_history | sort -t ';' -uk2 | sort -nk1 | cut -f2- > .zsh_clean_history
 
@@ -103,45 +106,53 @@ function czsh() {
     rm -rf .viminfo
     set -o nomatch
 
-    if [ "$1" = "f" ]; then
-        echo "Please wait until the execution has been released"
-        find / -type f -name ".DS_Store" -exec rm -rf {} \; 2>/dev/null
-        echo "...done!"
+    if [[ "$1" = "f" ]]; then
+      echo "Please wait until the execution has been released"
+      find / -type f -name ".DS_Store" -exec rm -rf {} \; 2>/dev/null
+      echo "...done!"
     fi
 
     # sort by commands
-    if [ "$1" = "s" ]; then
+    if [[ "$1" = "s" ]]; then
       sort -t ';' -k2 ".zsh_history" > ".zsh_history.temp"
       mv ".zsh_history.temp" ".zsh_history"
     fi
 
     cd -
-}
+  }
+fi
+
 
 #----------------------------------------------------------------------------------
-# Uninstall a formula with brew
+# `brew` Uninstall a formula
 #----------------------------------------------------------------------------------
-function unbrew() {
-    brew uninstall --force $1     # It deletes the package, data and configuration
+if type brew &>/dev/null; then
+  function unbrew() {
+    brew uninstall --force $1 # It deletes the package, data and configuration
     brew cleanup $1
     brew autoremove --dry-run
     brew cleanup
     brew doctor
-}
+  }
+fi
+
 
 #----------------------------------------------------------------------------------
-# Force update/upgrade formulas and casks with brew
+# `brew` Force update/upgrade formulas and casks
 #----------------------------------------------------------------------------------
-function upbrew() {
+if type brew &>/dev/null; then
+  function upbrew() {
     brew update
     brew upgrade
     brew upgrade --cask $(brew list --cask)
     brew cleanup
     brew doctor
-}
+  }
+fi
+
 
 #----------------------------------------------------------------------------------
-# Reset and clean current branch
+# `git` reset and clean current branch
 #----------------------------------------------------------------------------------
 function cbranch() {
   if ! git ls-files >& /dev/null; then
@@ -153,13 +164,24 @@ function cbranch() {
 }
 
 #----------------------------------------------------------------------------------
-# Clean the lnav files
+# `git` color setup for bash terminal
 #----------------------------------------------------------------------------------
-function clnav() {
-  rm -rf ~/.config/lnav/*.json
-  rm -rf ~/.config/lnav/*.history
-  rm -rf ~/.config/lnav/crash
-}
+if [[ "$SHELL" = "/bin/bash" ]]; then
+  parse_git_branch() {
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+  }
+fi
+
+#----------------------------------------------------------------------------------
+# `lnal` clean the files
+#----------------------------------------------------------------------------------
+if type lnav &>/dev/null; then
+  function clnav() {
+    rm -rf ~/.config/lnav/*.json
+    rm -rf ~/.config/lnav/*.history
+    rm -rf ~/.config/lnav/crash
+  }
+fi
 
 #----------------------------------------------------------------------------------
 # Gets the total memory consumed by app. e.g.: appname java
@@ -200,17 +222,19 @@ function cmd-notification() {
 }
 
 #----------------------------------------------------------------------------------
-# Gets the Colima IP
+# `colima` gets the internal IP
 #----------------------------------------------------------------------------------
-function ipc() {
-  result=$(colima status 2>&1)
-  ip=$(echo "$result" | awk '/address:/ {print $NF}' | tr -d '"')
-  if [ -z "$ip" ]; then
-    echo "$result" | awk -F 'msg=' '{print $2}' | cut -d'"' -f2
-  else
-    echo "$ip"
-  fi
-}
+if type colima &>/dev/null; then
+  function ipc() {
+    result=$(colima status 2>&1)
+    ip=$(echo "$result" | awk '/address:/ {print $NF}' | tr -d '"')
+    if [ -z "$ip" ]; then
+      echo "$result" | awk -F 'msg=' '{print $2}' | cut -d'"' -f2
+    else
+      echo "$ip"
+    fi
+  }
+fi
 
 #----------------------------------------------------------------------------------
 # Enable / Disable WiFi
@@ -228,18 +252,24 @@ function ewifi() {
 #----------------------------------------------------------------------------------
 function themeToggle() {
   if [[ "$MACOS_CURRENT_THEME" == "Light" ]]; then
-    # zsh autosuggest highlight
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#9e9e9e'
+    # `zsh` autosuggest highlight
+    if [[ "$SHELL" = "/bin/zsh" ]]; then
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#9e9e9e'
+    fi
 
-    # lsd
-    mv ~/.config/lsd_light ~/.config/lsd 2>/dev/null
+    # `lsd`
+    if type lsd &>/dev/null; then
+      mv ~/.config/lsd_light ~/.config/lsd 2>/dev/null
+    fi
 
-    # bat
-    alias cat='/opt/homebrew/bin/bat --theme=OneHalfLight '
-    alias catl='/opt/homebrew/bin/bat --theme=OneHalfLight --paging=never '
-    alias bat='/opt/homebrew/bin/bat --theme=OneHalfLight '
+    # `bat`
+    if type bat &>/dev/null; then
+      alias cat='/opt/homebrew/bin/bat --theme=OneHalfLight '
+      alias catl='/opt/homebrew/bin/bat --theme=OneHalfLight --paging=never '
+      alias bat='/opt/homebrew/bin/bat --theme=OneHalfLight '
+    fi
   else
-    # lsd
+    # `lsd`
     mv ~/.config/lsd ~/.config/lsd_light 2>/dev/null
   fi
 }
