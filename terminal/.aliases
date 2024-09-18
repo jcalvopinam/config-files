@@ -1,41 +1,42 @@
 #!/usr/bin/env bash
-# Alias
+# Aliases
 
 #----------------------------------------------------------------------------------
-# Easier navigation
+# `bat` configuration
 #----------------------------------------------------------------------------------
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
+if type bat &>/dev/null; then
+  alias cat=/usr/local/bin/bat
+  alias catn=/bin/cat
+  alias catl='/opt/homebrew/bin/bat --paging=never'
+fi
 
 #----------------------------------------------------------------------------------
-# Bat setup
+# `kitty` configuration
 #----------------------------------------------------------------------------------
-alias cat=/usr/local/bin/bat
-alias catn=/bin/cat
-alias catl='/opt/homebrew/bin/bat --paging=never'
-alias icat='kitty +kitten icat'
+if type kitty &>/dev/null; then
+  alias icat='kitty +kitten icat'
+fi
 
 #----------------------------------------------------------------------------------
-# `lsd` configuration - It requires to install lsd command
+# `lsd` setup
 #----------------------------------------------------------------------------------
-alias ls='lsd --classify'
-alias ll='lsd -ltrh --group-directories-first --classify'
-alias la='lsd -lah --group-directories-first --classify'
-alias lt='lsd --tree --group-directories-first'
-alias ld='lsd --directory-only */'
-alias lda='lsd --directory-only (.*|*)/'
-alias lf='lsd --directory-only (|*)(^/)'
-alias lfa='lsd --directory-only (.*|*)(^/)'
-
-#----------------------------------------------------------------------------------
-# `ls` configuration
-#----------------------------------------------------------------------------------
-#alias ls='ls -F -G'
-#alias ll='ls -ltrh -F -G'
-#alias la='ls -lah -F -G'
-#alias lt="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+if type lsd &>/dev/null; then
+  alias ls='lsd --classify'
+  alias ll='lsd -ltrh --group-directories-first --classify'
+  alias la='lsd -lah --group-directories-first --classify'
+  alias lt='lsd --tree --group-directories-first'
+  alias ld='lsd --directory-only */'
+  alias lda='lsd --directory-only (.*|*)/'
+  alias ldo='lsd -l --directory-only .*/'
+  alias lf='lsd --directory-only (|*)(^/)'
+  alias lfa='lsd --directory-only (.*|*)(^/)'
+  alias lfo='lsd -l --directory-only .*(^/)'
+else # Default `ls` configuration
+  alias ls='ls -F -G'
+  alias ll='ls -ltrh -F -G'
+  alias la='ls -lah -F -G'
+  alias lt="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+fi
 
 #----------------------------------------------------------------------------------
 # Colored `grep` output
@@ -71,7 +72,7 @@ alias tfd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(f
 alias rzshrc='source ~/.zshrc'
 
 #----------------------------------------------------------------------------------
-# Files& Folders
+# Files & Folders
 #----------------------------------------------------------------------------------
 alias space='cd ~/space'
 alias doc='cd ~/Documents'
@@ -84,6 +85,7 @@ alias cfile='clipcopy $1'
 # General
 #----------------------------------------------------------------------------------
 alias eh!='nvim ~/.zsh_history'
+alias fzf!='fzf --height 40% --reverse'
+alias lg=lazygit
 alias runp='lsof -i'
 alias wifipass='security find-generic-password -wa $1'
-alias fzf!='fzf --height 40% --reverse'
