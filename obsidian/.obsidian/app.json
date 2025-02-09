@@ -1,7 +1,7 @@
 {
   "readableLineLength": false,
   "alwaysUpdateLinks": true,
-  "defaultViewMode": "preview",
+  "defaultViewMode": "source",
   "strictLineBreaks": false,
   "spellcheck": true,
   "attachmentFolderPath": "./assets",
@@ -10,5 +10,6 @@
   "showUnsupportedFiles": true,
   "showFrontmatter": false,
   "showLineNumber": true,
-  "propertiesInDocument": "source"
+  "propertiesInDocument": "source",
+  "showIndentGuide": false
 }

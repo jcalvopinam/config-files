@@ -1,17 +1,18 @@
 [
   "obsidian-sort-and-permute-lines",
+  "obsidian-excalidraw-plugin",
   "obsidian-diagrams-net",
   "obsidian-go-to-line",
   "table-editor-obsidian",
   "obsidian-enhancing-mindmap",
   "omnisearch",
   "obsidian-git",
-  "obsidian-excalidraw-plugin",
-  "obsidian-icon-folder",
   "settings-search",
   "code-styler",
   "calendar",
   "obsidian-reminder-plugin",
   "recent-files-obsidian",
-  "obsidian-icon-folder"
+  "obsidian-icon-folder",
+  "obsidian-minimal-settings",
+  "obsidian-reveal-active-file"
 ]

@@ -1,0 +1,227 @@
+{
+  "main": {
+    "id": "3d5210a447ac11f6",
+    "type": "split",
+    "children": [
+      {
+        "id": "2896a4733e5ced78",
+        "type": "tabs",
+        "children": []
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1f20f5fcc1ba553a",
+    "type": "split",
+    "children": [
+      {
+        "id": "0acd194a5f30b29e",
+        "type": "tabs",
+        "dimension": 68.5576923076923,
+        "children": [
+          {
+            "id": "4e28baa815d72248",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "dc8ebaecc640a569",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "[\"category\"]",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          }
+        ]
+      },
+      {
+        "id": "9db2fda063d29a25",
+        "type": "tabs",
+        "dimension": 31.442307692307693,
+        "children": [
+          {
+            "id": "55718e9ef43151a9",
+            "type": "leaf",
+            "state": {
+              "type": "recent-files",
+              "state": {},
+              "icon": "clock",
+              "title": "Recent Files"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 306.50390243530273
+  },
+  "right": {
+    "id": "6a0909c3de5f7a09",
+    "type": "split",
+    "children": [
+      {
+        "id": "ecf1037817f0b2db",
+        "type": "tabs",
+        "dimension": 28.089887640449437,
+        "children": [
+          {
+            "id": "f7014bb15ddf35bf",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
+            }
+          },
+          {
+            "id": "e943869854f1c03c",
+            "type": "leaf",
+            "state": {
+              "type": "reminder-list",
+              "state": {},
+              "icon": "clock",
+              "title": "Reminders"
+            }
+          },
+          {
+            "id": "122af2fb38008536",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          }
+        ]
+      },
+      {
+        "id": "93bc1891b97bf454",
+        "type": "tabs",
+        "dimension": 71.91011235955055,
+        "children": [
+          {
+            "id": "37a9f46c4e843c70",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of README"
+            }
+          },
+          {
+            "id": "a05171f78ede7996",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "alphabetical",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "7f37984313e9033d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          },
+          {
+            "id": "2fb7113fbc815bf2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Obsidian Web Clipper"
+            }
+          },
+          {
+            "id": "7ada6a329a52d41f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Obsidian Web Clipper"
+            }
+          },
+          {
+            "id": "db73ff4c4997de41",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "graph:Open graph view": false,
+      "daily-notes:Open today's daily note": false,
+      "switcher:Open quick switcher": true,
+      "templates:Insert template": true,
+      "command-palette:Open command palette": true,
+      "audio-recorder:Start/stop recording": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "obsidian-git:Open Git source control": true,
+      "workspaces:Manage workspace layouts": false
+    }
+  },
+  "active": "37a9f46c4e843c70",
+  "lastOpenFiles": []
+}

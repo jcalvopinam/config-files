@@ -1,10 +1,5 @@
 .DS_Store
 **/**/license.txt
 **/.idea/*
-**/.obsidian/workspace*.json
 **/raycast/extensions/*
-**/obsidian/.obsidian/plugins/*
-**/obsidian/.obsidian/themes/*
-**/obsidian/.obsidian/icons/*
-**/obsidian/.obsidian/icons/*
-**/obsidian/.obsidian/bookmarks.json
+**/obsidian/.obsidian/plugins/recent-files-obsidian/data.json
