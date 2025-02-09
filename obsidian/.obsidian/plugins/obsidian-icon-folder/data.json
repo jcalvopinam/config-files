@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "migrated": 6,
+    "iconPacksPath": ".obsidian/icons",
+    "fontSize": 16,
+    "emojiStyle": "native",
+    "iconColor": null,
+    "recentlyUsedIcons": [
+      "LiActivitySquare",
+      "LiDatabase",
+      "LiTerminal",
+      "SiAndroid",
+      "LiScriptEngine"
+    ],
+    "recentlyUsedIconsSize": 5,
+    "rules": [],
+    "extraMargin": {
+      "top": 0,
+      "right": 4,
+      "bottom": 0,
+      "left": 0
+    },
+    "iconInTabsEnabled": true,
+    "iconInTitleEnabled": false,
+    "iconInTitlePosition": "inline",
+    "iconInFrontmatterEnabled": false,
+    "iconInFrontmatterFieldName": "icon",
+    "iconColorInFrontmatterFieldName": "iconColor",
+    "iconsBackgroundCheckEnabled": false,
+    "iconsInNotesEnabled": true,
+    "iconsInLinksEnabled": true,
+    "iconIdentifier": ":",
+    "debugMode": false,
+    "lucideIconPackType": "native",
+    "useInternalPlugins": false
+  },
+  "2. extras/Api Level.md": "SiAndroid",
+  "2. extras/Server Commands - BERSA.md": "LiTerminal",
+  "2. extras/Server Commands - BSF.md": "LiTerminal",
+  "2. extras/Server Commands - BSJ.md": "LiTerminal",
+  "2. extras/SQL.md": "LiDatabase"
+}

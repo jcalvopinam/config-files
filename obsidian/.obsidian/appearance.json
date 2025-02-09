@@ -15,6 +15,9 @@
     "checkbos-styles",
     "file-folder-icons",
     "editor",
-    "checkbox-styles"
+    "checkbox-styles",
+    "folder-colors",
+    "vertical-menu-color",
+    "recent-files-icon"
   ]
 }

@@ -2,34 +2,48 @@
 
 These steps are recommended when creating a new Vault from scratch, otherwise be sure to copy the plugins and their respective configurations after creating the symbolic links.
 
-- Close the `Obsidian.app`
-- Go to your  `Vault` folder, for example
+- Before open the `Obsidian.app`, go to your vault, e.g.:
+
 ```shell
 cd "~/Documents/Obsidian Vault/Personal Vault/"
 ```
 
-- Rename the `.obsidian` folder
+- If you already have the `.obsidian` folder, delete it!
+
 ```shell
-mv .obsidian .obsidian_old
+
+rm -rf .obsidian
 ```
 
-- Create the `.obsidian` folder and enter
+- Create the `.obsidian` folder
+
 ```shell
 mkdir .obsidian
 cd .obsidian
 ```
 
 - Create the symbolic link
+
 ```shell
-ln -s ~/space/config-files/obsidian/.obsidian/* .
+ln -s ~/space/config-files/obsidian/.obsidian/icons/ .
+ln -s ~/space/config-files/obsidian/.obsidian/plugins/ .
+ln -s ~/space/config-files/obsidian/.obsidian/snippets/ .
+ln -s ~/space/config-files/obsidian/.obsidian/themes/ .
+ln -s ~/space/config-files/obsidian/.obsidian/app.json .
+ln -s ~/space/config-files/obsidian/.obsidian/appearance.json .
+ln -s ~/space/config-files/obsidian/.obsidian/backlink.json .
+ln -s ~/space/config-files/obsidian/.obsidian/bookmarks.json .
+ln -s ~/space/config-files/obsidian/.obsidian/community-plugins.json .
+ln -s ~/space/config-files/obsidian/.obsidian/core-plugins-migration.json .
+ln -s ~/space/config-files/obsidian/.obsidian/core-plugins.json .
+ln -s ~/space/config-files/obsidian/.obsidian/daily-notes.json .
+ln -s ~/space/config-files/obsidian/.obsidian/graph.json .
+ln -s ~/space/config-files/obsidian/.obsidian/hotkeys.json .
+ln -s ~/space/config-files/obsidian/.obsidian/switcher.json .
+ln -s ~/space/config-files/obsidian/.obsidian/templates.json .
+ln -s ~/space/config-files/obsidian/.obsidian/types.json .
+cp ~/space/config-files/obsidian/.obsidian/workspace.json .
+cp ~/space/config-files/obsidian/.obsidian/workspaces.json .
 ```
 
-- Copy your personal workspace settings
-```shell
-cp ../.obsidian_old/workspace.json .
-cp ../.obsidian_old/workspaces.json .
-```
-
-- Open the `Obsidian.app`
-- Make sure everything is okey
-- You can delete the `.obsidian_old` folder
+- Open your Obsidian Vault with `Obsidian.app`
