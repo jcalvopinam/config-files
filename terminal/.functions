@@ -97,7 +97,7 @@ function man() {
 #----------------------------------------------------------------------------------
 if [[ "$SHELL" = "/bin/zsh" ]]; then
   function czsh() {
-    cd ~
+    cd $HOME
     cat -n .zsh_history | sort -t ';' -uk2 | sort -nk1 | cut -f2- > .zsh_clean_history
 
     set +o nomatch
@@ -133,6 +133,7 @@ if type brew &>/dev/null; then
     brew autoremove --dry-run
     brew cleanup
     brew doctor
+    rm -rf ~/Library/Caches/Homebrew/downloads
   }
 fi
 
