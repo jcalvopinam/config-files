@@ -75,9 +75,10 @@ alias rzshrc='source ~/.zshrc'
 # Files & Folders
 #----------------------------------------------------------------------------------
 alias space='cd ~/space'
-alias doc='cd ~/Documents'
+alias dc='cd ~/Documents'
 alias dk='cd ~/Desktop'
 alias dl='cd ~/Downloads'
+alias knw='cd ~/knw'
 alias cpwd='echo $(pwd) | pbcopy'
 alias cfile='clipcopy $1'
 
