@@ -1,9 +1,66 @@
 <keymap version="1" name="macOS_idea_keymap" parent="Mac OS X 10.5+">
+  <action id="ActivateTerminalToolWindow">
+    <keyboard-shortcut first-keystroke="alt f12" />
+    <keyboard-shortcut first-keystroke="meta 0" />
+  </action>
+  <action id="EditBookmark">
+    <keyboard-shortcut first-keystroke="meta alt f3" />
+  </action>
+  <action id="EditorDecreaseFontSize">
+    <keyboard-shortcut first-keystroke="alt subtract" />
+    <keyboard-shortcut first-keystroke="alt minus" />
+  </action>
+  <action id="EditorIncreaseFontSize">
+    <keyboard-shortcut first-keystroke="alt add" />
+    <keyboard-shortcut first-keystroke="alt equals" />
+  </action>
+  <action id="EditorResetFontSize">
+    <keyboard-shortcut first-keystroke="alt numpad0" />
+    <keyboard-shortcut first-keystroke="alt 0" />
+  </action>
+  <action id="NewScratchBuffer">
+    <keyboard-shortcut first-keystroke="alt n" />
+  </action>
   <action id="RecentFiles">
     <keyboard-shortcut first-keystroke="meta e" />
-    <keyboard-shortcut first-keystroke="alt e" />
+    <keyboard-shortcut first-keystroke="ctrl e" />
   </action>
   <action id="RunAnything">
     <keyboard-shortcut first-keystroke="alt x" />
+  </action>
+  <action id="ScrollPane-scrollEnd">
+    <keyboard-shortcut first-keystroke="ctrl end" />
+  </action>
+  <action id="ScrollPane-scrollHome">
+    <keyboard-shortcut first-keystroke="ctrl home" />
+  </action>
+  <action id="SwitcherIterateItems">
+    <keyboard-shortcut first-keystroke="meta e" />
+    <keyboard-shortcut first-keystroke="ctrl e" />
+  </action>
+  <action id="SwitcherRecentEditedChangedToggleCheckBox">
+    <keyboard-shortcut first-keystroke="meta e" />
+    <keyboard-shortcut first-keystroke="ctrl e" />
+  </action>
+  <action id="Vcs.ShowTabbedFileHistory">
+    <keyboard-shortcut first-keystroke="ctrl meta h" />
+  </action>
+  <action id="WebDeployment.BrowseServers">
+    <keyboard-shortcut first-keystroke="alt r" />
+  </action>
+  <action id="com.jetbrains.plugins.remotesdk.console.RunSshConsoleAction">
+    <keyboard-shortcut first-keystroke="alt s" />
+  </action>
+  <action id="context.clear">
+    <keyboard-shortcut first-keystroke="shift ctrl x" />
+  </action>
+  <action id="context.load">
+    <keyboard-shortcut first-keystroke="f6" />
+  </action>
+  <action id="context.save">
+    <keyboard-shortcut first-keystroke="f5" />
+  </action>
+  <action id="main.toolbar.Project">
+    <keyboard-shortcut first-keystroke="alt p" />
   </action>
 </keymap>
