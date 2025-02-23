@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-exclude=$(awk '{printf " -o -name '\''%s'\''", $1}' ~/.fzf-ignore)
+exclude=$(awk '{printf " -o -name '\''%s'\''", $1}' $HOME/.fzf-ignore)
+
 
 #----------------------------------------------------------------------------------
 # Some functions were adapted from: https://github.com/junegunn/fzf-git.sh
@@ -255,7 +256,7 @@ function gparent() {
 # Finds files inside of the current path
 #----------------------------------------------------------------------------------
 function ff() {
-  find . -type f -maxdepth 5 | grep -vEf ~/.fzf-ignore \
+  find . -type f -maxdepth 5 | grep -vEf $HOME/.fzf-ignore \
     | sed 's|^./||' \
     | fzf -m -e --ansi \
     --prompt ' Search file: ' \
@@ -270,6 +271,7 @@ function ff() {
         (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
         coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim -p
 }
+
 
 #----------------------------------------------------------------------------------
 # Finds folders inside of the current path
@@ -289,6 +291,7 @@ function fd() {
         --preview 'ls {}')
 }
 
+
 #----------------------------------------------------------------------------------
 # Finds files and folders inside of the current path
 #----------------------------------------------------------------------------------
@@ -305,7 +308,7 @@ function lsf(){
     fi'
 
   while true; do
-    selected=$((echo ".." && find . -maxdepth 1 | grep -Evf ~/.fzf-ignore | xargs basename) \
+    selected=$((echo ".." && find . -maxdepth 1 | grep -Evf $HOME/.fzf-ignore | xargs basename) \
     | sort \
     | sed 's|^./||' \
     | fzf -m -e --ansi -d: \
