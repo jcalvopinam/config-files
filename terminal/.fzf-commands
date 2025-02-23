@@ -256,9 +256,17 @@ function gparent() {
 # Finds files inside of the current path
 #----------------------------------------------------------------------------------
 function ff() {
-  find . -type f -maxdepth 5 | grep -vEf $HOME/.fzf-ignore \
-    | sed 's|^./||' \
-    | fzf -m -e --ansi \
+  filter="${1:-""}"
+  ignore_file="$HOME/.fzf-ignore"
+  exclude_flags=""
+
+  if [ -f "$ignore_file" ]; then
+    exclude_flags=$(cat "$ignore_file" | tr '\n' ' ')
+  fi
+
+  files=$(eval "find . -type f -maxdepth 5 $exclude_flags 2>/dev/null")
+
+  selected_file=$(echo "$files" | fzf -m -e --ansi \
     --prompt ' Search file: ' \
     --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
     --preview-window right,60% \
@@ -269,7 +277,16 @@ function ff() {
     --border \
     --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
         (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
-        coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' | xargs nvim -p
+        coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' \
+    --query "$filter")
+
+  if [ -n "$selected_file" ]; then
+    if file --mime-type "$selected_file" | grep -q 'text/'; then
+      nvim "$selected_file"
+    else
+      open "$selected_file"
+    fi
+  fi
 }
 
 
