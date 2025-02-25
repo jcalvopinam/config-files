@@ -32,3 +32,36 @@ www.deepl.com##.relative.bg-neutral-next-50 > .mobile\:hidden
 www.deepl.com##.focus-visible-light-container
 www.deepl.com##.pageFooterV2-module--footerOuterContainer--CwVcZ
 www.deepl.com##.justify-center.sm\:items-center.items-start.flex.bg-blue-next-100
+
+! Jun 27, 2024 https://www.deepl.com
+www.deepl.com##.mobile\:bg-neutral-next-50
+
+! Jul 25, 2024 https://www.netlife.ec
+||www.netlife.ec/wp-content/uploads/2024/03/bck-Defense-.webp$image
+www.netlife.ec###cookie-law-info-bar
+www.netlife.ec##.cli-show
+
+! Jul 25, 2024 https://survey.stackoverflow.co
+survey.stackoverflow.co##.vertical-align-content.ot-bottom-left.otFloatingRoundedCorner
+
+! Aug 21, 2024 https://www.tiktok.com
+||v16-webapp-prime$media
+www.tiktok.com##.e1gjoq3k0.css-behvuc-DivModalContainer > div
+www.tiktok.com##.e1gjoq3k0.css-behvuc-DivModalContainer
+
+! Oct 23, 2024 https://meta.stackexchange.com
+meta.stackexchange.com##.vertical-align-content
+
+! Nov 10, 2024 https://www.primicias.ec
+www.primicias.ec##.cky-notice
+www.primicias.ec##.cky-consent-bar
+
+! Nov 21, 2024 https://outlook.live.com
+outlook.live.com##.LBktY > .GssDD
+
+! Nov 29, 2024 https://historia.nationalgeographic.com.es
+historia.nationalgeographic.com.es###modal-window
+
+! Feb 23, 2025 https://app.notta.ai
+app.notta.ai##.ant-modal-centered.ant-modal-wrap
+app.notta.ai##.ant-modal-mask
