@@ -266,3 +266,36 @@ function themeToggle() {
     mv ~/.config/lsd ~/.config/lsd_light 2>/dev/null
   fi
 }
+
+
+#----------------------------------------------------------------------------------
+# Remove the last row from the history file
+#----------------------------------------------------------------------------------
+function rr\!(){
+  if [[ "$SHELL" == *"zsh"* ]]; then
+    FILENAME="$HOME/.zsh_history"
+  elif [[ "$SHELL" == *"bash"* ]]; then
+    FILENAME="$HOME/.bash_history"
+  else
+    echo ":: I don't know which Shell you're using!"
+    return
+  fi
+
+  nloop=${1:-2}
+
+  echo $FILENAME
+
+  if ! [[ "$nloop" =~ ^[0-9]+$ ]]; then
+    echo ":: Please, enter a valid number"
+    return
+  fi
+
+  for i in $(seq 1 "$nloop"); do
+    if [[ "$(uname)" == "Darwin" ]]; then
+      sed -i '' -e '$d' $FILENAME
+    else
+      sed -i -e '$d' $FILENAME
+    fi
+  done
+}
+
