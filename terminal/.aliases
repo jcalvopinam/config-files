@@ -86,6 +86,7 @@ alias cfile='clipcopy $1'
 # General
 #----------------------------------------------------------------------------------
 alias eh!='nvim ~/.zsh_history'
+alias ez!='nvim ~/.zshrc'
 alias fzf!='fzf --height 40% --reverse'
 alias lg=lazygit
 alias runp='lsof -i'
