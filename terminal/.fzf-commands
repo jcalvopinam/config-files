@@ -316,7 +316,15 @@ function ff() {
 # Finds folders inside of the current path
 #----------------------------------------------------------------------------------
 function fd() {
-  cmd="command find -L . -mindepth 1 \\( -path '*/\\.*' $exclude \\) -prune -o -type d -print 2> /dev/null | cut -b3-"
+  filter="${1:-""}"
+  ignore_file="$HOME/.fzf-ignore"
+  exclude_flags=""
+
+  if [ -f "$ignore_file" ]; then
+    exclude_flags=$(cat "$ignore_file" | tr '\n' ' ')
+  fi
+
+  cmd="command find -L . -mindepth 1 \\( -path '\\.' $exclude_flags 2>/dev/null \\) -prune -o -type d -print 2> /dev/null | cut -b3-"
     cd $(eval "$cmd" | \
       fzf -e --ansi \
         --prompt ' Search folder: ' \
