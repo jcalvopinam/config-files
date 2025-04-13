@@ -10,14 +10,14 @@
   "monospaceFontFamily": "Hack Nerd Font Mono",
   "nativeMenus": false,
   "enabledCssSnippets": [
-    "cursor",
-    "autofading",
     "checkbos-styles",
     "file-folder-icons",
-    "editor",
-    "checkbox-styles",
-    "folder-colors",
+    "recent-files-icon",
     "vertical-menu-color",
-    "recent-files-icon"
+    "folder-colors",
+    "autofading",
+    "cursor",
+    "checkbox-styles",
+    "editor"
   ]
 }

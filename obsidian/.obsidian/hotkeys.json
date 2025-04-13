@@ -80,15 +80,6 @@
       "key": "Y"
     }
   ],
-  "file-explorer:open": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "E"
-    }
-  ],
   "switcher:open": [
     {
       "modifiers": [
@@ -231,14 +222,6 @@
       "key": "M"
     }
   ],
-  "file-explorer:reveal-active-file": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "F1"
-    }
-  ],
   "markdown:toggle-preview": [
     {
       "modifiers": [
@@ -263,6 +246,22 @@
         "Mod"
       ],
       "key": "F12"
+    }
+  ],
+  "file-explorer:reveal-active-file": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "X"
+    }
+  ],
+  "file-explorer:open": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "F"
     }
   ]
 }
