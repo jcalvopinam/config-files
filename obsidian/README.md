@@ -5,13 +5,12 @@ These steps are recommended when creating a new Vault from scratch, otherwise be
 - Before open the `Obsidian.app`, go to your vault, e.g.:
 
 ```shell
-cd "~/Documents/Obsidian Vault/Personal Vault/"
+cd "~/knw/personal/"
 ```
 
 - If you already have the `.obsidian` folder, delete it!
 
 ```shell
-
 rm -rf .obsidian
 ```
 
@@ -36,7 +35,6 @@ ln -s ~/space/config-files/obsidian/.obsidian/bookmarks.json .
 ln -s ~/space/config-files/obsidian/.obsidian/community-plugins.json .
 ln -s ~/space/config-files/obsidian/.obsidian/core-plugins-migration.json .
 ln -s ~/space/config-files/obsidian/.obsidian/core-plugins.json .
-ln -s ~/space/config-files/obsidian/.obsidian/daily-notes.json .
 ln -s ~/space/config-files/obsidian/.obsidian/graph.json .
 ln -s ~/space/config-files/obsidian/.obsidian/hotkeys.json .
 ln -s ~/space/config-files/obsidian/.obsidian/switcher.json .
@@ -44,6 +42,13 @@ ln -s ~/space/config-files/obsidian/.obsidian/templates.json .
 ln -s ~/space/config-files/obsidian/.obsidian/types.json .
 cp ~/space/config-files/obsidian/.obsidian/workspace.json .
 cp ~/space/config-files/obsidian/.obsidian/workspaces.json .
+cp ~/space/config-files/obsidian/.obsidian/daily-notes.json .
+```
+
+- Download `IcoMoon-Free` from https://github.com/Keyamoon/IcoMoon-Free or install it with brew
+
+```shell
+brew install --cask font-icomoon
 ```
 
 - Open your Obsidian Vault with `Obsidian.app`

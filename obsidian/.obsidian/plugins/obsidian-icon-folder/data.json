@@ -6,14 +6,35 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "LiSettings2",
+      "LiScriptEngine",
+      "LiLibrary",
       "LiFolderClock",
-      "LiBriefcaseBusiness",
-      "LiBrush",
-      "LiExperiment",
-      "LiSquareTerminal"
+      "LiBriefcaseBusiness"
     ],
     "recentlyUsedIconsSize": 5,
-    "rules": [],
+    "rules": [
+      {
+        "rule": "assets",
+        "icon": "LiLibrary",
+        "for": "everything",
+        "order": 0,
+        "color": "#2ecc71"
+      },
+      {
+        "rule": "config",
+        "icon": "LiSettings2",
+        "for": "everything",
+        "order": 1,
+        "color": "#f39c12"
+      },
+      {
+        "rule": ".js$",
+        "icon": "DiDevJavascriptOriginal",
+        "for": "everything",
+        "order": 2
+      }
+    ],
     "extraMargin": {
       "top": 0,
       "right": 4,
