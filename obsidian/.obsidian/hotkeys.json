@@ -11,17 +11,18 @@
   "app:toggle-right-sidebar": [
     {
       "modifiers": [
+        "Alt",
         "Mod"
       ],
-      "key": "]"
+      "key": "B"
     }
   ],
   "app:toggle-left-sidebar": [
     {
       "modifiers": [
-        "Mod"
+        "Alt"
       ],
-      "key": "["
+      "key": "B"
     }
   ],
   "editor:set-heading-1": [
@@ -159,15 +160,6 @@
       "key": "F"
     }
   ],
-  "darlal-switcher-plus:switcher-plus:open": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "F"
-    }
-  ],
   "global-search-and-replace:snr-search-and-replace": [
     {
       "modifiers": [
@@ -227,10 +219,9 @@
       "modifiers": [
         "Ctrl"
       ],
-      "key": "E"
+      "key": "R"
     }
   ],
-  "global-search:open": [],
   "obsidian-go-to-line:go-to-line": [
     {
       "modifiers": [
@@ -260,6 +251,42 @@
     {
       "modifiers": [
         "Alt"
+      ],
+      "key": "F"
+    }
+  ],
+  "darlal-switcher-plus:switcher-plus:open-symbols-active": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "S"
+    }
+  ],
+  "darlal-switcher-plus:switcher-plus:open": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "H"
+    }
+  ],
+  "global-search:open": [],
+  "recent-files-obsidian:recent-files-open": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "E"
+    }
+  ],
+  "float-search:search-obsidian-globally": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
       ],
       "key": "F"
     }
