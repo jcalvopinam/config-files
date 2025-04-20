@@ -18,24 +18,30 @@ if type kitty &>/dev/null; then
 fi
 
 #----------------------------------------------------------------------------------
-# `lsd` setup
+# `lsd` configuration
 #----------------------------------------------------------------------------------
 if type lsd &>/dev/null; then
   alias ls='lsd --classify'
   alias ll='lsd -ltrh --group-directories-first --classify'
-  alias la='lsd -lah --group-directories-first --classify'
+  alias la='lsd -ltrhA --group-directories-first --classify'
   alias lt='lsd --tree --group-directories-first'
-  alias ld='lsd --directory-only */'
-  alias lda='lsd --directory-only (.*|*)/'
-  alias ldo='lsd -l --directory-only .*/'
-  alias lf='lsd --directory-only (|*)(^/)'
-  alias lfa='lsd --directory-only (.*|*)(^/)'
-  alias lfo='lsd -l --directory-only .*(^/)'
+  alias laf='lsd -l *(.N) .*(^/)'              # list all files
+  alias lof='lsd -l --directory-only (|*)(^/)' # list only files
+  alias lofh='lsd -l --directory-only .*(^/)'  # list only files hidden
+  alias lad='lsd -l --directory-only (.*|*)/'  # list all folders
+  alias lod='lsd -l --directory-only */'       # list only directories
+  alias lodh='lsd -l --directory-only .*/'     # list only directories hidden
 else # Default `ls` configuration
   alias ls='ls -F -G'
   alias ll='ls -ltrh -F -G'
-  alias la='ls -lah -F -G'
+  alias la='ls -ltrhA -F -G'
   alias lt="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+  alias laf='ls -lpA | grep -v /'              # list all files
+  alias lof='ls -lp | grep -v /'               # list only files
+  alias lofh="ls -lpd .[^/]* | grep -v '/'"    # list only files hidden
+  alias lad='ls -ld */ .*/'                    # list all folders
+  alias lod='ls -ld */'                        # list only directories
+  alias lodh='ls -ld .*/'                      # list only directories hidden
 fi
 
 #----------------------------------------------------------------------------------
