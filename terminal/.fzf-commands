@@ -119,7 +119,7 @@ function glog1() {
 #----------------------------------------------------------------------------------
 # Shows git log only files
 #----------------------------------------------------------------------------------
-function glogg2() {
+function glog2() {
   if ! git ls-files >& /dev/null; then
     echo $'Git project not found\n'
     return ;
