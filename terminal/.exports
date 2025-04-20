@@ -23,6 +23,7 @@ $PATH"
 # Homebrew setup
 #----------------------------------------------------------------------------------
 [[ -s "/usr/local/bin/brew" ]] && eval "$(/usr/local/bin/brew shellenv)"
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 #----------------------------------------------------------------------------------
 # Python setup
