@@ -143,11 +143,28 @@ fi
 #----------------------------------------------------------------------------------
 if type brew &>/dev/null; then
   function upbrew() {
-    brew update
-    brew upgrade
-    brew upgrade --cask $(brew list --cask)
-    brew cleanup
-    brew doctor
+    formulas_outdated=$(brew outdated --formula --quiet)
+    casks_outdated=$(brew outdated --cask --quiet)
+
+    if [ -z "$formulas_outdated" ] && [ -z "$casks_outdated" ]; then
+      echo ":: Everything is updated"
+    else
+      echo ":: Updates available:"
+      [ -n "$formulas_outdated" ] && echo "$formulas_outdated"
+      [ -n "$casks_outdated" ] && echo "$casks_outdated"
+
+      echo -n "\n:: Do you want to update? (y/n): "
+      read choice
+      if [[ "$choice" =~ ^[Yy]$ ]]; then
+        brew update
+        brew upgrade
+        brew upgrade --cask $(brew list --cask)
+        brew cleanup
+        brew doctor
+      else
+        echo ":: Update canceled!"
+      fi
+    fi
   }
 fi
 
@@ -275,11 +292,10 @@ function themeToggle() {
   fi
 }
 
-
 #----------------------------------------------------------------------------------
 # Remove the last row from the history file
 #----------------------------------------------------------------------------------
-function rr\!(){
+function rr\!() {
   if [[ "$SHELL" == *"zsh"* ]]; then
     FILENAME="$HOME/.zsh_history"
   elif [[ "$SHELL" == *"bash"* ]]; then
@@ -306,4 +322,3 @@ function rr\!(){
     fi
   done
 }
-
