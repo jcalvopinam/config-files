@@ -4,7 +4,7 @@
 #----------------------------------------------------------------------------------
 # Custom CLI themes based on the current macOS appearence
 #----------------------------------------------------------------------------------
-if [[ $(defaults read ~/Library/Preferences/.GlobalPreferences.plist AppleInterfaceStyle 2>/dev/null) = Dark ]]; then
+if [[ $(defaults read ~/Library/Preferences/.GlobalPreferences.plist AppleInterfaceStyle 2> /dev/null) = Dark ]]; then
   export MACOS_CURRENT_THEME='Dark'
 else
   export MACOS_CURRENT_THEME='Light'
@@ -28,7 +28,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 #----------------------------------------------------------------------------------
 # Python setup
 #----------------------------------------------------------------------------------
-if command -v pyenv &>/dev/null; then
+if command -v pyenv &> /dev/null; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
@@ -37,7 +37,7 @@ fi
 #----------------------------------------------------------------------------------
 # FNM setup
 #----------------------------------------------------------------------------------
-type fnm &>/dev/null && eval "$(fnm env --use-on-cd)"
+type fnm &> /dev/null && eval "$(fnm env --use-on-cd)"
 
 #----------------------------------------------------------------------------------
 # GENERAL
@@ -49,7 +49,7 @@ export GPG_TTY=$(tty) # git Signing commits
 # git config --global core.excludesFile ~/.gitignore_global
 #----------------------------------------------------------------------------------
 if [[ "$SHELL" = "/bin/zsh" ]]; then
-  type rg &>/dev/null && export FZF_DEFAULT_COMMAND=" rg --files --hidden "
+  type rg &> /dev/null && export FZF_DEFAULT_COMMAND=" rg --files --hidden "
 fi
 
 #----------------------------------------------------------------------------------

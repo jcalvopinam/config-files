@@ -13,7 +13,7 @@ function rmk() {
 # Gets the size of a file or total size of a directory. e.g.: fsize ~/Downloads
 #----------------------------------------------------------------------------------
 function fsize() {
-  if du -b /dev/null >/dev/null 2>&1; then
+  if du -b /dev/null > /dev/null 2>&1; then
     local arg=-sbh
   else
     local arg=-sh
@@ -40,7 +40,7 @@ function digga() {
 # sample how to use: uio project-name.zip
 # > uio demo.zip
 #----------------------------------------------------------------------------------
-if type idea &>/dev/null; then
+if type idea &> /dev/null; then
   function uio() {
     project=$1
     filename=$(basename -- "$project")
@@ -103,7 +103,7 @@ if [[ "$SHELL" = "/bin/zsh" ]]; then
 
     if [[ "$1" = "f" ]]; then
       echo "Please wait until the execution has been released"
-      find / -type f -name ".DS_Store" -exec rm -rf {} \; 2>/dev/null
+      find / -type f -name ".DS_Store" -exec rm -rf {} \; 2> /dev/null
       echo "...done!"
     fi
 
@@ -120,7 +120,7 @@ fi
 #----------------------------------------------------------------------------------
 # `brew` Uninstall a formula
 #----------------------------------------------------------------------------------
-if type brew &>/dev/null; then
+if type brew &> /dev/null; then
   function unbrew() {
     brew uninstall --force $1 # It deletes the package, data and configuration
     brew cleanup $1
@@ -134,7 +134,7 @@ fi
 #----------------------------------------------------------------------------------
 # `brew` Force update/upgrade formulas and casks
 #----------------------------------------------------------------------------------
-if type brew &>/dev/null; then
+if type brew &> /dev/null; then
   function upbrew() {
     brew_update=$(brew update)
     formulas_outdated=$(brew outdated --formula --quiet)
@@ -178,14 +178,14 @@ function cbranch() {
 #----------------------------------------------------------------------------------
 if [[ "$SHELL" = "/bin/bash" ]]; then
   parse_git_branch() {
-    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
   }
 fi
 
 #----------------------------------------------------------------------------------
 # `lnal` clean the files
 #----------------------------------------------------------------------------------
-if type lnav &>/dev/null; then
+if type lnav &> /dev/null; then
   function clnav() {
     rm -rf ~/.config/lnav/*.json
     rm -rf ~/.config/lnav/*.history
@@ -234,7 +234,7 @@ function cmd-notification() {
 #----------------------------------------------------------------------------------
 # `colima` gets the internal IP
 #----------------------------------------------------------------------------------
-if type colima &>/dev/null; then
+if type colima &> /dev/null; then
   function ipc() {
     result=$(colima status 2>&1)
     ip=$(echo "$result" | awk '/address:/ {print $NF}' | tr -d '"')
@@ -268,19 +268,19 @@ function themeToggle() {
     fi
 
     # `lsd`
-    if type lsd &>/dev/null; then
-      mv ~/.config/lsd_light ~/.config/lsd 2>/dev/null
+    if type lsd &> /dev/null; then
+      mv ~/.config/lsd_light ~/.config/lsd 2> /dev/null
     fi
 
     # `bat`
-    if type bat &>/dev/null; then
+    if type bat &> /dev/null; then
       alias cat='/usr/local/bin/bat --theme=OneHalfLight '
       alias catl='/usr/local/bin/bat --theme=OneHalfLight --paging=never '
       alias bat='/usr/local/bin/bat --theme=OneHalfLight '
     fi
   else
     # `lsd`
-    mv ~/.config/lsd ~/.config/lsd_light 2>/dev/null
+    mv ~/.config/lsd ~/.config/lsd_light 2> /dev/null
   fi
 }
 

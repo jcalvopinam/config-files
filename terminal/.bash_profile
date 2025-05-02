@@ -1,9 +1,9 @@
 #----------------------------------------------------------------------------------
 # export the bash shell if bash exist
 #----------------------------------------------------------------------------------
-if type /bin/bash >/dev/null 2>&1; then
+if type /bin/bash > /dev/null 2>&1; then
     export SHELL="/bin/bash"
-elif type /usr/bin/bash >/dev/null 2>&1; then
+elif type /usr/bin/bash > /dev/null 2>&1; then
     export SHELL="/usr/bin/bash"
 fi
 
@@ -17,12 +17,12 @@ fi
 # Where: \u Username, \h Host, \w Path, tput setaf is the color
 #----------------------------------------------------------------------------------
 #export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "                                        # e.g: jcalvopinam@macos-home ~ $
-export PS1='\n\[$(tput setaf 10)\]λ: \[$(tput setaf 4)\]\w\[$(tput setaf 1)\]$(parse_git_branch)\[$(tput sgr0)\] \n$ '   # e.g: λ: ~
+export PS1='\n\[$(tput setaf 10)\]λ: \[$(tput setaf 4)\]\w\[$(tput setaf 1)\]$(parse_git_branch)\[$(tput sgr0)\] \n$ ' # e.g: λ: ~
 
 #----------------------------------------------------------------------------------
 # SSH autocompleting hostnames
 #----------------------------------------------------------------------------------
-[[ -s $HOME"/.ssh/known_hosts" ]] && complete -W "$(while read line; do echo ${line%%[, ]*}; done <~/.ssh/known_hosts)" ssh
+[[ -s $HOME"/.ssh/known_hosts" ]] && complete -W "$(while read line; do echo ${line%%[, ]*}; done < ~/.ssh/known_hosts)" ssh
 
 #----------------------------------------------------------------------------------
 # Git autocompletion
