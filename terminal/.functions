@@ -5,35 +5,32 @@
 # Deletes file/folder with scrub utility. e.g.:rmk myFolder
 #----------------------------------------------------------------------------------
 function rmk() {
-    scrub -p dod $1
-    shred -zun 10 -v $1
+  scrub -p dod $1
+  shred -zun 10 -v $1
 }
-
 
 #----------------------------------------------------------------------------------
 # Gets the size of a file or total size of a directory. e.g.: fsize ~/Downloads
 #----------------------------------------------------------------------------------
 function fsize() {
-    if du -b /dev/null > /dev/null 2>&1; then
-        local arg=-sbh;
-    else
-        local arg=-sh;
-    fi
-    if [[ -n "$@" ]]; then
-        du $arg -- "$@";
-    else
-        du $arg .[^.]* ./*;
-    fi;
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh
+  else
+    local arg=-sh
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg .[^.]* ./*
+  fi
 }
-
 
 #----------------------------------------------------------------------------------
 # Gets the most useful info about dns. e.g: digga google.com
 #----------------------------------------------------------------------------------
 function digga() {
-    dig +nocmd "$1" any +multiline +noall +answer;
+  dig +nocmd "$1" any +multiline +noall +answer
 }
-
 
 #----------------------------------------------------------------------------------
 # Extract and open project with IntelliJ, currently this only supports "zip" files.
@@ -43,7 +40,7 @@ function digga() {
 # sample how to use: uio project-name.zip
 # > uio demo.zip
 #----------------------------------------------------------------------------------
-if type idea &>/dev/null; then
+if type idea &> /dev/null; then
   function uio() {
     project=$1
     filename=$(basename -- "$project")
@@ -75,12 +72,11 @@ if type idea &>/dev/null; then
   }
 fi
 
-
 #----------------------------------------------------------------------------------
 # `man` colors
 #----------------------------------------------------------------------------------
 function man() {
-    env \
+  env \
     LESS_TERMCAP_mb=$'\e[01;31m' \
     LESS_TERMCAP_md=$'\e[01;31m' \
     LESS_TERMCAP_me=$'\e[0m' \
@@ -90,7 +86,6 @@ function man() {
     LESS_TERMCAP_us=$'\e[01;32m' \
     man "$@"
 }
-
 
 #----------------------------------------------------------------------------------
 # Clean duplicated entries in the history
@@ -108,7 +103,7 @@ if [[ "$SHELL" = "/bin/zsh" ]]; then
 
     if [[ "$1" = "f" ]]; then
       echo "Please wait until the execution has been released"
-      find / -type f -name ".DS_Store" -exec rm -rf {} \; 2>/dev/null
+      find / -type f -name ".DS_Store" -exec rm -rf {} \; 2> /dev/null
       echo "...done!"
     fi
 
@@ -122,11 +117,10 @@ if [[ "$SHELL" = "/bin/zsh" ]]; then
   }
 fi
 
-
 #----------------------------------------------------------------------------------
 # `brew` Uninstall a formula
 #----------------------------------------------------------------------------------
-if type brew &>/dev/null; then
+if type brew &> /dev/null; then
   function unbrew() {
     brew uninstall --force $1 # It deletes the package, data and configuration
     brew cleanup $1
@@ -137,11 +131,10 @@ if type brew &>/dev/null; then
   }
 fi
 
-
 #----------------------------------------------------------------------------------
 # `brew` Force update/upgrade formulas and casks
 #----------------------------------------------------------------------------------
-if type brew &>/dev/null; then
+if type brew &> /dev/null; then
   function upbrew() {
     brew_update=$(brew update)
     formulas_outdated=$(brew outdated --formula --quiet)
@@ -168,14 +161,13 @@ if type brew &>/dev/null; then
   }
 fi
 
-
 #----------------------------------------------------------------------------------
 # `git` reset and clean current branch
 #----------------------------------------------------------------------------------
 function cbranch() {
-  if ! git ls-files >& /dev/null; then
+  if ! git ls-files &> /dev/null; then
     echo $'Git project not found\n'
-    return ;
+    return
   fi
   git reset --hard
   git clean -f -d
@@ -186,14 +178,14 @@ function cbranch() {
 #----------------------------------------------------------------------------------
 if [[ "$SHELL" = "/bin/bash" ]]; then
   parse_git_branch() {
-    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
   }
 fi
 
 #----------------------------------------------------------------------------------
 # `lnal` clean the files
 #----------------------------------------------------------------------------------
-if type lnav &>/dev/null; then
+if type lnav &> /dev/null; then
   function clnav() {
     rm -rf ~/.config/lnav/*.json
     rm -rf ~/.config/lnav/*.history
@@ -242,7 +234,7 @@ function cmd-notification() {
 #----------------------------------------------------------------------------------
 # `colima` gets the internal IP
 #----------------------------------------------------------------------------------
-if type colima &>/dev/null; then
+if type colima &> /dev/null; then
   function ipc() {
     result=$(colima status 2>&1)
     ip=$(echo "$result" | awk '/address:/ {print $NF}' | tr -d '"')
@@ -276,19 +268,19 @@ function themeToggle() {
     fi
 
     # `lsd`
-    if type lsd &>/dev/null; then
-      mv ~/.config/lsd_light ~/.config/lsd 2>/dev/null
+    if type lsd &> /dev/null; then
+      mv ~/.config/lsd_light ~/.config/lsd 2> /dev/null
     fi
 
     # `bat`
-    if type bat &>/dev/null; then
+    if type bat &> /dev/null; then
       alias cat='/opt/homebrew/bin/bat --theme=OneHalfLight '
       alias catl='/opt/homebrew/bin/bat --theme=OneHalfLight --paging=never '
       alias bat='/opt/homebrew/bin/bat --theme=OneHalfLight '
     fi
   else
     # `lsd`
-    mv ~/.config/lsd ~/.config/lsd_light 2>/dev/null
+    mv ~/.config/lsd ~/.config/lsd_light 2> /dev/null
   fi
 }
 

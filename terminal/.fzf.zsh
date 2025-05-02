@@ -6,7 +6,7 @@ fi
 
 # Auto-completion
 # ---------------
-FZF_PATH=$(dirname $(readlink  -f $(which fzf)))
+FZF_PATH=$(dirname $(readlink -f $(which fzf)))
 [[ $- == *i* ]] && source $FZF_PATH"/../shell/completion.zsh" 2> /dev/null
 
 # Key bindings

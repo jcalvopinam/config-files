@@ -1,5 +1,5 @@
 function dnames {
-    for ID in `docker ps | awk '{print $1}' | grep -v 'CONTAINER'`; do
+    for ID in $(docker ps | awk '{print $1}' | grep -v 'CONTAINER'); do
         docker inspect $ID | grep Name | head -1 | awk '{print $2}' | sed 's/,//g' | sed 's%/%%g' | sed 's/"//g'
     done
 }
@@ -7,8 +7,8 @@ function dnames {
 function dip {
     echo "IP addresses of all named running containers"
 
-    for DOC in `dnames`; do
-        IP=`docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' "$DOC"`
+    for DOC in $(dnames); do
+        IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' "$DOC")
         OUT+=$DOC'\t'$IP'\n'
     done
     echo -e $OUT | column -t
@@ -36,7 +36,8 @@ function dcr {
 }
 
 function dsr {
-    docker stop $1;docker rm $1
+    docker stop $1
+    docker rm $1
 }
 
 function dstp {

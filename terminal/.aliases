@@ -4,7 +4,7 @@
 #----------------------------------------------------------------------------------
 # `bat` configuration
 #----------------------------------------------------------------------------------
-if type bat &>/dev/null; then
+if type bat &> /dev/null; then
   alias cat=/opt/homebrew/bin/bat
   alias catn=/bin/cat
   alias catl='/opt/homebrew/bin/bat --paging=never'
@@ -13,14 +13,14 @@ fi
 #----------------------------------------------------------------------------------
 # `kitty` configuration
 #----------------------------------------------------------------------------------
-if type kitty &>/dev/null; then
+if type kitty &> /dev/null; then
   alias icat='kitty +kitten icat'
 fi
 
 #----------------------------------------------------------------------------------
 # `lsd` configuration
 #----------------------------------------------------------------------------------
-if type lsd &>/dev/null; then
+if type lsd &> /dev/null; then
   alias ls='lsd --classify'
   alias ll='lsd -ltrh --group-directories-first --classify'
   alias la='lsd -ltrhA --group-directories-first --classify'
@@ -31,17 +31,17 @@ if type lsd &>/dev/null; then
   alias lad='lsd -l --directory-only (.*|*)/'  # list all folders
   alias lod='lsd -l --directory-only */'       # list only directories
   alias lodh='lsd -l --directory-only .*/'     # list only directories hidden
-else # Default `ls` configuration
+else                                           # Default `ls` configuration
   alias ls='ls -F -G'
   alias ll='ls -ltrh -F -G'
   alias la='ls -ltrhA -F -G'
   alias lt="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-  alias laf='ls -lpA | grep -v /'              # list all files
-  alias lof='ls -lp | grep -v /'               # list only files
-  alias lofh="ls -lpd .[^/]* | grep -v '/'"    # list only files hidden
-  alias lad='ls -ld */ .*/'                    # list all folders
-  alias lod='ls -ld */'                        # list only directories
-  alias lodh='ls -ld .*/'                      # list only directories hidden
+  alias laf='ls -lpA | grep -v /'           # list all files
+  alias lof='ls -lp | grep -v /'            # list only files
+  alias lofh="ls -lpd .[^/]* | grep -v '/'" # list only files hidden
+  alias lad='ls -ld */ .*/'                 # list all folders
+  alias lod='ls -ld */'                     # list only directories
+  alias lodh='ls -ld .*/'                   # list only directories hidden
 fi
 
 #----------------------------------------------------------------------------------
