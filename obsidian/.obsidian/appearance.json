@@ -19,5 +19,6 @@
     "cursor",
     "checkbox-styles",
     "editor"
-  ]
+  ],
+  "textFontFamily": "Atlassian Sans"
 }
