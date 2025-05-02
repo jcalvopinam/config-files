@@ -143,11 +143,12 @@ fi
 #----------------------------------------------------------------------------------
 if type brew &>/dev/null; then
   function upbrew() {
+    brew_update=$(brew update)
     formulas_outdated=$(brew outdated --formula --quiet)
     casks_outdated=$(brew outdated --cask --quiet)
 
-    if [ -z "$formulas_outdated" ] && [ -z "$casks_outdated" ]; then
-      echo ":: Everything is updated"
+    if [[ -z "$formulas_outdated" && -z "$casks_outdated" ]]; then
+      echo "$brew_update"
     else
       echo ":: Updates available:"
       [ -n "$formulas_outdated" ] && echo "$formulas_outdated"
@@ -156,8 +157,7 @@ if type brew &>/dev/null; then
       echo -n "\n:: Do you want to update? (y/n): "
       read choice
       if [[ "$choice" =~ ^[Yy]$ ]]; then
-        brew update
-        brew upgrade
+        brew upgrade --formula $(brew list --formula)
         brew upgrade --cask $(brew list --cask)
         brew cleanup
         brew doctor
