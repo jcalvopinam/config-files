@@ -2,6 +2,12 @@
 # Functions
 
 #----------------------------------------------------------------------------------
+# Text formatting
+#----------------------------------------------------------------------------------
+BOLD="\e[1m"
+RESET="\e[0m"
+
+#----------------------------------------------------------------------------------
 # Deletes file/folder with scrub utility. e.g.:rmk myFolder
 #----------------------------------------------------------------------------------
 function rmk() {
@@ -136,26 +142,28 @@ fi
 #----------------------------------------------------------------------------------
 if type brew &> /dev/null; then
   function upbrew() {
-    brew_update=$(brew update)
+    brew_update=$(brew update --quiet 2>&1)
     formulas_outdated=$(brew outdated --formula --quiet)
     casks_outdated=$(brew outdated --cask --quiet)
 
     if [[ -z "$formulas_outdated" && -z "$casks_outdated" ]]; then
       echo "$brew_update"
     else
-      echo ":: Updates available:"
-      [ -n "$formulas_outdated" ] && echo "$formulas_outdated"
-      [ -n "$casks_outdated" ] && echo "$casks_outdated"
+      echo -e "${BOLD}:: Available updates!${RESET}"
 
-      echo -n "\n:: Do you want to update? (y/n): "
+      [ -n "$formulas_outdated" ] && echo "${BOLD}==> Formulas:${RESET}\n$formulas_outdated"
+      [ -n "$casks_outdated" ] && echo "${BOLD}\n==> Casks:${RESET}\n$casks_outdated"
+
+      echo -ne "${BOLD}\n:: Do you want to update? (y/n): ${RESET}"
       read choice
+
       if [[ "$choice" =~ ^[Yy]$ ]]; then
         brew upgrade --formula $(brew list --formula)
         brew upgrade --cask $(brew list --cask)
         brew cleanup
         brew doctor
       else
-        echo ":: Update canceled!"
+        echo -e "${BOLD}:: Update canceled!${RESET}"
       fi
     fi
   }
