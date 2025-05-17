@@ -56,10 +56,10 @@ alias zgrep='zgrep --color=auto'
 #----------------------------------------------------------------------------------
 # IP addresses
 #----------------------------------------------------------------------------------
-alias ipp='curl -s https://checkip.amazonaws.com'
-alias ipl='ipconfig getifaddr en0'
+alias ipp='curl -s https://checkip.amazonaws.com | tee /dev/tty | pbcopy'
+alias ipl='ipconfig getifaddr en0 | tee /dev/tty | pbcopy'
 alias ips="ifconfig -a | awk '/^[^\t]/ { iface=\"\033[1;32m\" \$1 \"\033[0m\" } /inet / { ip=\"\033[1;31m\" \$2 \"\033[0m\"; print iface \" \" ip }'"
-alias ipvpn='ifconfig utun4 | awk "/inet / {print \$2}"'
+alias ipvpn='ifconfig utun4 | awk "/inet / {print \$2}" | tee /dev/tty | pbcopy'
 
 #----------------------------------------------------------------------------------
 # Print each PATH entry on a separate line
