@@ -2,9 +2,8 @@
 SECONDS=0
 
 #Check if running as root and if not elevate
-amiroot=$(sudo -n uptime 2>&1| grep -c "load")
-if [ "$amiroot" -eq 0 ]
-then
+amiroot=$(sudo -n uptime 2>&1 | grep -c "load")
+if [ "$amiroot" -eq 0 ]; then
     echo "Maid Service Require Root Access. Please Enter Your Password."
     sudo -v
 fi
@@ -24,7 +23,7 @@ done
 
 #system logs
 echo "Cleaning system logs"
-sudo rm -rf /private/var/log/*  > /dev/null 2>&1
+sudo rm -rf /private/var/log/* > /dev/null 2>&1
 sudo rm -rf /Library/Logs/DiagnosticReports/* > /dev/null 2>&1
 sudo rm -rf /var/log/* > /dev/null 2>&1
 
@@ -33,15 +32,18 @@ sudo rm -rf /private/var/folders/ > /dev/null 2>&1
 
 #application caches
 echo "Cleaning application caches"
-for x in $(ls ~/Library/Containers/) 
-do 
+for x in $(ls ~/Library/Containers/); do
     rm -rf ~/Library/Containers/$x/Data/Library/Caches/* > /dev/null 2>&1
 done
+
+#WPS Office
+rm -rf ~/Library/Containers/com.wps.Office/Data/Library/Caches/* > /dev/null 2>&1
+rm -rf ~/Library/Containers/com.kingsoft.wpsoffice.mac.global* > /dev/null 2>&1
 
 #Taking out the trash.
 echo "Emptying the trash."
 sudo rm -rfv /Volumes/*/.Trashes > /dev/null 2>&1
-sudo rm -rfv ~/.Trash  > /dev/null 2>&1
+sudo rm -rfv ~/.Trash > /dev/null 2>&1
 
 #Cleaning Up Homebrew.
 echo "Cleaning up Homebrew."
