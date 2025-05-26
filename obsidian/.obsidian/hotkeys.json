@@ -84,9 +84,10 @@
   "switcher:open": [
     {
       "modifiers": [
-        "Mod"
+        "Mod",
+        "Shift"
       ],
-      "key": "P"
+      "key": "H"
     }
   ],
   "command-palette:open": [
@@ -264,15 +265,6 @@
       "key": "S"
     }
   ],
-  "darlal-switcher-plus:switcher-plus:open": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "H"
-    }
-  ],
   "global-search:open": [],
   "recent-files-obsidian:recent-files-open": [
     {
@@ -298,6 +290,14 @@
         "Mod"
       ],
       "key": "N"
+    }
+  ],
+  "darlal-switcher-plus:switcher-plus:open": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "P"
     }
   ]
 }
