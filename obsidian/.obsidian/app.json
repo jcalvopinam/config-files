@@ -11,5 +11,9 @@
   "showFrontmatter": false,
   "showLineNumber": true,
   "propertiesInDocument": "source",
-  "showIndentGuide": false
+  "showIndentGuide": false,
+  "userIgnoreFilters": [
+    "_drawings/",
+    "_templates/"
+  ]
 }
