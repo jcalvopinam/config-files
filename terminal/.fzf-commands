@@ -16,15 +16,15 @@ if [[ $# -eq 1 ]]; then
   }
   case "$1" in
     branches)
-      echo $'ESC (exit) ╱ ALT-A (show all branches)\n'
+      echo $' ESC (exit) | ENTER (search within the log of the selected branch) | ALT-A (show all branches)'
       branches
       ;;
     bswitch)
-      echo $'ENTER (switch) ╱ ESC (exit) ╱ ALT-A (show all branches)\n'
+      echo $' ESC (exit) | ENTER (switch to the branch selected)'
       bswitch
       ;;
     all-branches)
-      echo $'ESC (exit)\n'
+      echo $' ESC (exit)\n'
       branches -a
       ;;
     nobeep) ;;
@@ -48,7 +48,7 @@ __fzf_git=$(readlink -f "$__fzf_git" 2> /dev/null || /usr/bin/ruby --disable-gem
 #----------------------------------------------------------------------------------
 # Internal functions
 #----------------------------------------------------------------------------------
-_git_fzf() {
+_git_fzf-tmux() {
   fzf-tmux -p80%,60% -- \
     --layout=reverse --multi --height=50% --min-height=20 --border \
     --color='header:italic:underline' \
@@ -56,10 +56,41 @@ _git_fzf() {
     --bind='ctrl-/:change-preview-window(down,50%,border-top|hidden|)' "$@"
 }
 
-_git_check() {
-  git rev-parse HEAD > /dev/null 2>&1 && return
+_git_fzf() {
+  fzf --ansi \
+    --style full \
+    --prompt '❯ ' \
+    --border --padding 1,0 \
+    --input-label ' 󰍉 Search ' --header-label '  Info ' \
+    --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " 󰍉 Previewing [%s] " {}' \
+    --bind 'focus:+transform-header:echo " ESC (exit)"' \
+    --bind 'ctrl-/:change-preview-window(down,border-top,75%|right,70%,wrap)' \
+    --bind '?:toggle-preview+change-preview-window(hidden|right:70%,wrap)' \
+    --tiebreak begin \
+    --layout reverse \
+    --color hl:underline,hl+:underline \
+    --color 'border:#aaaaaa,label:#cccccc' \
+    --color 'preview-border:#9999cc,preview-label:#ccccff' \
+    --color 'list-border:#669966,list-label:#99cc99' \
+    --color 'input-border:#996666,input-label:#ffcccc' \
+    --color 'header-border:#6699cc,header-label:#99ccff' "$@"
+}
 
-  [[ -n $TMUX ]] && tmux display-message "Not in a git repository"
+
+_git_fzf_preview() {
+  _git_fzf --preview-window right:70% "$@"
+}
+
+_git_check() {
+  git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
+
+  msg="Not in a git repository"
+  if command -v tmux > /dev/null 2>&1 && [[ -n $TMUX ]]; then
+    tmux display-message "$msg"
+  else
+    echo "$msg"
+  fi
+
   return 1
 }
 
@@ -70,26 +101,22 @@ _git_check() {
 function gdiff() {
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     echo $'Git project not found\n'
-    return
+    return ;
   fi
 
-  # Obtener la lista de archivos modificados
   local modified_files=$(git diff --name-only)
-
-  # Si no hay archivos modificados, salir
   [ -z "$modified_files" ] && echo "No files modified" && return
 
-  # Utilizar fzf con la opción --preview para mostrar la lista y las diferencias
   echo "$modified_files" | \
-  fzf -m --ansi \
-    --prompt ' Search files: ' \
-    --header $'ESC (exit)\n\n' \
-    --preview-window right:70%,wrap \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --preview "git -C \"\$(git rev-parse --show-toplevel)\" diff --color=always {} | bat --color=always --style=header,grid --line-range :500 | less -R" | \
+  _git_fzf_preview --border-label ' 󰕜 gdiff ' --list-label '  Files ' \
+    --bind 'focus:+transform-header:
+        out=$(file --brief {} 2>/dev/null)
+        if [[ -n "$out" ]]; then
+          echo -e "$out\n ESC (exit)"
+        else
+          echo -e "No file selected"
+        fi' \
+    --preview "echo \"\"; git -C \"\$(git rev-parse --show-toplevel)\" diff --color=always {} | bat --color=always --style=changes --line-range :700 | less -R" | \
     xargs -o -I {} git diff -p {}
 }
 
@@ -98,21 +125,15 @@ function gdiff() {
 # Shows git log
 #----------------------------------------------------------------------------------
 function glog1() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
+  _git_check || return
   git log --date-order --abbrev --oneline --decorate --color --abbrev-commit \
   --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | sed 's/Merged in //' $@ | \
-  fzf -m -e --ansi \
-    --prompt ' Search (hash/message/author): ' \
-    --header $'ESC (exit)\n\n' \
-    --preview-window right:70%,wrap \
-    --tiebreak index \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --preview "git show {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'} | pbcopy
+  _git_fzf_preview -e \
+    --header $'Search by hash/message/author\n ESC (exit)' \
+    --border-label '  glog1 ' --list-label '  Commits '\
+    --bind 'focus:transform-preview-label:printf " 󰍉 Previewing commits "' \
+    --bind "enter:execute-silent(git show {1} --pretty=format:'%H' --no-patch | tr -d '\n' | pbcopy)" \
+    --preview "git show {1} --color=always --abbrev --show-signature "
 }
 
 
@@ -120,21 +141,15 @@ function glog1() {
 # Shows git log only files
 #----------------------------------------------------------------------------------
 function glog2() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
+  _git_check || return
   git log --date-order --abbrev --oneline --decorate --color --abbrev-commit \
   --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | sed 's/Merged in //' $@ | \
-  fzf -m -e --ansi \
-    --prompt ' Search (hash/message/author): ' \
-    --header $'ESC (exit)\n\n' \
-    --preview-window right:70%,wrap \
-    --tiebreak index \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --preview "git show --name-only {1} --color=always --abbrev --show-signature " | awk -F' ' {'print $1'} | pbcopy
+  _git_fzf_preview -e \
+    --header $'Search by hash/message/author\n ESC (exit)' \
+    --border-label '  glog1 ' --list-label '  Commits '\
+    --bind 'focus:transform-preview-label:printf " 󰍉 Previewing commits "' \
+    --bind "enter:execute-silent(git show {1} --pretty=format:'%H' --no-patch | tr -d '\n' | pbcopy)" \
+    --preview "git show --name-only {1} --color=always --abbrev --show-signature "
 }
 
 
@@ -142,23 +157,17 @@ function glog2() {
 # Shows git branches
 #----------------------------------------------------------------------------------
 function gbranch() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
   _git_check || return
   bash "$__fzf_git" branches |
-  fzf -m -e --ansi \
-    --prompt ' Search branch: ' \
-    --header-lines 2 \
-    --preview-window down,border-top,75% \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --bind 'ctrl-/:change-preview-window(down,70%|hidden|)' \
-    --bind "ctrl-o:execute-silent:bash $__fzf_git branch {}" \
-    --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" \
+  _git_fzf -e \
+    --header-lines 1 \
+    --border-label '  gbranch ' --list-label '  Branches ' \
+    --bind 'focus:transform-preview-label:printf " 󰍉 Previewing commits "' \
+    --bind "enter:execute:git log --oneline --graph --date=short --color=always --pretty='format:%C(auto)%cd %h%d %s' $(sed s/^..// <<< {}) | less -R" \
+    --bind "alt-b:change-list-label( Branches> )+reload:bash \"$__fzf_git\" branches" \
+    --bind "alt-a:change-list-label( All branches> )+reload:bash \"$__fzf_git\" all-branches" \
+    --bind "ctrl-c:execute-silent(git show {1} --pretty=format:'%H' --no-patch | tr -d '\n' | pbcopy)" \
+    --preview-window down,border-top,70% \
     --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' "$@" |
     sed 's/^..//' | cut -d' ' -f1 | pbcopy
 }
@@ -168,24 +177,20 @@ function gbranch() {
 # Shows git branches and switch it
 #----------------------------------------------------------------------------------
 function gswitch() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
-  currentBranch=("Current branch:" $(git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'))
   _git_check || return
-  bash "$__fzf_git" bswitch |
-  fzf -e --ansi \
-    --prompt ' Search branch to switch: ' \
-    --header "$currentBranch " \
-    --header-lines 2 \
-    --preview-window down,border-top,40% \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --bind "alt-a:change-prompt( All branches> )+reload:bash \"$__fzf_git\" all-branches" |
-    xargs git switch; git pull
+  currentBranch=("Current branch:" $(git branch 2>/dev/null | sed -n -e 's/^\* \(.*\)/\1/p'))
+  selection=$(bash "$__fzf_git" bswitch |
+    _git_fzf -e \
+      --header "$currentBranch " \
+      --header-lines 1 \
+      --border-label '  gswitch ' --list-label '  Branches ' \
+      --bind 'focus:transform-preview-label:printf ""')
+
+  if [[ -z "$selection" ]]; then
+    return
+  fi
+
+  git switch "$selection" && git pull
 }
 
 
@@ -193,21 +198,17 @@ function gswitch() {
 # Shows git tags
 #----------------------------------------------------------------------------------
 function gtag() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
   _git_check || return
-  git tag --sort -version:refname |
-  fzf -m -e --ansi \
-    --prompt ' Search tag: ' \
-    --header $'ESC (exit)\n\n' \
-    --preview-window right,70% \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --preview 'git show --color=always {}' "$@" | pbcopy
+  selection=$(git tag --sort -version:refname |
+    _git_fzf_preview -e \
+      --border-label '  gtag ' --list-label '  Tags ' \
+      --preview 'git show --color=always {}' "$@")
+
+  if [[ -z "$selection" ]]; then
+    return
+  fi
+
+  git checkout "$selection"
 }
 
 
@@ -215,20 +216,12 @@ function gtag() {
 # Shows git stashes
 #----------------------------------------------------------------------------------
 function gstash() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
   _git_check || return
   git stash list | \
-  fzf -m -e --ansi -d: \
-    --prompt ' Search stash: ' \
-    --header $'ESC (exit) ╱ CTRL-X (drop stash)\n\n' \
-    --preview-window right,70% \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
+  _git_fzf_preview -e -d: \
+    --header $' ESC (exit) | CTRL-X (drop stash)\n' \
+    --border-label ' 󱐖 gstash ' --list-label '  Stashes ' \
+    --bind 'focus:transform-preview-label:printf " 󰍉 Previewing commits "' \
     --bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
     --preview 'git show --color=always {1}' "$@" | cut -d: -f1
 }
@@ -238,22 +231,18 @@ function gstash() {
 # Shows git status
 #----------------------------------------------------------------------------------
 function gstatus() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
+  _git_check || return
   git status -s | awk '{print $2 " " $1}'| \
-  fzf -m -e --ansi \
-    --prompt ' Search file: ' \
-    --header $'ESC (exit) ╱ CTRL-J (down) ╱ CTRL-K (up) \n\n' \
-    --preview-window right,70% \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --bind=ctrl-j:preview-down \
-    --bind=ctrl-k:preview-up \
-    --preview 'git diff --color=always {+1}' | xargs nvim -p
+  _git_fzf_preview -e \
+    --border-label '  gstatus ' --list-label '  Files ' \
+    --preview '
+        file={+1}
+        if git status --short -- "$file" | grep -q "^??"; then
+          bat --color=always -- "$file" 2>/dev/null || cat "$file"
+        else
+          git diff --color=always -- "$file"
+        fi
+      '
 }
 
 
@@ -261,16 +250,39 @@ function gstatus() {
 # Gets the name of the parent branch
 #----------------------------------------------------------------------------------
 function gparent() {
-  if ! git ls-files >& /dev/null; then
-    echo $'Git project not found\n'
-    return ;
-  fi
+  _git_check || return
   git show-branch \
   | grep '\*' \
   | grep -v `git rev-parse --abbrev-ref HEAD` \
   | head -n1 \
   | sed 's/.*\[\(.*\)\].*/\1/' \
   | sed 's/[\^~].*//'
+}
+
+
+#----------------------------------------------------------------------------------
+# Finds all tracked files with git
+#----------------------------------------------------------------------------------
+function gls() {
+  git ls-files | fzf --style full \
+    --border --padding 1,2 \
+    --border-label ' Files tracked with git ' --input-label '  Search ' --header-label ' File Type ' \
+    --preview 'fzf-preview.sh {}' \
+    --bind 'result:transform-list-label:
+        if [[ -z $FZF_QUERY ]]; then
+          echo " $FZF_MATCH_COUNT items "
+        else
+          echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
+        fi
+        ' \
+    --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " 󰍉 Previewing [%s] " {}' \
+    --bind 'focus:+transform-header:file --brief {} || echo "No file selected"' \
+    --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)' \
+    --color 'border:#aaaaaa,label:#cccccc' \
+    --color 'preview-border:#9999cc,preview-label:#ccccff' \
+    --color 'list-border:#669966,list-label:#99cc99' \
+    --color 'input-border:#996666,input-label:#ffcccc' \
+    --color 'header-border:#6699cc,header-label:#99ccff'
 }
 
 
@@ -288,16 +300,11 @@ function ff() {
 
   files=$(eval "find . -type f -maxdepth 5 $exclude_flags 2>/dev/null")
 
-  selected_file=$(echo "$files" | fzf -m -e --ansi \
-    --prompt ' Search file: ' \
-    --header $'Press <ENTER> to edit / <ESC> to exit.\n\n' \
-    --preview-window right,60% \
-    --bind='ctrl-space:toggle-preview' \
-    --tiebreak begin \
-    --color hl:underline,hl+:underline \
-    --layout reverse \
-    --border \
-    --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file ||
+  selected_file=$(echo "$files" | \
+    _git_fzf_preview -e \
+    --border-label '  ff ' --input-label '  Search file ' \
+    --header $' ESC (exit)' \
+    --preview '[[ $(file --mime {}) =~ binary ]] && file --brief {} ||
         (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
         coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' \
     --query "$filter")
@@ -308,7 +315,7 @@ function ff() {
     else
       open "$selected_file"
     fi
-  fi
+  fi  
 }
 
 
@@ -325,65 +332,62 @@ function fd() {
   fi
 
   cmd="command find -L . -mindepth 1 \\( -path '\\.' $exclude_flags 2>/dev/null \\) -prune -o -type d -print 2> /dev/null | cut -b3-"
-    cd $(eval "$cmd" | \
-      fzf -e --ansi \
-        --prompt ' Search folder: ' \
-        --header $'ESC (exit)\n\n' \
-        --preview-window right,60% \
-        --bind='ctrl-space:toggle-preview' \
-        --tiebreak begin \
-        --color hl:underline,hl+:underline \
-        --layout reverse \
-        --border \
-        --preview 'ls {}')
-}
+  selected_dir=$(eval "$cmd" | \
+      _git_fzf_preview -e \
+        --border-label '  fd ' --input-label '  Search folder ' \
+        --bind 'focus:+transform-header:
+          out=$(file --brief {} 2>/dev/null)
+          if [[ -n "$out" ]]; then
+            echo -e "$out\n ESC (exit)"
+          else
+            echo -e "No file selected"
+          fi' \
+        --preview 'ls {}' \
+        --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; ls)')
 
+  if [[ -n "$selected_dir" ]]; then
+    cd "$selected_dir"
+  fi
+}
 
 #----------------------------------------------------------------------------------
 # Finds files and folders inside of the current path
 #----------------------------------------------------------------------------------
 function lsf(){
   if type lsd &> /dev/null && type bat &> /dev/null; then
-    dir_command="lsd --color=always -1 -a"
+    dir_command="lsd --color=always -1 -a --group-directories-first --classify"
     file_command="bat --style=numbers --color=always"
   else
-    dir_command="ls -1 -a"
+    dir_command="ls -1 -a -F -G"
     file_command="cat"
   fi
 
   preview_command='
     if [ -d {} ]; then
-      echo "-------  Folder: {} \n"
+      echo " $(file --brief {})\n"
       '$dir_command' {}
       echo
     else
-      echo "-------   File  : {} \n"
+      echo " file: $(file --brief {}) \n"
       '$file_command' {} || cat {}
       echo
     fi'
 
   while true; do
-    selected=$((eval $dir_command | grep -Evf $HOME/.fzf-ignore | xargs basename) \
-    | sort \
-    | sed 's|^./||' \
-    | fzf -e --ansi -d: \
-      --prompt '  Search: ' \
-      --header $'ESC (exit)\n\n' \
-      --preview-window right,70% \
-      --tiebreak begin \
-      --color hl:underline,hl+:underline \
-      --layout reverse \
-      --border \
-      --preview "$preview_command")
+    selected=$(eval "$dir_command" | grep -Evf "$HOME/.fzf-ignore" | sort | \
+      _git_fzf_preview -e -d: \
+        --header $' ESC (exit)\n\n' \
+        --preview "$preview_command" \
+        --bind "ctrl-l:execute-silent(cd \"{}\"; lsf)")
 
     if [ -z "$selected" ]; then
-        break
+      break
     elif [ "$selected" = "." ]; then
-        cd ..
-    elif file --mime-type "$selected_file" | grep -qE 'text|ASCII/'; then
-        nvim "$selected"
+      cd ..
     elif [ -d "$selected" ]; then
-        cd "$selected" || exit 1
+      cd "$selected" || exit 1
+    elif file --mime-type "$selected" | grep -qE 'text|ascii'; then
+      nvim "$selected"
     fi
   done
 }
