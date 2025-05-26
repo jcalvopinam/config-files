@@ -1,5 +1,5 @@
 {
-  "readableLineLength": false,
+  "readableLineLength": true,
   "alwaysUpdateLinks": true,
   "defaultViewMode": "source",
   "strictLineBreaks": false,
@@ -9,9 +9,9 @@
   "showInlineTitle": false,
   "showUnsupportedFiles": true,
   "showFrontmatter": false,
-  "showLineNumber": true,
+  "showLineNumber": false,
   "propertiesInDocument": "source",
-  "showIndentGuide": false,
+  "showIndentGuide": true,
   "userIgnoreFilters": [
     "_drawings/",
     "_templates/"

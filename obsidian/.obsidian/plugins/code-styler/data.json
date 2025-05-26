@@ -609,10 +609,10 @@
           "textItalic": false
         },
         "languageTag": {
-          "display": "if_header_shown",
+          "display": "none",
           "textFont": "",
           "textBold": true,
-          "textItalic": false
+          "textItalic": true
         },
         "languageIcon": {
           "display": "always",
@@ -624,7 +624,7 @@
           "displayTimestamp": true
         },
         "fontSize": 14,
-        "foldPlaceholder": "Snippet code"
+        "foldPlaceholder": ":: snippet code"
       },
       "highlights": {
         "activeCodeblockLine": true,
@@ -660,12 +660,12 @@
           "activeTextColour": "#8c8c8c"
         },
         "header": {
-          "backgroundColour": "#FAFAFA",
+          "backgroundColour": "#EDEDED",
           "title": {
             "textColour": "#866704"
           },
           "languageTag": {
-            "backgroundColour": "#F0EBD4",
+            "backgroundColour": "#E3E0D3",
             "textColour": "#C25F30"
           },
           "externalReference": {
@@ -703,12 +703,12 @@
           "activeTextColour": "#DDDDDD"
         },
         "header": {
-          "backgroundColour": "#181620",
+          "backgroundColour": "#181620F7",
           "title": {
             "textColour": "#82A0F0"
           },
           "languageTag": {
-            "backgroundColour": "#2C2B26",
+            "backgroundColour": "#222220",
             "textColour": "#CE7950"
           },
           "externalReference": {
