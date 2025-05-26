@@ -8,7 +8,7 @@
   "baseFontSizeAction": true,
   "interfaceFontFamily": "Inter",
   "monospaceFontFamily": "Hack Nerd Font Mono",
-  "nativeMenus": false,
+  "nativeMenus": true,
   "enabledCssSnippets": [
     "checkbos-styles",
     "file-folder-icons",

@@ -48,11 +48,11 @@
     ""
   ],
   "excludeOpenRelatedFiles": false,
-  "excludeObsidianIgnoredFiles": false,
+  "excludeObsidianIgnoredFiles": true,
   "shouldSearchFilenames": false,
   "shouldSearchBookmarks": false,
   "shouldSearchRecentFiles": true,
-  "pathDisplayFormat": 3,
+  "pathDisplayFormat": 0,
   "hidePathIfRoot": true,
   "enabledRelatedItems": [
     "disk-location",
