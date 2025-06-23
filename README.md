@@ -9,6 +9,7 @@
 * docker
 * fzf
 * git
+* ghostty
 * gpg
 * hyper
 * intellij-idea
