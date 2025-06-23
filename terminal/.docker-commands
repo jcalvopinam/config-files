@@ -1,89 +1,202 @@
-function dnames {
-    for ID in $(docker ps | awk '{print $1}' | grep -v 'CONTAINER'); do
-        docker inspect $ID | grep Name | head -1 | awk '{print $2}' | sed 's/,//g' | sed 's%/%%g' | sed 's/"//g'
-    done
-}
-
+#----------------------------------------------------------------------------------
+# list the container IP
+#----------------------------------------------------------------------------------
 function dip {
-    echo "IP addresses of all named running containers"
-
-    for DOC in $(dnames); do
-        IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' "$DOC")
-        OUT+=$DOC'\t'$IP'\n'
-    done
-    echo -e $OUT | column -t
-    unset OUT
+  local actcont=$(docker ps --format "{{.Names}}")
+  for DOC in $actcont; do
+    IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' "$DOC")
+    OUT+=$DOC'\t'$IP'\n'
+  done
+  echo -e $OUT | column -t
+  unset OUT
 }
 
-function dex {
-    docker exec -it $1 ${2:-bash}
+#----------------------------------------------------------------------------------
+# removes all dangling Docker images (unused images taking up space)
+#----------------------------------------------------------------------------------
+function dirma {
+  imgs=$(docker images -q -f dangling=true)
+  [[ -n "$imgs" ]] && echo "$imgs" | xargs docker rmi || echo "No dangling images found."
+
 }
 
-function di {
-    docker inspect $1
+#----------------------------------------------------------------------------------
+# removes all dangling Docker volumes (unused volumes taking up space)
+#----------------------------------------------------------------------------------
+function dvrma {
+  vols=$(docker volume ls -qf dangling=true)
+  [[ -n "$vols" ]] && echo "$vols" | xargs docker volume rm || echo "no dangling volumes."
 }
 
-function dlf {
-    docker logs -f $1
+#----------------------------------------------------------------------------------
+# filter some attributes from docker inspect with autocompletition
+#----------------------------------------------------------------------------------
+
+function dfilter() {
+  filter="$1"
+  container="$2"
+
+  if [[ -z "$filter" || -z "$container" ]]; then
+    echo "Usage: dinspect {mount|volume|network|labels|ip|ports|env|state|health|host|config} <container>"
+    return 1
+  fi
+
+  case "$filter" in
+    mount|mounts)
+      docker inspect --format '{{json .Mounts}}' "$container" | jq
+      ;;
+    volume|volumes|vol)
+      docker inspect --format '{{printf "%s" (slice .Name 1)}}: {{range .Mounts}}{{if eq .Type "volume"}}{{.Name}} {{end}}{{end}}' $(docker ps -a -q) | while IFS= read -r line;
+      do [[ "${line%%:*}" == "$container" ]] && echo -e "\033[1;32m${line}\033[0m" || echo "$line"; done
+      ;;
+    network|net|networks)
+      docker inspect --format '{{json .NetworkSettings.Networks}}' "$container" | jq
+      ;;
+    ip|ipaddress)
+      docker inspect --format '{{.NetworkSettings.IPAddress}}' "$container"
+      ;;
+    ports|port)
+      docker inspect --format '{{json .NetworkSettings.Ports}}' "$container" | jq
+      ;;
+    labels|label)
+      docker inspect --format '{{json .Config.Labels}}' "$container" | jq
+      ;;
+    env)
+      docker inspect --format '{{json .Config.Env}}' "$container" | jq
+      ;;
+    state)
+      docker inspect --format '{{json .State}}' "$container" | jq
+      ;;
+    health)
+      docker inspect --format '{{json .State.Health}}' "$container" | jq
+      ;;
+    host|hostconfig)
+      docker inspect --format '{{json .HostConfig}}' "$container" | jq
+      ;;
+    config)
+      docker inspect --format '{{json .Config}}' "$container" | jq
+      ;;
+    *)
+      echo "Unknown filter: '$filter'"
+      echo "Usage: dinspect {mount|volume|network|labels|ip|ports|env|state|health|host|config} <container>"
+      return 1
+      ;;
+  esac
 }
 
-function drun {
-    docker run -it $1 $2
+_dfilter() {
+  _arguments -C \
+    '1:filter:(mount volume network ip ports labels env state health host config)' \
+    '2:container name:->containers' && return 0
+
+  case $state in
+    containers)
+      _values 'containers' ${(f)"$(docker ps --format '{{.Names}}')"}
+      ;;
+  esac
 }
 
-function dcr {
-    docker compose run $@
-}
+# Register completion
+compdef _dfilter dfilter
 
-function dsr {
-    docker stop $1
-    docker rm $1
-}
 
-function dstp {
-    docker stop $1
-}
+#----------------------------------------------------------------------------------
+# basic
+#----------------------------------------------------------------------------------
+alias dls='docker container ls'
+alias dlsa='docker container ls -a'
+alias dinsp='docker container inspect'
+alias drm='docker container rm'
+alias drmf='docker container rm -f'
+alias drma='docker container rm $(docker ps --all -q -f status=exited)'
+alias drun='docker container run'
+alias druni='docker container run -it'
+alias dst='docker container start'
+alias dsp='docker container stop'
+alias dspa='docker container stop $(docker ps -q)'
+alias drs='docker container restart'
+alias dei='docker container exec -it'
 
-function dstt {
-    docker start $1
-}
 
-function drmc {
-    docker rm $(docker ps --all -q -f status=exited)
-}
+#----------------------------------------------------------------------------------
+# general
+#----------------------------------------------------------------------------------
+alias dpull='docker pull'
+alias dsprune='docker system prune --all'
+alias dsts='docker stats'
+alias dtop='docker top'
+alias dbl='docker build'
+alias dlf='docker container logs --follow'
+alias dpo='docker container port'
 
-function drmid {
-    imgs=$(docker images -q -f dangling=true)
-    [ ! -z "$imgs" ] && docker rmi "$imgs" || echo "no dangling images."
-}
 
-function drmvd {
-    vols=$(docker volume ls -qf dangling=true)
-    [ ! -z "$vols" ] && docker volume rm "$vols" || echo "no dangling volumes."
-}
+#----------------------------------------------------------------------------------
+# image
+#----------------------------------------------------------------------------------
+alias dib='docker image build'
+alias dii='docker image inspect'
+alias dils='docker image ls'
+alias dipu='docker image push'
+alias diprune='docker image prune -a'
+alias dirm='docker image rm'
+alias dit='docker image tag'
 
-# in order to do things like dex $(dlab label) sh
-function dlab {
-    docker ps --filter="label=$1" --format="{{.ID}}"
-}
 
-function dc {
-    docker compose $*
-}
+#----------------------------------------------------------------------------------
+# volumen
+#----------------------------------------------------------------------------------
+alias dvi='docker volume inspect'
+alias dvprune='docker volume prune'
+alias dvls='docker volume ls'
+alias dvlso='docker volume ls -qf dangling=true'
 
-function daws {
-    docker run \
-        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-        -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
-        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-        amazon/aws-cli:latest $1 $2 $3
-}
 
-alias dcu="docker compose up -d"
-alias dcd="docker compose down"
-alias dim="docker images"
-alias dps="docker ps"
-alias dpsa="docker ps -a"
-alias dsp="docker system prune --all"
-alias dvl="docker volume ls"
-alias dvlo="docker volume ls -qf dangling=true"
+#----------------------------------------------------------------------------------
+# network
+#----------------------------------------------------------------------------------
+alias dnc='docker network create'
+alias dncn='docker network connect'
+alias dndcn='docker network disconnect'
+alias dni='docker network inspect'
+alias dnls='docker network ls'
+alias dnrm='docker network rm'
+
+
+#----------------------------------------------------------------------------------
+# compose
+#----------------------------------------------------------------------------------
+alias dcu='docker compose up -d'
+alias dcd='docker compose down'
+
+
+#----------------------------------------------------------------------------------
+# inherit from docker.plugin.zsh
+#----------------------------------------------------------------------------------
+if (( ! $+commands[docker] )); then
+  return
+fi
+
+# Standardized $0 handling
+# https://zdharma-continuum.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html
+0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
+0="${${(M)0:#/*}:-$PWD/$0}"
+
+# If the completion file doesn't exist yet, we need to autoload it and
+# bind it to `docker`. Otherwise, compinit will have already done that.
+if [[ ! -f "$ZSH_CACHE_DIR/completions/_docker" ]]; then
+  typeset -g -A _comps
+  autoload -Uz _docker
+  _comps[docker]=_docker
+fi
+
+{
+  # `docker completion` is only available from 23.0.0 on
+  # docker version returns `Docker version 24.0.2, build cb74dfcd85`
+  # with `s:,:` remove the comma after the version, and select third word of it
+  if zstyle -t ':omz:plugins:docker' legacy-completion || \
+    ! is-at-least 23.0.0 ${${(s:,:z)"$(command docker --version)"}[3]}; then
+        command cp "${0:h}/completions/_docker" "$ZSH_CACHE_DIR/completions/_docker"
+      else
+        command docker completion zsh | tee "$ZSH_CACHE_DIR/completions/_docker" > /dev/null
+  fi
+} &|
