@@ -142,20 +142,34 @@ fi
 #----------------------------------------------------------------------------------
 if type brew &> /dev/null; then
   function upbrew() {
-    brew_update=$(brew update --quiet 2>&1)
-    formulas_outdated=$(brew outdated --formula --quiet)
-    casks_outdated=$(brew outdated --cask --quiet)
+    BOLD=$(tput bold)
+    RESET=$(tput sgr0)
+
+    print_table() {
+      local title="$1"
+      local data="$2"
+
+      printf "+-----------------------------+------------+------------+\n"
+      printf "| ${BOLD}%-27s${RESET} | ${BOLD}%-10s${RESET} | ${BOLD}%-10s${RESET} |\n" "$title" "CURRENT" "LATEST"
+      printf "+-----------------------------+------------+------------+\n"
+      echo "$data" | sed -E 's/ \(([^)]+)\) < /\t\1\t/' | while IFS=$'\t' read -r name current latest; do
+        printf "| %-27s | %-10s | %-10s |\n" "$name" "$current" "$latest"
+      done
+      printf "+-----------------------------+------------+------------+\n"
+    }
+
+    brew update --quiet > /dev/null 2>&1
+    formulas_outdated=$(brew outdated --formula --verbose)
+    casks_outdated=$(brew outdated --cask --verbose)
 
     if [[ -z "$formulas_outdated" && -z "$casks_outdated" ]]; then
-      echo "$brew_update"
+      echo -e "${BOLD}:: Everything is up to date!${RESET}"
     else
-      echo -e "${BOLD}:: Available updates!${RESET}"
-
-      [ -n "$formulas_outdated" ] && echo "${BOLD}==> Formulas:${RESET}\n$formulas_outdated"
-      [ -n "$casks_outdated" ] && echo "${BOLD}\n==> Casks:${RESET}\n$casks_outdated"
+      [ -n "$formulas_outdated" ] && print_table "FORMULAS" "$formulas_outdated"
+      [ -n "$casks_outdated" ] && print_table "CASK" "$casks_outdated"
 
       echo -ne "${BOLD}\n:: Do you want to update? (y/n): ${RESET}"
-      read choice
+      read -r choice
 
       if [[ "$choice" =~ ^[Yy]$ ]]; then
         brew upgrade --formula $(brew list --formula)
