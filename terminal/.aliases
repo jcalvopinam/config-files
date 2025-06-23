@@ -69,6 +69,8 @@ alias path='echo -e ${PATH//:/\\n}'
 #----------------------------------------------------------------------------------
 # Counters
 #----------------------------------------------------------------------------------
+alias lsfsize='find . -type f -exec du -h {} + | sort -hr'
+alias lsdsize='du -h -d 1 . | sort -hr'
 alias tf='find . -type f | wc -l'
 alias tfd='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '\''echo "{} : $(find "{}" -type f | wc -l)" file\(s\)'\'' \;'
 
