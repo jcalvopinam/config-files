@@ -149,13 +149,13 @@ if type brew &> /dev/null; then
       local title="$1"
       local data="$2"
 
-      printf "+-----------------------------+------------+------------+\n"
-      printf "| ${BOLD}%-27s${RESET} | ${BOLD}%-10s${RESET} | ${BOLD}%-10s${RESET} |\n" "$title" "CURRENT" "LATEST"
-      printf "+-----------------------------+------------+------------+\n"
-      echo "$data" | sed -E 's/ \(([^)]+)\) < /\t\1\t/' | while IFS=$'\t' read -r name current latest; do
-        printf "| %-27s | %-10s | %-10s |\n" "$name" "$current" "$latest"
+      printf "+-----------------------------+-------------------------+-------------------------+\n"
+      printf "| ${BOLD}%-27s${RESET} | ${BOLD}%-23s${RESET} | ${BOLD}%-23s${RESET} |\n" "$title" "CURRENT" "LATEST"
+      printf "+-----------------------------+-------------------------+-------------------------+\n"
+      echo "$data" | sed -E 's/^(.*)\(([^)]+)\) (<!?=|!=|<) (.*)$/\1\t\2\t\4/' | while IFS=$'\t' read -r name current latest; do
+        printf "| %-27s | %-23s | %-23s |\n" "$name" "$current" "$latest"
       done
-      printf "+-----------------------------+------------+------------+\n"
+      printf "+-----------------------------+-------------------------+-------------------------+\n"
     }
 
     brew update --quiet > /dev/null 2>&1
@@ -166,9 +166,9 @@ if type brew &> /dev/null; then
       echo -e "${BOLD}:: Everything is up to date!${RESET}"
     else
       [ -n "$formulas_outdated" ] && print_table "FORMULAS" "$formulas_outdated"
-      [ -n "$casks_outdated" ] && print_table "CASK" "$casks_outdated"
+      [ -n "$casks_outdated" ] && print_table "CASKS" "$casks_outdated"
 
-      echo -ne "${BOLD}\n:: Do you want to update? (y/n): ${RESET}"
+      echo -ne "${BOLD}\n:: Do you want to update all? (y/n): ${RESET}"
       read -r choice
 
       if [[ "$choice" =~ ^[Yy]$ ]]; then
