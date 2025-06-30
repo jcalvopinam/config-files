@@ -3,8 +3,23 @@
     <keyboard-shortcut first-keystroke="alt f12" />
     <keyboard-shortcut first-keystroke="meta 0" />
   </action>
-  <action id="EditBookmark">
-    <keyboard-shortcut first-keystroke="meta alt f3" />
+  <action id="Console.Jdbc.ChooseDataSource">
+    <keyboard-shortcut first-keystroke="shift alt enter" />
+  </action>
+  <action id="Console.Jdbc.ChooseSchema">
+    <keyboard-shortcut first-keystroke="shift ctrl enter" />
+  </action>
+  <action id="Console.Jdbc.Execute.2">
+    <keyboard-shortcut first-keystroke="shift meta enter" />
+  </action>
+  <action id="Console.TableResult.ChangeColumnLanguage">
+    <keyboard-shortcut first-keystroke="alt k" second-keystroke="m" />
+  </action>
+  <action id="DockPinnedMode">
+    <keyboard-shortcut first-keystroke="ctrl alt p" />
+  </action>
+  <action id="DockUnpinnedMode">
+    <keyboard-shortcut first-keystroke="shift ctrl alt p" />
   </action>
   <action id="EditorDecreaseFontSize">
     <keyboard-shortcut first-keystroke="alt subtract" />
@@ -18,6 +33,25 @@
     <keyboard-shortcut first-keystroke="alt numpad0" />
     <keyboard-shortcut first-keystroke="alt 0" />
   </action>
+  <action id="EditorTextEnd">
+    <keyboard-shortcut first-keystroke="ctrl minus" />
+    <keyboard-shortcut first-keystroke="ctrl end" />
+  </action>
+  <action id="EditorTextEndWithSelection">
+    <keyboard-shortcut first-keystroke="shift ctrl minus" />
+    <keyboard-shortcut first-keystroke="shift ctrl end" />
+  </action>
+  <action id="EditorTextStart">
+    <keyboard-shortcut first-keystroke="ctrl equals" />
+    <keyboard-shortcut first-keystroke="ctrl home" />
+  </action>
+  <action id="EditorTextStartWithSelection">
+    <keyboard-shortcut first-keystroke="shift ctrl equals" />
+    <keyboard-shortcut first-keystroke="shift ctrl home" />
+  </action>
+  <action id="Git.CompareWithBranch">
+    <keyboard-shortcut first-keystroke="ctrl meta c" />
+  </action>
   <action id="NewScratchBuffer">
     <keyboard-shortcut first-keystroke="alt n" />
   </action>
@@ -25,14 +59,24 @@
     <keyboard-shortcut first-keystroke="meta e" />
     <keyboard-shortcut first-keystroke="ctrl e" />
   </action>
+  <action id="RevealIn">
+    <keyboard-shortcut first-keystroke="alt f" />
+  </action>
   <action id="RunAnything">
     <keyboard-shortcut first-keystroke="alt x" />
   </action>
-  <action id="ScrollPane-scrollEnd">
-    <keyboard-shortcut first-keystroke="ctrl end" />
+  <action id="SelectInProjectView">
+    <keyboard-shortcut first-keystroke="ctrl x" />
   </action>
-  <action id="ScrollPane-scrollHome">
-    <keyboard-shortcut first-keystroke="ctrl home" />
+  <action id="Session.Close">
+    <keyboard-shortcut first-keystroke="shift ctrl s" />
+  </action>
+  <action id="Session.CloseAll">
+    <keyboard-shortcut first-keystroke="shift ctrl alt s" />
+  </action>
+  <action id="Stop">
+    <keyboard-shortcut first-keystroke="meta f2" />
+    <keyboard-shortcut first-keystroke="ctrl s" />
   </action>
   <action id="SwitcherIterateItems">
     <keyboard-shortcut first-keystroke="meta e" />
@@ -41,6 +85,12 @@
   <action id="SwitcherRecentEditedChangedToggleCheckBox">
     <keyboard-shortcut first-keystroke="meta e" />
     <keyboard-shortcut first-keystroke="ctrl e" />
+  </action>
+  <action id="Terminal.SplitHorizontally">
+    <keyboard-shortcut first-keystroke="meta enter" />
+  </action>
+  <action id="Terminal.SplitVertically">
+    <keyboard-shortcut first-keystroke="shift meta enter" />
   </action>
   <action id="Vcs.ShowTabbedFileHistory">
     <keyboard-shortcut first-keystroke="ctrl meta h" />
