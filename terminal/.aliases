@@ -5,9 +5,11 @@
 # `bat` configuration
 #----------------------------------------------------------------------------------
 if type bat &> /dev/null; then
-  alias cat=/opt/homebrew/bin/bat
+  alias cat='/opt/homebrew/bin/bat --theme auto:system --theme-dark Coldark-Dark --theme-light OneHalfLight'
   alias catn=/bin/cat
-  alias catl='/opt/homebrew/bin/bat --paging=never'
+  alias catl='/opt/homebrew/bin/bat --color=always --paging=never'
+  alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+  alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 fi
 
 #----------------------------------------------------------------------------------

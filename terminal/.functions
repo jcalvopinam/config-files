@@ -293,13 +293,6 @@ function themeToggle() {
     if type lsd &> /dev/null; then
       mv ~/.config/lsd_light ~/.config/lsd 2> /dev/null
     fi
-
-    # `bat`
-    if type bat &> /dev/null; then
-      alias cat='/opt/homebrew/bin/bat --theme=OneHalfLight '
-      alias catl='/opt/homebrew/bin/bat --theme=OneHalfLight --paging=never '
-      alias bat='/opt/homebrew/bin/bat --theme=OneHalfLight '
-    fi
   else
     # `lsd`
     mv ~/.config/lsd ~/.config/lsd_light 2> /dev/null
