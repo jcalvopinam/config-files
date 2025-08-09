@@ -8,6 +8,13 @@ BOLD="\e[1m"
 RESET="\e[0m"
 
 #----------------------------------------------------------------------------------
+# Get the help of a command and format it with `bat` using the `cathelp` alias
+#----------------------------------------------------------------------------------
+help() {
+    "$@" --help 2>&1 | cathelp
+}
+
+#----------------------------------------------------------------------------------
 # Deletes file/folder with scrub utility. e.g.:rmk myFolder
 #----------------------------------------------------------------------------------
 function rmk() {
@@ -292,13 +299,6 @@ function themeToggle() {
     # `lsd`
     if type lsd &> /dev/null; then
       mv ~/.config/lsd_light ~/.config/lsd 2> /dev/null
-    fi
-
-    # `bat`
-    if type bat &> /dev/null; then
-      alias cat='/usr/local/bin/bat --theme=OneHalfLight '
-      alias catl='/usr/local/bin/bat --theme=OneHalfLight --paging=never '
-      alias bat='/usr/local/bin/bat --theme=OneHalfLight '
     fi
   else
     # `lsd`
