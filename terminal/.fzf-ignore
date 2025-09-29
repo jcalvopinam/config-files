@@ -1,27 +1,28 @@
-! -path "*.DS_Store"
-! -path "*.localized"
-! -path "*.photoslibrary/*"
-! -path "*.tvlibrary/*"
-! -path "*/.android/*"
-! -path "*/.Apple/*"
-! -path "*/.azure/commands/*"
-! -path "*/.cache/*"
-! -path "*/.cocoapods/*"
-! -path "*/.git/*"
-! -path "*/.gradle/*"
-! -path "*/.idea/*"
-! -path "*/.node-gyp/*"
-! -path "*/.npm/*"
-! -path "*/.sdkman/src/*"
-! -path "*/.sdkman/tmp/*"
-! -path "*/.tldrc/*"
-! -path "*/.Trash/*"
-! -path "*/.vscode/*"
-! -path "*/*.localized/*"
-! -path "*/build/*"
-! -path "*/classes/*"
-! -path "*/gradle/*"
-! -path "*/Group Containers/*"
-! -path "*/Library/*"
-! -path "*/node_modules/*"
-! -path "*/target/*"
+*.DS_Store
+*.localized
+*.photoslibrary
+*.tvlibrary
+*/.android
+*/.Apple
+*/.azure/commands
+*/.cache
+*/.cocoapods
+*/.git
+*/.gradle
+*/.idea
+*/.node-gyp
+*/.npm
+*/.sdkman/src
+*/.sdkman/tmp
+*/.tldrc
+*/.Trash
+*/.vscode
+*/*.localized
+*/.obsidian
+*/build
+*/classes
+*/gradle
+*/Group Containers
+*/Library
+*/node_modules
+*/target
