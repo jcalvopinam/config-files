@@ -287,35 +287,52 @@ function gls() {
 
 
 #----------------------------------------------------------------------------------
-# Finds files inside of the current path
+# Expression to ignore files and folders based on .fzf-ignore
 #----------------------------------------------------------------------------------
-function ff() {
-  filter="${1:-""}"
-  ignore_file="$HOME/.fzf-ignore"
-  exclude_flags=""
+build_fzf_ignore_expr() {
+  local ignore_file="$HOME/.fzf-ignore"
+  local expr=""
 
   if [ -f "$ignore_file" ]; then
-    exclude_flags=$(cat "$ignore_file" | tr '\n' ' ')
+    while IFS= read -r pattern; do
+      expr="$expr -path \"$pattern\" -o"
+    done < "$ignore_file"
+    expr="${expr::-3}"  # remove trailing -o
+    echo "\\( $expr \\) -prune -o"
   fi
+}
 
-  files=$(eval "find . -type f -maxdepth 5 $exclude_flags 2>/dev/null")
+#----------------------------------------------------------------------------------
+# Finds files inside of the current path
+#----------------------------------------------------------------------------------
 
-  selected_file=$(echo "$files" | \
+function ff() {
+  local filter="${1:-""}"
+  local exclude_expr
+  exclude_expr=$(build_fzf_ignore_expr)
+
+  local name_filter=""
+  [[ -n "$filter" ]] && name_filter="-iname \"*${filter}*\""
+
+  local cmd="find . $exclude_expr -type f $name_filter -print | cut -c3- | sort"
+  local files=$(eval "$cmd")
+
+  local selected_file=$(echo "$files" | \
     _git_fzf_preview -e \
-    --border-label '  ff ' --input-label '  Search file ' \
-    --header $' ESC (exit)' \
-    --preview '[[ $(file --mime {}) =~ binary ]] && file --brief {} ||
-        (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
-        coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' \
-    --query "$filter")
+      --border-label '  find files ' --input-label '  Search file ' \
+      --header $' ESC (exit)' \
+      --preview '[[ $(file --mime {}) =~ binary ]] && file --brief {} ||
+          (bat --style=numbers --color=always {} || highlight -O ansi -l {} ||
+          coderay {} || rougify {} || cat {}) 2> /dev/null | head -500' \
+      --query "")
 
-  if [ -n "$selected_file" ]; then
+  if [[ -n "$selected_file" ]]; then
     if file --mime-type "$selected_file" | grep -q 'text/'; then
       nvim "$selected_file"
     else
       open "$selected_file"
     fi
-  fi  
+  fi
 }
 
 
@@ -323,32 +340,27 @@ function ff() {
 # Finds folders inside of the current path
 #----------------------------------------------------------------------------------
 function fd() {
-  filter="${1:-""}"
-  ignore_file="$HOME/.fzf-ignore"
-  exclude_flags=""
+  local exclude_expr
+  exclude_expr=$(build_fzf_ignore_expr)
 
-  if [ -f "$ignore_file" ]; then
-    exclude_flags=$(cat "$ignore_file" | tr '\n' ' ')
-  fi
+  local cmd="find . $exclude_expr -type d -print | cut -c3- | sort"
 
-  cmd="command find -L . -mindepth 1 \\( -path '\\.' $exclude_flags 2>/dev/null \\) -prune -o -type d -print 2> /dev/null | cut -b3-"
-  selected_dir=$(eval "$cmd" | \
-      _git_fzf_preview -e \
-        --border-label '  fd ' --input-label '  Search folder ' \
-        --bind 'focus:+transform-header:
-          out=$(file --brief {} 2>/dev/null)
-          if [[ -n "$out" ]]; then
-            echo -e "$out\n ESC (exit)"
-          else
-            echo -e "No file selected"
-          fi' \
-        --preview 'ls {}' \
-        --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; ls)')
+  local selected_dir=$(eval "$cmd" | \
+    _git_fzf_preview -e \
+      --border-label '  find folders ' --input-label '  Search folder ' \
+      --bind 'focus:+transform-header:
+        out=\$(file --brief {} 2>/dev/null)
+        if [[ -n \"\$out\" ]]; then
+          echo -e \"\$out\n ESC (exit)\"
+        else
+          echo -e \"No file selected\"
+        fi' \
+      --preview 'ls {}' \
+      --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; ls)')
 
-  if [[ -n "$selected_dir" ]]; then
-    cd "$selected_dir"
-  fi
+  [[ -n "$selected_dir" ]] && cd "$selected_dir"
 }
+
 
 #----------------------------------------------------------------------------------
 # Finds files and folders inside of the current path
@@ -391,3 +403,12 @@ function lsf(){
     fi
   done
 }
+
+#--------------------------------------------------------------------------------
+# Key bindings
+#----------------------------------------------------------------------------------
+zle -N ff
+bindkey '^[c' ff  # alt + c to find files
+
+zle -N fd
+bindkey '^[t' fd   # ctrl + t to find folders
