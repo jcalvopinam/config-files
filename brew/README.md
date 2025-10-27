@@ -181,3 +181,19 @@ brew install --cask suspicious-package
 ```sh
 brew install --cask klogg
 ```
+
+### **[deskflow](https://github.com/deskflow/deskflow)**: keyboard and mouse sharing app.
+```sh
+brew tap deskflow/homebrew-tap
+brew install deskflow
+```
+
+### **[shotcat](https://shortcat.app/)**: Shortcat enables you to operate your Mac faster, and with less cognitive overhead.
+```sh
+brew install --cask shortcat
+```
+
+### **[dockdoor](https://dockdoor.net/)**: Effortless Alt+Tab switching and dock previews
+```sh
+brew install --cask dockdoor
+```
