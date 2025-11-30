@@ -65,6 +65,11 @@ export GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 export GOOGLE_APPLICATION_CREDENTIALS="~/Downloads/siseg-ecuador-a8e0b760cb7f.json"
 
 #----------------------------------------------------------------------------------
+# Antigravity
+#----------------------------------------------------------------------------------
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+
+#----------------------------------------------------------------------------------
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 #----------------------------------------------------------------------------------
 export SDKMAN_DIR=$HOME"/.sdkman"
