@@ -58,6 +58,7 @@ fi
 [[ -f ~/.exports ]] && source ~/.exports
 [[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.functions ]] && source ~/.functions
+[[ -f ~/.git-aliases ]] && source ~/.git-aliases
 [[ -f ~/.keybindings ]] && source ~/.keybindings
 [[ -f ~/.docker-commands ]] && source ~/.docker-commands
 [[ -f ~/.work ]] && source ~/.work
