@@ -1,0 +1,14 @@
+function gtam() {
+  if [[ -z "$1" || -z "$2" ]]; then
+    echo ":: It requires the version and the comment. e.g.:"
+    echo "   gtam v1.0.0 \"Tag for version 1.0.0\""
+    return 1
+  fi
+
+  git tag --annotate "$1" -m "$2"
+}
+
+alias gtp='git push origin '
+alias gtd='git tag -d '
+alias gtD='git push origin --delete tag '
+alias gbD='git push origin --delete '
