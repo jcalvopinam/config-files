@@ -33,11 +33,13 @@ fi
 plugins=(
     copybuffer               # ctrl + o
     git
+    gitignore
     sudo
     z
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
+    zsh-interactive-cd
 )
 
 #----------------------------------------------------------------------------------
