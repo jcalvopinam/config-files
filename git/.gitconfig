@@ -1,35 +1,26 @@
 [user]
     name = Juan Calvopina
-    email = juan.calvopina@gmail.com
+    email = jcalvopinam@gmail.com
 [core]
     autocrlf = input
     editor = code --wait
     eol = lf
-    excludesFile = /Users/jcalvopina/.gitignore_global
+    excludesFile = $HOME/.gitignore_global
 [init]
     defaultBranch = main
 [pull]
     ff = only
-[push]
-    autoSetupRemote = true
-    default = current
 [diff]
     tool = vscode
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
-[difftool]
-    prompt = false
 [merge]
     tool = vscode
 [mergetool "vscode"]
     cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
-[mergetool]
-    prompt = false
 [color]
     branch = auto
     diff = auto
     interactive = auto
     status = auto
     ui = true
-[alias]
-    cane = commit --amend --no-edit
