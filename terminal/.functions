@@ -194,8 +194,8 @@ if type brew &> /dev/null; then
       read -r choice
 
       if [[ "$choice" =~ ^[Yy]$ ]]; then
-        brew upgrade --formula $(brew list --formula)
-        brew upgrade --cask $(brew list --cask)
+        brew upgrade --quiet --formula $(brew list --formula)
+        brew upgrade --quiet --cask $(brew list --cask)
         brew cleanup
         brew doctor
       else
