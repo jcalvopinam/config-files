@@ -29,6 +29,8 @@
   <action id="CopyPathFromRepositoryRootProvider">
     <keyboard-shortcut first-keystroke="shift ctrl c" />
   </action>
+  <action id="Diff.NextChange" />
+  <action id="Diff.PrevChange" />
   <action id="DockPinnedMode">
     <keyboard-shortcut first-keystroke="ctrl alt p" />
   </action>
@@ -50,6 +52,9 @@
     <keyboard-shortcut first-keystroke="alt numpad0" />
     <keyboard-shortcut first-keystroke="alt 0" />
   </action>
+  <action id="EditorRight">
+    <keyboard-shortcut first-keystroke="right" />
+  </action>
   <action id="EditorTextEnd">
     <keyboard-shortcut first-keystroke="ctrl minus" />
     <keyboard-shortcut first-keystroke="ctrl end" />
@@ -69,19 +74,38 @@
   <action id="Git.CompareWithBranch">
     <keyboard-shortcut first-keystroke="ctrl meta c" />
   </action>
+  <action id="GotoAction" />
+  <action id="List-selectNextColumn">
+    <keyboard-shortcut first-keystroke="right" />
+  </action>
+  <action id="MinimizeCurrentWindow" />
   <action id="NewScratchBuffer">
     <keyboard-shortcut first-keystroke="alt n" />
+  </action>
+  <action id="NextEditorTab" />
+  <action id="NextTab">
+    <keyboard-shortcut first-keystroke="shift ctrl right" />
   </action>
   <action id="PasteMultiple">
     <keyboard-shortcut first-keystroke="shift meta v" />
     <keyboard-shortcut first-keystroke="shift meta insert" />
     <keyboard-shortcut first-keystroke="alt v" />
   </action>
+  <action id="PopupMenu-selectChild">
+    <keyboard-shortcut first-keystroke="right" />
+  </action>
+  <action id="PreviousEditorTab" />
+  <action id="PreviousTab">
+    <keyboard-shortcut first-keystroke="shift ctrl left" />
+  </action>
   <action id="RevealIn">
     <keyboard-shortcut first-keystroke="alt f" />
   </action>
   <action id="RunAnything">
     <keyboard-shortcut first-keystroke="alt x" />
+  </action>
+  <action id="SegmentedButton-right">
+    <keyboard-shortcut first-keystroke="right" />
   </action>
   <action id="SelectInProjectView">
     <keyboard-shortcut first-keystroke="ctrl x" />
@@ -92,9 +116,16 @@
   <action id="Session.CloseAll">
     <keyboard-shortcut first-keystroke="shift ctrl alt s" />
   </action>
+  <action id="ShowContent" />
   <action id="Stop">
     <keyboard-shortcut first-keystroke="meta f2" />
     <keyboard-shortcut first-keystroke="ctrl s" />
+  </action>
+  <action id="TabList">
+    <keyboard-shortcut first-keystroke="shift meta a" />
+  </action>
+  <action id="Table-selectNextColumn">
+    <keyboard-shortcut first-keystroke="right" />
   </action>
   <action id="Terminal.SplitHorizontally">
     <keyboard-shortcut first-keystroke="meta enter" />
@@ -102,6 +133,11 @@
   <action id="Terminal.SplitVertically">
     <keyboard-shortcut first-keystroke="shift meta enter" />
   </action>
+  <action id="TodoViewGroupByFlattenPackage" />
+  <action id="Tree-selectChild">
+    <keyboard-shortcut first-keystroke="right" />
+  </action>
+  <action id="UsageFiltering.ReadAccess" />
   <action id="Vcs.ShowTabbedFileHistory">
     <keyboard-shortcut first-keystroke="ctrl meta h" />
   </action>
