@@ -1,0 +1,277 @@
+<application>
+  <component name="ToolWindowLayout"><![CDATA[{
+  "activeLayoutName": "undock panels",
+  "layouts": {
+    "Custom": {
+      "v2": [
+        {
+          "id": "Project",
+          "order": 0,
+          "contentUiType": "COMBO",
+          "weight": 0.25
+        },
+        {
+          "id": "Commit",
+          "order": 1,
+          "weight": 0.25
+        },
+        {
+          "id": "Structure",
+          "order": 2,
+          "weight": 0.25,
+          "isSplit": true
+        },
+        {
+          "id": "Version Control",
+          "order": 0,
+          "anchor": "BOTTOM"
+        },
+        {
+          "id": "Problems",
+          "order": 1,
+          "anchor": "BOTTOM"
+        },
+        {
+          "id": "Problems View",
+          "order": 2,
+          "anchor": "BOTTOM"
+        },
+        {
+          "id": "Terminal",
+          "order": 3,
+          "anchor": "BOTTOM"
+        },
+        {
+          "id": "Services",
+          "order": 4,
+          "anchor": "BOTTOM"
+        },
+        {
+          "id": "Notifications",
+          "order": 0,
+          "anchor": "RIGHT",
+          "contentUiType": "COMBO",
+          "weight": 0.25
+        },
+        {
+          "id": "AIAssistant",
+          "order": 1,
+          "anchor": "RIGHT",
+          "weight": 0.25
+        },
+        {
+          "id": "Database",
+          "order": 2,
+          "anchor": "RIGHT",
+          "weight": 0.25
+        },
+        {
+          "id": "Gradle",
+          "order": 3,
+          "anchor": "RIGHT",
+          "weight": 0.25
+        },
+        {
+          "id": "Maven",
+          "order": 4,
+          "anchor": "RIGHT",
+          "weight": 0.25
+        }
+      ]
+    },
+    "undock panels": {
+      "v2": [
+        {
+          "id": "Pull Requests",
+          "isShowStripeButton": false,
+          "weight": 0.11328648
+        },
+        {
+          "id": "Project",
+          "order": 0,
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "contentUiType": "COMBO",
+          "weight": 0.18986084,
+          "sideWeight": 0.50052965
+        },
+        {
+          "id": "Commit",
+          "order": 1,
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "weight": 0.18986084
+        },
+        {
+          "id": "Structure",
+          "order": 2,
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "weight": 0.18986084
+        },
+        {
+          "id": "Bookmarks",
+          "order": 3,
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "weight": 0.18986084,
+          "sideWeight": 0.49947035
+        },
+        {
+          "id": "VcsChanges",
+          "order": 4,
+          "isActiveOnStart": true,
+          "isVisible": true,
+          "weight": 0.22071621
+        },
+        {
+          "id": "Find",
+          "anchor": "BOTTOM",
+          "weight": 0.3299939
+        },
+        {
+          "id": "Version Control",
+          "order": 0,
+          "anchor": "BOTTOM",
+          "weight": 0.49265382
+        },
+        {
+          "id": "Problems",
+          "order": 1,
+          "anchor": "BOTTOM"
+        },
+        {
+          "id": "Problems View",
+          "order": 2,
+          "anchor": "BOTTOM",
+          "weight": 0.2941712
+        },
+        {
+          "id": "Terminal",
+          "order": 3,
+          "anchor": "BOTTOM",
+          "weight": 0.3665431
+        },
+        {
+          "id": "Coverage",
+          "order": 4,
+          "anchor": "BOTTOM",
+          "weight": 0.24904066
+        },
+        {
+          "id": "Services",
+          "order": 5,
+          "anchor": "BOTTOM",
+          "weight": 0.28105828
+        },
+        {
+          "id": "Run",
+          "order": 6,
+          "anchor": "BOTTOM",
+          "isShowStripeButton": false,
+          "weight": 0.24904066
+        },
+        {
+          "id": "Build",
+          "order": 7,
+          "anchor": "BOTTOM",
+          "isVisible": true,
+          "weight": 0.24904066
+        },
+        {
+          "id": "Messages",
+          "order": 8,
+          "anchor": "BOTTOM",
+          "isShowStripeButton": false,
+          "weight": 0.3664238
+        },
+        {
+          "id": "Debug",
+          "order": 9,
+          "anchor": "BOTTOM",
+          "isShowStripeButton": false,
+          "weight": 0.35861182
+        },
+        {
+          "id": "TODO",
+          "order": 10,
+          "anchor": "BOTTOM",
+          "weight": 0.24904066
+        },
+        {
+          "id": "Remote Host",
+          "anchor": "RIGHT",
+          "isShowStripeButton": false,
+          "weight": 0.33015394,
+          "isSplit": true
+        },
+        {
+          "id": "Notifications",
+          "order": 0,
+          "anchor": "RIGHT",
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "weight": 0.24920446
+        },
+        {
+          "id": "AIAssistant",
+          "order": 1,
+          "anchor": "RIGHT",
+          "isShowStripeButton": false,
+          "weight": 0.11629853
+        },
+        {
+          "id": "Database",
+          "order": 2,
+          "anchor": "RIGHT",
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "weight": 0.24910536
+        },
+        {
+          "id": "Gradle",
+          "order": 3,
+          "anchor": "RIGHT",
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "weight": 0.24910536
+        },
+        {
+          "id": "Maven",
+          "order": 4,
+          "anchor": "RIGHT",
+          "weight": 0.25
+        },
+        {
+          "id": "JPA Buddy",
+          "order": 5,
+          "anchor": "RIGHT",
+          "weight": 0.24905033
+        },
+        {
+          "id": "Endpoints",
+          "order": 6,
+          "anchor": "RIGHT",
+          "isAutoHide": true,
+          "type": "SLIDING",
+          "internalType": "SLIDING",
+          "weight": 0.24910536
+        }
+      ],
+      "unifiedWeights": {
+        "top": 0.33,
+        "left": 0.18986084,
+        "bottom": 0.24904066,
+        "right": 0.24920446
+      }
+    }
+  }
+}]]></component>
+</application>
