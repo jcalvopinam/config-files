@@ -358,3 +358,15 @@ function rr\!() {
     fi
   done
 }
+
+#----------------------------------------------------------------------------------
+# Load the .env file from the current directory or any parent directory
+#----------------------------------------------------------------------------------
+function lenv() {
+  local dir="$PWD"
+  while [[ "$dir" != "/" ]]; do
+    [[ -f "$dir/.env" ]] && { set -a && source "$dir/.env" && set +a; echo ":: Loaded $dir/.env"; return }
+    dir="${dir:h}"
+  done
+  echo ":: No .env found"
+}
