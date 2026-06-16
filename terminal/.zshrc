@@ -35,7 +35,7 @@ plugins=(
     git
     gitignore
     sudo
-    z
+    #z                       # alternative zoxide
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
@@ -61,6 +61,7 @@ fi
 [[ -f ~/.git-aliases ]] && source ~/.git-aliases
 [[ -f ~/.keybindings ]] && source ~/.keybindings
 [[ -f ~/.docker-commands ]] && source ~/.docker-commands
+[[ -f ~/.docker-completion ]] && source ~/.docker-completion
 [[ -f ~/.work ]] && source ~/.work
 
 #----------------------------------------------------------------------------------

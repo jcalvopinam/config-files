@@ -29,6 +29,89 @@ function dvrma {
 }
 
 #----------------------------------------------------------------------------------
+# docker ls by atributes. e.g.: dls net | dls ports | dls size
+#----------------------------------------------------------------------------------
+function dls() {
+  # base command
+  base="{{.ID}}\t{{.RunningFor}}\t{{.Status}}\t{{.Ports}}"
+  end="\t{{.Names}}"
+  extra=""
+
+# if the first param is help, then shows the menu and exit
+  if [[ "$1" == "help" ]]; then
+    echo "Available attributes for dls (columns you can add):"
+    echo "  networks   → Networks the container is connected to"
+    echo "  image      → Container image"
+    echo "  command    → Command used to start the container"
+    echo "  time       → How long the container has been running"
+    echo "  size       → Container size (requires --size)"
+    echo "  mounts     → Volumes / mounts"
+    echo "  labels     → Labels attached to the container"
+    echo "  all        → Show all containers (docker container ls -a)"
+    echo "  help       → Show this help message"
+
+    return
+  fi
+
+  # build columns dinamically
+  for arg in "$@"; do
+    key=$(echo "$arg" | tr '[:upper:]' '[:lower:]')
+    case "$key" in
+      networks)
+        extra="$extra\t{{.Networks}}"
+        ;;
+      image)
+        extra="$extra\t{{.Image}}"
+        ;;
+      command)
+        extra="$extra\t{{.Command}}"
+        ;;
+      time)
+        extra="$extra\t{{.CreatedAt}}"
+        ;;
+      size)
+        extra="$extra\t{{.Size}}"
+        ;;
+      mounts)
+        extra="$extra\t{{.Mounts}}"
+        ;;
+      labels)
+        extra="$extra\t{{.Labels}}"
+        ;;
+      all)
+        opts="-a"
+        ;;
+      *)
+        if [[ "$key" != "help" ]]; then
+          echo "⚠️ Unknown parameter: $arg"
+        fi
+        ;;
+    esac
+  done
+
+  docker ps $opts --format "table $base$extra$end"
+}
+
+# autocomplete options for 'dls'
+_dls_completions() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    # list of available columns
+    opts="networks image command time size mounts labels all help"
+
+    # Filter options that match what you've already entered
+    COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
+
+    return 0
+}
+
+# Register completion for 'dls'
+complete -F _dls_completions dls
+
+#----------------------------------------------------------------------------------
 # filter some attributes from docker inspect with autocompletition
 #----------------------------------------------------------------------------------
 
@@ -96,14 +179,14 @@ _dfilter() {
   esac
 }
 
-# Register completion
+# Register completion for dfilter
 compdef _dfilter dfilter
 
 
 #----------------------------------------------------------------------------------
 # basic
 #----------------------------------------------------------------------------------
-alias dls='docker container ls'
+#alias dls='docker container ls'
 alias dlsa='docker container ls -a'
 alias dinsp='docker container inspect'
 alias drm='docker container rm'
