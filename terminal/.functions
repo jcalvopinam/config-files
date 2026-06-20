@@ -298,7 +298,7 @@ if type colima &> /dev/null; then
 fi
 
 #----------------------------------------------------------------------------------
-# Enable / Disable WiFi
+# Enable / Disable / FLush WiFi
 #----------------------------------------------------------------------------------
 function dwifi() {
   networksetup -setairportpower en0 off
@@ -306,6 +306,33 @@ function dwifi() {
 
 function ewifi() {
   networksetup -setairportpower en0 on
+}
+
+function fwifi() {
+  dwifi
+  sleep 15
+  sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+  ewifi
+}
+
+#----------------------------------------------------------------------------------
+# kill port function. e.g: kport 8080
+#----------------------------------------------------------------------------------
+function kport() {
+  if [ -z "$1" ]; then
+    echo "Usage: kport <port_number>"
+    exit 1
+  fi
+
+  PORT=$1
+  PID=$(lsof -ti :$PORT)
+
+  if [ -z "$PID" ]; then
+    echo "No process found on port $PORT"
+  else
+    kill -9 $PID
+    echo "The process $PID on port $PORT was killed!"
+  fi
 }
 
 #----------------------------------------------------------------------------------
