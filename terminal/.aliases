@@ -102,3 +102,5 @@ alias fzf!='fzf --height 40% --reverse'
 alias lg=lazygit
 alias runp='lsof -i'
 alias wifipass='security find-generic-password -wa $1'
+alias v='nvim'
+alias oc='opencode '
