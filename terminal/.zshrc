@@ -35,7 +35,7 @@ plugins=(
     git
     gitignore
     sudo
-    #z                       # alternative zoxide
+    z                       # alternative zoxide
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
