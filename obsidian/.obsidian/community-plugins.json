@@ -3,20 +3,18 @@
   "code-styler",
   "colored-tags",
   "darlal-switcher-plus",
-  "dataview",
   "float-search",
-  "obsidian-diagrams-net",
   "obsidian-enhancing-mindmap",
   "obsidian-excalidraw-plugin",
-  "obsidian-git",
   "obsidian-go-to-line",
   "obsidian-icon-folder",
   "obsidian-minimal-settings",
-  "obsidian-reminder-plugin",
   "obsidian-reveal-active-file",
   "obsidian-sort-and-permute-lines",
   "recent-files-obsidian",
   "settings-search",
   "table-editor-obsidian",
-  "quickadd"
+  "quickadd",
+  "slash-snippets",
+  "templater-obsidian"
 ]

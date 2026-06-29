@@ -76,7 +76,7 @@ var defaultTagTextGetter = (el) => {
   const text = el.textContent;
   return text ? text.trim() : null;
 };
-function applyColoredTagClassesInRoot(root, selector, getTagText = defaultTagTextGetter, getTagTargets = (el) => [el]) {
+function applyColoredTagClassesInRoot(root, selector, getTagText = defaultTagTextGetter, getTagTargets2 = (el) => [el]) {
   const candidates = [];
   if (root instanceof HTMLElement && root.matches(selector)) {
     candidates.push(root);
@@ -85,7 +85,7 @@ function applyColoredTagClassesInRoot(root, selector, getTagText = defaultTagTex
     candidates.push(el);
   });
   for (const el of candidates) {
-    applyColoredTagClass(getTagTargets(el), getTagText(el));
+    applyColoredTagClass(getTagTargets2(el), getTagText(el));
   }
 }
 var TagApplier = class {
@@ -193,20 +193,45 @@ var coloredClassApplierPlugin = import_view.ViewPlugin.fromClass(
   }
 );
 
+// src/tag-appliers/multiSelectPill.ts
+function getMultiSelectPillTargets(pillEl) {
+  const removeButton = pillEl.querySelector(
+    ".multi-select-pill-remove-button"
+  );
+  return removeButton ? [pillEl, removeButton] : [pillEl];
+}
+function getMultiSelectPillName(pillEl) {
+  var _a;
+  const content = pillEl.querySelector(
+    ".multi-select-pill-content"
+  );
+  return normalizeTagText((_a = content == null ? void 0 : content.textContent) != null ? _a : pillEl.textContent);
+}
+
 // src/tag-appliers/BaseViewTagApplier.ts
-var BASE_TAG_SELECTOR = '.bases-table a.tag, .bases-table-container a.tag, .value-list-container a.tag, a.tag[href^="#"]';
+var BASE_PILL_SELECTOR = '.bases-metadata-value[data-property-type="tags" i] .multi-select-pill';
+var BASE_TAG_LINK_SELECTOR = '.bases-table a.tag, .bases-table-container a.tag, .value-list-container a.tag, a.tag[href^="#"]';
+var BASE_TAG_SELECTOR = `${BASE_PILL_SELECTOR}, ${BASE_TAG_LINK_SELECTOR}`;
+function isPill(el) {
+  return el.classList.contains("multi-select-pill");
+}
 function getTagNameFromElement(el) {
-  return normalizeTagText(el.textContent);
+  return isPill(el) ? getMultiSelectPillName(el) : normalizeTagText(el.textContent);
+}
+function getTagTargets(el) {
+  return isPill(el) ? getMultiSelectPillTargets(el) : [el];
 }
 var singleUseApplier = new TagApplier({
   selector: BASE_TAG_SELECTOR,
-  getTagText: getTagNameFromElement
+  getTagText: getTagNameFromElement,
+  getTagTargets
 });
 var BaseViewTagApplier = class {
   constructor() {
     this.applier = new TagApplier({
       selector: BASE_TAG_SELECTOR,
-      getTagText: getTagNameFromElement
+      getTagText: getTagNameFromElement,
+      getTagTargets
     });
   }
   start(root = document.body) {
@@ -4945,13 +4970,13 @@ var CSSManager = class {
 var TagManager = class {
   constructor(knownTags) {
     this.renderedTags = /* @__PURE__ */ new Set();
-    const normalized = Object.entries(knownTags || {}).reduce((acc, [tagName, order]) => {
+    const normalized = [];
+    for (const [tagName, order] of Object.entries(knownTags || {})) {
       const normalizedName = normalizeTagName(tagName);
       if (normalizedName) {
-        acc.push([normalizedName, order]);
+        normalized.push([normalizedName, order]);
       }
-      return acc;
-    }, []);
+    }
     this.tagsMap = new Map(normalized);
   }
   getTagsMap() {
@@ -4977,35 +5002,53 @@ var TagManager = class {
   }
   collectTagPaths(metadataCache) {
     const paths = /* @__PURE__ */ new Set();
-    Object.keys(metadataCache.getTags()).map((tag) => normalizeTagName(tag)).filter((tag) => tag.length > 0 && !tag.match(/\/$/)).forEach((tag) => {
+    for (const rawTag of Object.keys(metadataCache.getTags())) {
+      const tag = normalizeTagName(rawTag);
+      if (!tag) {
+        continue;
+      }
       const chunks = tag.split("/");
       let combined = "";
       for (const chunk of chunks) {
         combined = combined ? `${combined}/${chunk}` : chunk;
         paths.add(combined);
       }
-    });
+    }
     return Array.from(paths).sort((a2, b2) => {
       const depthDiff = a2.split("/").length - b2.split("/").length;
       return depthDiff !== 0 ? depthDiff : a2.localeCompare(b2);
     });
   }
   buildOrders(tags) {
-    var _a, _b;
+    var _a, _b, _c;
     const nextMap = /* @__PURE__ */ new Map();
     const parentMaxOrder = /* @__PURE__ */ new Map();
     for (const tag of tags) {
-      const parentIndex = tag.lastIndexOf("/");
-      const parentKey = parentIndex === -1 ? "" : tag.slice(0, parentIndex);
       const previousOrder = this.tagsMap.get(tag);
-      const order = previousOrder != null ? previousOrder : ((_a = parentMaxOrder.get(parentKey)) != null ? _a : 0) + 1;
+      if (previousOrder === void 0) {
+        continue;
+      }
+      const parentKey = this.getParentKey(tag);
+      parentMaxOrder.set(
+        parentKey,
+        Math.max((_a = parentMaxOrder.get(parentKey)) != null ? _a : 0, previousOrder)
+      );
+    }
+    for (const tag of tags) {
+      const parentKey = this.getParentKey(tag);
+      const previousOrder = this.tagsMap.get(tag);
+      const order = previousOrder != null ? previousOrder : ((_b = parentMaxOrder.get(parentKey)) != null ? _b : 0) + 1;
       nextMap.set(tag, order);
       parentMaxOrder.set(
         parentKey,
-        Math.max((_b = parentMaxOrder.get(parentKey)) != null ? _b : 0, order)
+        Math.max((_c = parentMaxOrder.get(parentKey)) != null ? _c : 0, order)
       );
     }
     return nextMap;
+  }
+  getParentKey(tag) {
+    const parentIndex = tag.lastIndexOf("/");
+    return parentIndex === -1 ? "" : tag.slice(0, parentIndex);
   }
   hasChanged(nextMap) {
     if (nextMap.size !== this.tagsMap.size) {
@@ -5025,30 +5068,17 @@ var TagManager = class {
 
 // src/tag-appliers/PropertiesTagApplier.ts
 var PROPERTY_TAG_SELECTOR = '.metadata-property[data-property-key="tags" i] .multi-select-pill';
-var getPropertyTagTargets = (pillEl) => {
-  const removeButton = pillEl.querySelector(
-    ".multi-select-pill-remove-button"
-  );
-  return removeButton ? [pillEl, removeButton] : [pillEl];
-};
-var getPropertyTagName = (pillEl) => {
-  var _a;
-  const content = pillEl.querySelector(
-    ".multi-select-pill-content"
-  );
-  return normalizeTagText((_a = content == null ? void 0 : content.textContent) != null ? _a : pillEl.textContent);
-};
 var singleUseApplier2 = new TagApplier({
   selector: PROPERTY_TAG_SELECTOR,
-  getTagText: getPropertyTagName,
-  getTagTargets: getPropertyTagTargets
+  getTagText: getMultiSelectPillName,
+  getTagTargets: getMultiSelectPillTargets
 });
 var PropertiesTagApplier = class {
   constructor() {
     this.applier = new TagApplier({
       selector: PROPERTY_TAG_SELECTOR,
-      getTagText: getPropertyTagName,
-      getTagTargets: getPropertyTagTargets
+      getTagText: getMultiSelectPillName,
+      getTagTargets: getMultiSelectPillTargets
     });
   }
   start(root = document.body) {
@@ -5070,6 +5100,8 @@ var _ColoredTagsPlugin = class extends import_obsidian3.Plugin {
     this.tagColorMap = /* @__PURE__ */ new Map();
     this.baseViewTagApplier = new BaseViewTagApplier();
     this.propertiesTagApplier = new PropertiesTagApplier();
+    this.saveKnownTagsPromise = null;
+    this.saveKnownTagsQueued = false;
   }
   async onload() {
     await this.loadSettings();
@@ -5113,10 +5145,28 @@ var _ColoredTagsPlugin = class extends import_obsidian3.Plugin {
     });
   }
   async saveKnownTags() {
-    const hasChanges = await this.tagManager.updateKnownTags(
-      this.app.metadataCache
-    );
-    if (hasChanges) {
+    this.saveKnownTagsQueued = true;
+    if (this.saveKnownTagsPromise) {
+      await this.saveKnownTagsPromise;
+      if (this.saveKnownTagsQueued) {
+        await this.saveKnownTags();
+      }
+      return;
+    }
+    this.saveKnownTagsPromise = this.flushKnownTagsUpdates().finally(() => {
+      this.saveKnownTagsPromise = null;
+    });
+    await this.saveKnownTagsPromise;
+  }
+  async flushKnownTagsUpdates() {
+    while (this.saveKnownTagsQueued) {
+      this.saveKnownTagsQueued = false;
+      const hasChanges = await this.tagManager.updateKnownTags(
+        this.app.metadataCache
+      );
+      if (!hasChanges) {
+        continue;
+      }
       this.settings.knownTags = this.tagManager.exportKnownTags();
       await this.saveData(this.settings);
     }
@@ -5234,7 +5284,8 @@ ${css}
       `a.tag[href="${tagHref}" i]`,
       `a.tag.colored-tag-${tagLower}`,
       `.cm-s-obsidian .cm-line span.cm-hashtag.colored-tag-${tagLower}`,
-      `.metadata-property[data-property-key="tags" i] .multi-select-pill.colored-tag-${tagLower}`
+      `.metadata-property[data-property-key="tags" i] .multi-select-pill.colored-tag-${tagLower}`,
+      `.bases-metadata-value[data-property-type="tags" i] .multi-select-pill.colored-tag-${tagLower}`
     ];
     if (tagFlat && !tagName.includes("/")) {
       const flatLower = tagFlat.toLowerCase();
@@ -5248,7 +5299,8 @@ ${css}
   buildRemoveButtonSelectors(tagName) {
     const tagLower = tagName.toLowerCase().replace(/\//g, "\\/");
     return tagLower ? [
-      `.metadata-property[data-property-key="tags" i] .multi-select-pill-remove-button.colored-tag-${tagLower}`
+      `.metadata-property[data-property-key="tags" i] .multi-select-pill-remove-button.colored-tag-${tagLower}`,
+      `.bases-metadata-value[data-property-type="tags" i] .multi-select-pill-remove-button.colored-tag-${tagLower}`
     ] : [];
   }
   async loadSettings() {
