@@ -2,7 +2,6 @@
 
 exclude=$(awk '{printf " -o -name '\''%s'\''", $1}' $HOME/.fzf-ignore)
 
-
 #----------------------------------------------------------------------------------
 # Some functions were adapted from: https://github.com/junegunn/fzf-git.sh
 # MIT License
@@ -65,6 +64,7 @@ _git_fzf() {
     --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " 󰍉 Previewing [%s] " {}' \
     --bind 'focus:+transform-header:echo " ESC (exit)"' \
     --bind 'ctrl-/:change-preview-window(down,border-top,75%|right,70%,wrap)' \
+    --bind 'ctrl-w:change-preview-window(wrap|nowrap)' \
     --bind '?:toggle-preview+change-preview-window(hidden|right:70%,wrap)' \
     --tiebreak begin \
     --layout reverse \
@@ -94,6 +94,82 @@ _git_check() {
   return 1
 }
 
+#----------------------------------------------------------------------------------
+# Reusable awk script for readable diff formatting
+#----------------------------------------------------------------------------------
+_readable_diff_awk='/^diff --/{fn=$NF; gsub(/^b\//, "", fn); filename=fn; pending=1; next} /^index /{next} /^--- a\//{next} /^[+][+][+] b\//{next} /^@@ /{match($0, /-([0-9]+)/); ln=substr($0, RSTART+1, RLENGTH-1)-1; match($0, /[+]([0-9]+)/); ln_new=substr($0, RSTART+1, RLENGTH-1)-1; next} {if(pending){printf "\n-------- %s --------\n\n", filename; pending=0} if(/^[+]/) printf "\033[32m%5d: %s\033[0m\n", ++ln_new, $0; else if(/^[-]/) printf "\033[31m%5d: %s\033[0m\n", ++ln, $0; else {ln++; ln_new++; printf "%5d: %s\n", ln_new, $0}}'
+
+#----------------------------------------------------------------------------------
+# Load configuration from ~/.fzf-conf
+#----------------------------------------------------------------------------------
+_load_fzf_config() {
+  local conf_file="$HOME/.fzf-conf"
+
+  # If config doesn't exist, launch interactive setup
+  if [[ ! -f "$conf_file" ]]; then
+    gconf
+  fi
+
+  # Load variables from config file
+  while IFS='=' read -r key value; do
+    # Skip empty lines and comments
+    [[ -z "$key" || "$key" =~ ^# ]] && continue
+    # Export with FZF_ prefix to avoid conflicts, uppercase key
+    export "FZF_$(echo "$key" | tr '[:lower:]' '[:upper:]')"="$value"
+  done < "$conf_file"
+}
+
+#----------------------------------------------------------------------------------
+# Configuration management
+#----------------------------------------------------------------------------------
+gconf() {
+  local conf_file="$HOME/.fzf-conf"
+
+  [[ "$1" == "--init" ]] && { echo "editor=nvim" > "$conf_file"; return; }
+  [[ ! -f "$conf_file" ]] && touch "$conf_file"
+
+  # Usage: add lines with format "DISPLAY_KEY:default:config_key:Description (examples)"
+  # Example: "EDITOR:nvim:editor:Configure your editor (nvim, nano, code, agy, subl)"
+  local entries=(
+    "EDITOR:nvim:editor:Configure your editor (nvim, nano, code, subl)"
+    "DIFF:delta:diff:Configure your diff viewer (delta, diff-so-fancy)"
+  )
+
+  printf '\n'
+  printf '  \033[1;36m⚙ Settings\033[0m\n'
+  printf '\n'
+
+  local entry
+  for entry in "${entries[@]}"; do
+    local display="${entry%%:*}"
+    local rest="${entry#*:}"
+    local default="${rest%%:*}"
+    local rest2="${rest#*:}"
+    local key="${rest2%%:*}"
+    local description="${rest2#*:}"
+
+    printf '  \033[2;37m%s\033[0m\n' "$description"
+
+    local input="$default"
+    if [[ -n "$ZSH_VERSION" ]]; then
+      vared -p "$display = " input 2>/dev/null
+    else
+      printf '  \033[1;33m%s\033[0m ' "$display ="
+      read -r input </dev/tty
+      input="${input:-$default}"
+    fi
+
+    if grep -q "^${key}=" "$conf_file" 2>/dev/null; then
+      sed -i '' "s/^${key}=.*/${key}=${input}/" "$conf_file"
+    else
+      echo "${key}=${input}" >> "$conf_file"
+    fi
+
+    printf '\n'
+  done
+
+  _load_fzf_config
+}
 
 #----------------------------------------------------------------------------------
 # Shows git diff
@@ -104,20 +180,41 @@ function gdiff() {
     return ;
   fi
 
-  local modified_files=$(git diff --name-only)
-  [ -z "$modified_files" ] && echo "No files modified" && return
+  if [[ ! -f "$HOME/.fzf-conf" ]]; then
+    gconf
+  fi
 
-  echo "$modified_files" | \
-  _git_fzf_preview --border-label ' 󰕜 gdiff ' --list-label '  Files ' \
-    --bind 'focus:+transform-header:
-        out=$(file --brief {} 2>/dev/null)
-        if [[ -n "$out" ]]; then
-          echo -e "$out\n ESC (exit)"
-        else
-          echo -e "No file selected"
-        fi' \
-    --preview "echo \"\"; git -C \"\$(git rev-parse --show-toplevel)\" diff --color=always {} | bat --color=always --style=changes --line-range :700 | less -R" | \
-    xargs -o -I {} git diff -p {}
+  _load_fzf_config
+  local editor_cmd="${FZF_EDITOR:-nvim}"
+  local git_tool=$(git config diff.tool 2>/dev/null)
+  local run_diff
+
+  if [[ -n "$git_tool" ]]; then
+    run_diff="git difftool -y $* {}"
+  else
+    local diff_cmd="${FZF_DIFF:-cat}"
+    run_diff="git -C \"\$(git rev-parse --show-toplevel)\" diff $* --color=always {} | $diff_cmd | less -R"
+  fi
+
+  while true; do
+    local modified_files=$(git diff "$@" --name-only)
+    [ -z "$modified_files" ] && echo "No files modified" && break
+
+    local file=$(echo "$modified_files" | \
+      _git_fzf_preview --border-label ' 󰕜 gdiff ' --list-label '  Files ' \
+        --bind 'focus:+transform-header:
+            out=$(file --brief {} 2>/dev/null)
+            if [[ -n "$out" ]]; then
+              echo -e "$out\n ESC (exit)"
+            else
+              echo -e "No file selected"
+            fi' \
+        --bind "ctrl-e:execute($editor_cmd {})+reload(git diff $* --name-only)" \
+        --bind "enter:execute($run_diff)" \
+        --preview "git -C \"\$(git rev-parse --show-toplevel)\" diff $* {} | awk '$_readable_diff_awk'")
+
+    [[ -z "$file" ]] && break
+  done
 }
 
 
@@ -405,10 +502,14 @@ function lsf(){
 }
 
 #--------------------------------------------------------------------------------
-# Key bindings
-#----------------------------------------------------------------------------------
-zle -N ff
-bindkey '^[c' ff  # alt + c to find files
+# Zsh key bindings
+if [[ -n "$ZSH_VERSION" ]]; then
+  zle -N ff
+  bindkey '^[c' ff  # alt + c to find files
 
-zle -N fd
-bindkey '^[t' fd   # ctrl + t to find folders
+  zle -N fd
+  bindkey '^[t' fd   # ctrl + t to find folders
+
+  zle -N gconf
+  bindkey '^[n' gconf  # alt + n to configure fzf settings
+fi
