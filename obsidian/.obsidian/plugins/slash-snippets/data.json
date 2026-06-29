@@ -1,5 +1,5 @@
 {
-  "slashTrigger": "/",
+  "slashTrigger": "@",
   "fuzzySearch": true,
   "highlight": true,
   "showPath": false,
