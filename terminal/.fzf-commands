@@ -275,16 +275,13 @@ function gbranch() {
 #----------------------------------------------------------------------------------
 function gtag() {
   _git_check || return
-  selection=$(git tag --sort -version:refname |
+  git tag --sort -version:refname |
     _git_fzf_preview -e \
       --border-label '  gtag ' --list-label '  Tags ' \
-      --preview 'git show --color=always {}' "$@")
-
-  if [[ -z "$selection" ]]; then
-    return
-  fi
-
-  git checkout "$selection"
+      --bind 'focus:transform-preview-label:printf " 󰍉 Previewing tag [%s] " {}' \
+      --bind "focus:change-preview(git show --color=always {} | awk '$_readable_diff_awk')" \
+      --bind "enter:execute-silent(git checkout {})+change-preview(printf '✓ Switched to tag %s' {})+reload(git tag --sort -version:refname)" \
+      "$@"
 }
 
 
