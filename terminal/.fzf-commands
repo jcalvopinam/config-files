@@ -298,8 +298,9 @@ function gstash() {
     --header $' ESC (exit) | CTRL-X (drop stash)\n' \
     --border-label ' 󱐖 gstash ' --list-label '  Stashes ' \
     --bind 'focus:transform-preview-label:printf " 󰍉 Previewing commits "' \
+    --bind 'enter:execute-silent(git stash apply {1})+change-preview(echo "✓ stash applied")+reload(git stash list)' \
     --bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
-    --preview 'git show --color=always {1}' "$@" | cut -d: -f1
+    --preview 'printf " Files\n" && git stash show --name-only {1} --color=always 2>/dev/null && printf "\n────────────────────────\n" && git stash show -p {1} | awk '\'"$_readable_diff_awk"\'' "$@"'
 }
 
 
