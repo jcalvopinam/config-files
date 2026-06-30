@@ -260,34 +260,13 @@ function gbranch() {
     --header-lines 1 \
     --border-label '  gbranch ' --list-label '  Branches ' \
     --bind 'focus:transform-preview-label:printf " 󰍉 Previewing commits "' \
-    --bind "enter:execute:git log --oneline --graph --date=short --color=always --pretty='format:%C(auto)%cd %h%d %s' $(sed s/^..// <<< {}) | less -R" \
+    --bind '/:execute:git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | less -R' \
+    --bind 'enter:execute-silent(git switch $(sed s/^..// <<< {} | cut -d" " -f1))+reload(bash '"$__fzf_git"' branches)' \
     --bind "alt-b:change-list-label( Branches> )+reload:bash \"$__fzf_git\" branches" \
     --bind "alt-a:change-list-label( All branches> )+reload:bash \"$__fzf_git\" all-branches" \
     --bind "ctrl-c:execute-silent(git show {1} --pretty=format:'%H' --no-patch | tr -d '\n' | pbcopy)" \
-    --preview-window down,border-top,70% \
     --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' "$@" |
     sed 's/^..//' | cut -d' ' -f1 | pbcopy
-}
-
-
-#----------------------------------------------------------------------------------
-# Shows git branches and switch it
-#----------------------------------------------------------------------------------
-function gswitch() {
-  _git_check || return
-  currentBranch=("Current branch:" $(git branch 2>/dev/null | sed -n -e 's/^\* \(.*\)/\1/p'))
-  selection=$(bash "$__fzf_git" bswitch |
-    _git_fzf -e \
-      --header "$currentBranch " \
-      --header-lines 1 \
-      --border-label '  gswitch ' --list-label '  Branches ' \
-      --bind 'focus:transform-preview-label:printf ""')
-
-  if [[ -z "$selection" ]]; then
-    return
-  fi
-
-  git switch "$selection" && git pull
 }
 
 
