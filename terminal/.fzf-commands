@@ -10,17 +10,10 @@ if [[ $# -eq 1 ]]; then
   branches() {
     git branch "$@" --sort=-committerdate --sort=-HEAD --format=$'%(HEAD) %(color:yellow)%(refname:short) %(color:green)(%(committerdate:relative))\t%(color:blue)%(subject)%(color:reset)' --color=always | column -ts$'\t'
   }
-  bswitch() {
-    git branch | grep -v '/HEAD\s' | grep -v "*" | awk -F' ' {'print $1'}
-  }
   case "$1" in
     branches)
       echo $' ESC (exit) | ENTER (search within the log of the selected branch) | ALT-A (show all branches)'
       branches
-      ;;
-    bswitch)
-      echo $' ESC (exit) | ENTER (switch to the branch selected)'
-      bswitch
       ;;
     all-branches)
       echo $' ESC (exit)\n'
@@ -69,11 +62,12 @@ _git_fzf() {
     --tiebreak begin \
     --layout reverse \
     --color hl:underline,hl+:underline \
-    --color 'border:#aaaaaa,label:#cccccc' \
-    --color 'preview-border:#9999cc,preview-label:#ccccff' \
-    --color 'list-border:#669966,list-label:#99cc99' \
-    --color 'input-border:#996666,input-label:#ffcccc' \
-    --color 'header-border:#6699cc,header-label:#99ccff' "$@"
+  --color 'fg+:#CBCBCC,bg+:#25292E' \
+  --color 'border:#aaaaaa,label:#666666' \
+  --color 'preview-border:#9999cc,preview-label:#7777bb' \
+  --color 'list-border:#669966,list-label:#448844' \
+  --color 'input-border:#996666,input-label:#cc6666' \
+  --color 'header-border:#6699cc,header-label:#4477bb' "$@"
 }
 
 
@@ -224,7 +218,7 @@ function gdiff() {
 function glog1() {
   _git_check || return
   git log --date-order --abbrev --oneline --decorate --color --abbrev-commit \
-  --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | sed 's/Merged in //' $@ | \
+  --pretty=format:"%C(#D06860)%h%Creset -%C(yellow)%d%Creset %s %C(#6599CC)(%an)%Creset" | sed 's/Merged in //' $@ | \
   _git_fzf_preview -e \
     --header $'Search by hash/message/author\n ESC (exit)' \
     --border-label '  glog1 ' --list-label '  Commits '\
@@ -240,7 +234,7 @@ function glog1() {
 function glog2() {
   _git_check || return
   git log --date-order --abbrev --oneline --decorate --color --abbrev-commit \
-  --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %C(bold blue)(%an)%Creset" | sed 's/Merged in //' $@ | \
+  --pretty=format:"%C(#D06860)%h%Creset -%C(yellow)%d%Creset %s %C(#6599CC)(%an)%Creset" | sed 's/Merged in //' $@ | \
   _git_fzf_preview -e \
     --header $'Search by hash/message/author\n ESC (exit)' \
     --border-label '  glog1 ' --list-label '  Commits '\
@@ -338,7 +332,7 @@ function gparent() {
 # Finds all tracked files with git
 #----------------------------------------------------------------------------------
 function gls() {
-  git ls-files | fzf --style full \
+  git ls-files | _git_fzf_preview -e \
     --border --padding 1,2 \
     --border-label ' Files tracked with git ' --input-label '  Search ' --header-label ' File Type ' \
     --preview 'fzf-preview.sh {}' \
@@ -351,12 +345,7 @@ function gls() {
         ' \
     --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " 󰍉 Previewing [%s] " {}' \
     --bind 'focus:+transform-header:file --brief {} || echo "No file selected"' \
-    --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)' \
-    --color 'border:#aaaaaa,label:#cccccc' \
-    --color 'preview-border:#9999cc,preview-label:#ccccff' \
-    --color 'list-border:#669966,list-label:#99cc99' \
-    --color 'input-border:#996666,input-label:#ffcccc' \
-    --color 'header-border:#6699cc,header-label:#99ccff'
+    --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
 }
 
 
