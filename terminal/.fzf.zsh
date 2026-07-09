@@ -53,15 +53,18 @@ _fzf_comprun() {
 }
 
 #----------------------------------------------------------------------------------
-# Auto-completion
+# Checks if fzf is installed and if the shell is interactive,
+# then sources the fzf configuration.
 #----------------------------------------------------------------------------------
-FZF_PATH=$(dirname $(readlink -f $(which fzf)))
-[[ $- == *i* ]] && source $FZF_PATH"/../shell/completion.zsh" 2> /dev/null
-
-#----------------------------------------------------------------------------------
-# Key bindings
-#----------------------------------------------------------------------------------
-source $FZF_PATH"/../shell/key-bindings.zsh"
+if command -v fzf >/dev/null 2>&1 && [[ $- == *i* ]]; then
+    source <(fzf --zsh 2>/dev/null) || {
+        FZF_PATH=$(dirname $(readlink -f $(which fzf)))
+        # Auto-completion
+        [[ $- == *i* ]] && source $FZF_PATH"/../shell/completion.zsh" 2> /dev/null
+        # Key bindings
+        source $FZF_PATH"/../shell/key-bindings.zsh"
+    }
+fi
 
 #----------------------------------------------------------------------------------
 # Load configuration for custom fzf commands
