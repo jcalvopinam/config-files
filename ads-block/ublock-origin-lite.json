@@ -1,0 +1,125 @@
+{
+  "version": "2026.705.2152",
+  "rulesets": [
+    "+adguard-spyware-url",
+    "+annoyances-ai",
+    "+annoyances-cookies",
+    "+annoyances-overlays",
+    "+annoyances-social",
+    "+annoyances-others",
+    "+annoyances-notifications",
+    "+dpollock-0"
+  ],
+  "filteringModes": {
+    "none": [],
+    "basic": [],
+    "optimal": [
+      "all-urls"
+    ],
+    "complete": []
+  },
+  "customFilters": [
+    [
+      "app.notta.ai",
+      [
+        ".ant-modal-centered.ant-modal-wrap",
+        ".ant-modal-mask"
+      ]
+    ],
+    [
+      "apple.stackexchange.com",
+      [
+        ".js-consent-banner",
+        ".overflow-hidden",
+        ".vertical-align-content"
+      ]
+    ],
+    [
+      "askubuntu.com",
+      [
+        ".vertical-align-content"
+      ]
+    ],
+    [
+      "carterchen247.medium.com",
+      [
+        ".ug.uf.ue.m"
+      ]
+    ],
+    [
+      "historia.nationalgeographic.com.es",
+      [
+        "#modal-window"
+      ]
+    ],
+    [
+      "meta.stackexchange.com",
+      [
+        ".vertical-align-content"
+      ]
+    ],
+    [
+      "outlook.live.com",
+      [
+        ".LBktY > .GssDD"
+      ]
+    ],
+    [
+      "stackoverflow.com",
+      [
+        ".js-consent-banner",
+        ".vertical-align-content"
+      ]
+    ],
+    [
+      "superuser.com",
+      [
+        "#onetrust-consent-sdk"
+      ]
+    ],
+    [
+      "survey.stackoverflow.co",
+      [
+        ".vertical-align-content.ot-bottom-left.otFloatingRoundedCorner"
+      ]
+    ],
+    [
+      "www.deepl.com",
+      [
+        ".focus-visible-light-container",
+        ".focus-visible-light-container.StickyBanner-module--stickyBanner--s7FKj.writeAdvertisementBanner-module--root--AQza-.Banner-module--dialog--piqGl",
+        ".focus-visible-light-container.cookieBanner-module--container--m67zj",
+        ".justify-between.items-center.flex.container-module--withResponsivePadding--eLkQK.false.container-module--xxxl--E2VkJ.container-module--container--IDKSF",
+        ".justify-center.sm\\:items-center.items-start.flex.bg-blue-next-100",
+        ".lg\\:px-\\[70px\\].sm\\:px-8.bg-white.w-full",
+        ".min-\\[1280px\\]\\:px-0.px-6.justify-between.items-center.flex",
+        ".mobile\\:bg-neutral-next-50",
+        ".mobile\\:hidden > .lg\\:px-\\[70px\\].p-8",
+        ".pageFooterV2-module--footerOuterContainer--CwVcZ",
+        ".relative.bg-neutral-next-50 > .mobile\\:hidden",
+        "div.lg\\:px-\\[70px\\].p-8:nth-of-type(4)"
+      ]
+    ],
+    [
+      "www.netlife.ec",
+      [
+        "#cookie-law-info-bar",
+        ".cli-show"
+      ]
+    ],
+    [
+      "www.primicias.ec",
+      [
+        ".cky-consent-bar",
+        ".cky-notice"
+      ]
+    ],
+    [
+      "www.tiktok.com",
+      [
+        ".e1gjoq3k0.css-behvuc-DivModalContainer",
+        ".e1gjoq3k0.css-behvuc-DivModalContainer > div"
+      ]
+    ]
+  ]
+}
