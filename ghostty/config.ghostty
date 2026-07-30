@@ -10,7 +10,7 @@ macos-titlebar-style = tabs
 unfocused-split-opacity = 0.7
 confirm-close-surface = true
 macos-option-as-alt = left
-minimum-contrast = 1.5
+#minimum-contrast = 1.5
 
 #-------------------------------------------------------------
 # Font
