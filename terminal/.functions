@@ -187,7 +187,7 @@ if type brew &> /dev/null; then
 
     parse_outdated() {
       # Adjusted to handle the output format of `brew outdated`
-      echo "$1" | awk '/</ {print $1 "\t" $2 "\t" $4}' | sed 's/[()]//g' | sed 's/<//g'
+      echo "$1" | awk '/<|!=/ {print $1 "\t" $2 "\t" $4}' | sed 's/[()]//g'
     }
 
     brew update --quiet > /dev/null 2>&1
