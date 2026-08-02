@@ -153,8 +153,6 @@ if type brew &> /dev/null; then
       local title="$1"
       local data="$2"
 
-      parsed=$(echo "$data" | sed -E 's/^(.*)\(([^)]+)\) (<!?=|!=|<) (.*)$/\1\t\2\t\4/')
-
       max_name=$(visible_length "$title")
       max_current=$(visible_length "CURRENT")
       max_latest=$(visible_length "LATEST")
@@ -163,7 +161,7 @@ if type brew &> /dev/null; then
         (( ${#name} > max_name )) && max_name=${#name}
         (( ${#current} > max_current )) && max_current=${#current}
         (( ${#latest} > max_latest )) && max_latest=${#latest}
-      done <<< "$parsed"
+      done <<< "$data"
 
       border="+-$(printf '%*s' "$max_name" | tr ' ' -)-+-$(printf '%*s' "$max_current" | tr ' ' -)-+-$(printf '%*s' "$max_latest" | tr ' ' -)-+"
       header="| ${BOLD}%-${max_name}s${RESET} | ${BOLD}%-${max_current}s${RESET} | ${BOLD}%-${max_latest}s${RESET} |"
@@ -175,9 +173,14 @@ if type brew &> /dev/null; then
 
       while IFS=$'\t' read -r name current latest; do
         printf "$row\n" "$name" "$current" "$latest"
-      done <<< "$parsed"
+      done <<< "$data"
 
       printf "%s\n" "$border"
+    }
+
+    parse_outdated() {
+      # Adjusted to handle the output format of `brew outdated`
+      echo "$1" | awk '/<|!=/ {print $1 "\t" $2 "\t" $4}' | sed 's/[()]//g'
     }
 
     brew update --quiet > /dev/null 2>&1
@@ -187,8 +190,8 @@ if type brew &> /dev/null; then
     if [[ -z "$formulas_outdated" && -z "$casks_outdated" ]]; then
       echo -e "${BOLD}:: Everything is up to date!${RESET}"
     else
-      [ -n "$formulas_outdated" ] && print_table "FORMULAS" "$formulas_outdated"
-      [ -n "$casks_outdated" ] && print_table "CASKS" "$casks_outdated"
+      [ -n "$formulas_outdated" ] && print_table "FORMULAS" "$(parse_outdated "$formulas_outdated")"
+      [ -n "$casks_outdated" ] && print_table "CASKS" "$(parse_outdated "$casks_outdated")"
 
       echo -ne "${BOLD}\n:: Do you want to update all? (y/n): ${RESET}"
       read -r choice
