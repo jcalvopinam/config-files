@@ -12,9 +12,9 @@
   "obsidian-reveal-active-file",
   "obsidian-sort-and-permute-lines",
   "recent-files-obsidian",
-  "settings-search",
   "table-editor-obsidian",
   "quickadd",
   "slash-snippets",
-  "templater-obsidian"
+  "templater-obsidian",
+  "notebook-navigator"
 ]
