@@ -9,6 +9,9 @@
   "accessibility": {
     "highTextContrast": false
   },
-  "knownTags": {},
-  "_version": 3
+  "knownTags": {
+    "excalidraw": 1
+  },
+  "tagColors": {},
+  "_version": 4
 }
