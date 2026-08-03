@@ -1,20 +1,16 @@
 [
-  "calendar",
   "code-styler",
-  "colored-tags",
-  "darlal-switcher-plus",
-  "float-search",
   "obsidian-enhancing-mindmap",
   "obsidian-excalidraw-plugin",
   "obsidian-go-to-line",
-  "obsidian-icon-folder",
   "obsidian-minimal-settings",
   "obsidian-reveal-active-file",
   "obsidian-sort-and-permute-lines",
-  "recent-files-obsidian",
   "table-editor-obsidian",
   "quickadd",
   "slash-snippets",
   "templater-obsidian",
-  "notebook-navigator"
+  "notebook-navigator",
+  "colored-tags",
+  "omnisearch"
 ]
