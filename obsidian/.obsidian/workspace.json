@@ -1,34 +1,20 @@
 {
   "main": {
-    "id": "fb084becc8bccafa",
+    "id": "ef60e4b664925bdb",
     "type": "split",
     "children": [
       {
-        "id": "7d548767fd75479c",
+        "id": "9c4e156ec7a46e0a",
         "type": "tabs",
         "children": [
           {
-            "id": "62cd503765684681",
+            "id": "dcff6844bdeb3dcf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "README"
+              "title": "New tab"
             }
           }
         ]
@@ -41,27 +27,24 @@
     "type": "split",
     "children": [
       {
-        "id": "0acd194a5f30b29e",
-        "type": "tabs",
-        "dimension": 31.299212598425196,
-        "children": [
-          {
-            "id": "f7014bb15ddf35bf",
-            "type": "leaf",
-            "state": {
-              "type": "calendar",
-              "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
-            }
-          }
-        ]
-      },
-      {
         "id": "9db2fda063d29a25",
         "type": "tabs",
-        "dimension": 68.7007874015748,
         "children": [
+          {
+            "id": "4e28baa815d72248",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
           {
             "id": "ff27f0b33beaeb70",
             "type": "leaf",
@@ -73,12 +56,75 @@
             }
           },
           {
-            "id": "37a9f46c4e843c70",
+            "id": "2be9bddc4c02ee25",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 526.5578002929688
+  },
+  "right": {
+    "id": "6a0909c3de5f7a09",
+    "type": "split",
+    "children": [
+      {
+        "id": "b0d6292d83275135",
+        "type": "tabs",
+        "dimension": 34.18560606060606,
+        "children": [
+          {
+            "id": "75eefb08e1f6c45c",
+            "type": "leaf",
+            "state": {
+              "type": "notebook-navigator-calendar",
+              "state": {},
+              "icon": "lucide-calendar-days",
+              "title": "Calendar"
+            }
+          },
+          {
+            "id": "7834214f0980ab76",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          }
+        ]
+      },
+      {
+        "id": "90afe7aa6a56e85c",
+        "type": "tabs",
+        "dimension": 65.81439393939394,
+        "children": [
+          {
+            "id": "f806163fa1d7acbf",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -130,93 +176,24 @@
               "icon": "links-going-out",
               "title": "Outgoing links"
             }
-          }
-        ]
-      }
-    ],
-    "direction": "horizontal",
-    "width": 306.50390243530273
-  },
-  "right": {
-    "id": "6a0909c3de5f7a09",
-    "type": "split",
-    "children": [
-      {
-        "id": "ecf1037817f0b2db",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "4e28baa815d72248",
-            "type": "leaf",
-            "state": {
-              "type": "file-explorer",
-              "state": {
-                "sortOrder": "alphabetical",
-                "autoReveal": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-folder-closed",
-              "title": "Files"
-            }
           },
           {
-            "id": "dc8ebaecc640a569",
-            "type": "leaf",
-            "state": {
-              "type": "search",
-              "state": {
-                "query": "",
-                "matchingCase": false,
-                "explainSearch": false,
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical"
-              },
-              "icon": "lucide-search",
-              "title": "Search"
-            }
-          },
-          {
-            "id": "a05171f78ede7996",
+            "id": "9bc7cf2fb93798d8",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
-                "sortOrder": "alphabetical",
+                "sortOrder": "frequency",
                 "useHierarchy": true,
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Tags"
             }
-          },
-          {
-            "id": "55718e9ef43151a9",
-            "type": "leaf",
-            "state": {
-              "type": "recent-files",
-              "state": {},
-              "icon": "clock",
-              "title": "Recent files"
-            }
-          },
-          {
-            "id": "122af2fb38008536",
-            "type": "leaf",
-            "state": {
-              "type": "all-properties",
-              "state": {
-                "sortOrder": "frequency",
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-archive",
-              "title": "All properties"
-            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -224,7 +201,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "float-search:Search obsidian in modal view": true,
+      "omnisearch:Omnisearch": true,
       "graph:Open graph view": false,
       "daily-notes:Open today's daily note": true,
       "switcher:Open quick switcher": true,
@@ -232,16 +209,12 @@
       "command-palette:Open command palette": true,
       "audio-recorder:Start/stop recording": false,
       "workspaces:Manage workspace layouts": true,
-      "darlal-switcher-plus:Open in Headings Mode": true,
-      "darlal-switcher-plus:Open Symbols for the active editor": true,
       "obsidian-excalidraw-plugin:New drawing": false,
       "table-editor-obsidian:Advanced Tables Toolbar": true,
       "templater-obsidian:Templater": true,
       "notebook-navigator:Notebook Navigator": true
     }
   },
-  "active": "37a9f46c4e843c70",
-  "lastOpenFiles": [
-    "README.md"
-  ]
+  "active": "ff27f0b33beaeb70",
+  "lastOpenFiles": []
 }
