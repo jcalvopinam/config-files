@@ -1,0 +1,43 @@
+user: [18, 50, 172]            # #1232ac blue (4)
+group: [62, 140, 141]          # #3e8c8d teal (6)
+permission:
+  read: [55, 123, 42]          # #377b2a green (2)
+  write: [172, 141, 45]        # #ac8d2d olive (3)
+  exec: [189, 41, 29]          # #bd291d red (1)
+  exec-sticky: [164, 36, 173]  # #a424ad magenta (5)
+  no-access: [201, 201, 201]   # #c9c9c9 gray (7)
+  octal: [18, 50, 172]         # #1232ac blue (4)
+  acl: [62, 140, 141]          # #3e8c8d teal (6)
+  context: [62, 140, 141]      # #3e8c8d teal (6)
+attributes:
+  archive: [55, 123, 42]       # #377b2a green (2)
+  read: [172, 141, 45]         # #ac8d2d olive (3)
+  hidden: [164, 36, 173]       # #a424ad magenta (5)
+  system: [164, 36, 173]       # #a424ad magenta (5)
+date:
+  hour-old: [55, 123, 42]      # #377b2a green (2)
+  day-old: [62, 140, 141]      # #3e8c8d teal (6)
+  older: [69, 71, 90]          # #45475A slate (8)
+size:
+  none: [201, 201, 201]        # #c9c9c9 gray (7)
+  small: [55, 123, 42]         # #377b2a green (2)
+  medium: [172, 141, 45]       # #ac8d2d olive (3)
+  large: [189, 41, 29]         # #bd291d red (1)
+inode:
+  valid: [164, 36, 173]        # #a424ad magenta (5)
+  invalid: [201, 201, 201]     # #c9c9c9 gray (7)
+links:
+  valid: [62, 140, 141]        # #3e8c8d teal (6)
+  invalid: [189, 41, 29]       # #bd291d red (1)
+tree-edge: [201, 201, 201]     # #c9c9c9 gray (7)
+git-status:
+  default: [201, 201, 201]     # #c9c9c9 gray (7)
+  unmodified: [201, 201, 201]  # #c9c9c9 gray (7)
+  ignored: [201, 201, 201]     # #c9c9c9 gray (7)
+  new-in-index: [55, 123, 42]  # #377b2a green (2)
+  new-in-workdir: [55, 123, 42] # #377b2a green (2)
+  typechange: [172, 141, 45]   # #ac8d2d olive (3)
+  deleted: [189, 41, 29]       # #bd291d red (1)
+  renamed: [62, 140, 141]      # #3e8c8d teal (6)
+  modified: [172, 141, 45]     # #ac8d2d olive (3)
+  conflicted: [189, 41, 29]    # #bd291d red (1)

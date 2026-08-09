@@ -387,11 +387,13 @@ function themeToggle() {
 
     # `lsd`
     if type lsd &> /dev/null; then
-      mv ~/.config/lsd_light ~/.config/lsd 2> /dev/null
+      ln -sfn light.yaml ~/.config/lsd/colors.yaml
     fi
   else
     # `lsd`
-    mv ~/.config/lsd ~/.config/lsd_light 2> /dev/null
+    if type lsd &> /dev/null; then
+      ln -sfn dark.yaml ~/.config/lsd/colors.yaml
+    fi
   fi
 }
 
