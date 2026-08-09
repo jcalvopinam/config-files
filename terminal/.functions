@@ -359,34 +359,46 @@ function themeToggle() {
 }
 
 #----------------------------------------------------------------------------------
-# Remove the last row from the history file
+# Deletes the `n` previous commands from the history file. e.g.:
+# rr!    -> deletes the previous command
+# rr! 7  -> deletes the last 7 commands
 #----------------------------------------------------------------------------------
 function rr\!() {
-  if [[ "$SHELL" == *"zsh"* ]]; then
-    FILENAME="$HOME/.zsh_history"
-  elif [[ "$SHELL" == *"bash"* ]]; then
-    FILENAME="$HOME/.bash_history"
-  else
-    echo ":: I don't know which Shell you're using!"
-    return
-  fi
-
   nloop=${1:-2}
-
-  echo $FILENAME
 
   if ! [[ "$nloop" =~ ^[0-9]+$ ]]; then
     echo ":: Please, enter a valid number"
     return
   fi
 
-  for i in $(seq 1 "$nloop"); do
-    if [[ "$(uname)" == "Darwin" ]]; then
-      sed -i '' -e '$d' $FILENAME
-    else
-      sed -i -e '$d' $FILENAME
-    fi
-  done
+  if [[ "$SHELL" == *"zsh"* ]]; then
+    FILENAME="${HISTFILE:-$HOME/.zsh_history}"
+    for i in $(seq 1 "$nloop"); do
+      fc -W
+      if [[ "$(uname)" == "Darwin" ]]; then
+        sed -i '' '$d' "$FILENAME"
+      else
+        sed -i '$d' "$FILENAME"
+      fi
+      fc -R
+    done
+    echo ":: Deleted $((nloop - 1)) command(s) from zsh history"
+  elif [[ "$SHELL" == *"bash"* ]]; then
+    FILENAME="${HISTFILE:-$HOME/.bash_history}"
+    for i in $(seq 1 "$nloop"); do
+      history -w
+      if [[ "$(uname)" == "Darwin" ]]; then
+        sed -i '' '$d' "$FILENAME"
+      else
+        sed -i '$d' "$FILENAME"
+      fi
+      history -r
+    done
+    echo ":: Deleted $((nloop - 1)) command(s) from bash history"
+  else
+    echo ":: I don't know which Shell you're using!"
+    return
+  fi
 }
 
 #----------------------------------------------------------------------------------
