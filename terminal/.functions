@@ -317,16 +317,16 @@ function fwifi() {
 function kport() {
   if [ -z "$1" ]; then
     echo "Usage: kport <port_number>"
-    exit 1
+    return 1
   fi
 
-  PORT=$1
-  PID=$(lsof -ti :$PORT)
+  PORT="$1"
+  PID=$(lsof -ti :"$PORT")
 
   if [ -z "$PID" ]; then
     echo "No process found on port $PORT"
   else
-    kill -9 $PID
+    kill -9 "$PID"
     echo "The process $PID on port $PORT was killed!"
   fi
 }
