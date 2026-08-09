@@ -9,7 +9,7 @@ theme = "light:fancylight,dark:fancydracula"
 macos-titlebar-style = tabs
 unfocused-split-opacity = 0.7
 confirm-close-surface = true
-macos-option-as-alt = left
+macos-option-as-alt = false
 #minimum-contrast = 1.5
 
 #-------------------------------------------------------------
@@ -53,3 +53,12 @@ keybind = alt+cmd+shift+left=resize_split:left,10
 keybind = alt+cmd+shift+right=resize_split:right,10
 keybind = alt+cmd+shift+up=resize_split:up,10
 keybind = alt+cmd+shift+down=resize_split:down,10
+
+# Option + Delete: delete previous word
+keybind = alt+backspace=text:\x1b\x7f
+
+# Option + arrow keys: move cursor by word
+keybind = alt+up=text:\x1b\x1b[A
+keybind = alt+down=text:\x1b\x1b[B
+keybind = alt+right=text:\x1b\x1b[C
+keybind = alt+left=text:\x1b\x1b[D
