@@ -94,32 +94,69 @@ function man() {
 }
 
 #----------------------------------------------------------------------------------
-# Clean duplicated entries in the history
+# Clean duplicated entries in the zsh history.
+# Usage: czsh [options]
+#   czsh        -> No args - Keep only the first occurrence of each command
+#   czsh f      -> Deduplicate and remove .DS_Store files from $HOME
+#   czsh s      -> Deduplicate and sort by command name
+#   czsh d      -> Deduplicate and sort by date (oldest first)
+#   czsh fs     -> Deduplicate and remove .DS_Store and sort by command
+#   czsh fd     -> Deduplicate and remove .DS_Store and sort by date
 #----------------------------------------------------------------------------------
 if [[ "$SHELL" = "/bin/zsh" ]]; then
   function czsh() {
-    cd $HOME
-    cat -n .zsh_history | sort -t ';' -uk2 | sort -nk1 | cut -f2- > .zsh_clean_history
+    local prev_dir="$PWD"
+    cd "$HOME" || { echo ":: Error: cannot cd to $HOME"; return 1; }
 
+    if [[ ! -f .zsh_history ]]; then
+      echo ":: Error: .zsh_history not found"
+      cd "$prev_dir" 2>/dev/null
+      return 1
+    fi
+
+    # Save nomatch state and disable it for safe globbing
+    local nomatch_was_on
+    [[ -o nomatch ]] && nomatch_was_on=1 || nomatch_was_on=0
     set +o nomatch
+
+    # Deduplicate history by command (preserves order of first occurrence)
+    # First, ensure each entry is on its own line (handles corrupted history files)
+    awk '{gsub(/: [0-9]+:[0-9]+;/,"\n&"); if(substr($0,1,1)=="\n") $0=substr($0,2)} 1' .zsh_history | awk -F';' '!seen[$2]++' > .zsh_clean_history
+
+    # Remove old history and related files
     rm -rf .zsh_history .zcompdump* .zsh_sessions
     mv .zsh_clean_history .zsh_history
-    rm -rf .viminfo
-    set -o nomatch
 
-    if [[ "$1" = "f" ]]; then
-      echo "Please wait until the execution has been released"
-      find / -type f -name ".DS_Store" -exec rm -rf {} \; 2> /dev/null
+    # Restore nomatch state
+    [[ "$nomatch_was_on" -eq 1 ]] && set -o nomatch
+
+    # Parse arguments
+    local clean_ds=false sort_cmds=false sort_date=false
+    for arg in "$@"; do
+      case "$arg" in
+        f) clean_ds=true ;;
+        s) sort_cmds=true ;;
+        d) sort_date=true ;;
+      esac
+    done
+
+    if $clean_ds; then
+      echo ":: Removing .DS_Store files..."
+      find "$HOME" -type f -name ".DS_Store" -delete 2>/dev/null
       echo "...done!"
     fi
 
-    # sort by commands
-    if [[ "$1" = "s" ]]; then
-      sort -t ';' -k2 ".zsh_history" > ".zsh_history.temp"
+    if $sort_cmds; then
+      sort -t ';' -k2,2 ".zsh_history" > ".zsh_history.temp"
       mv ".zsh_history.temp" ".zsh_history"
     fi
 
-    cd -
+    if $sort_date; then
+      sort -t ';' -k1,1n ".zsh_history" > ".zsh_history.temp"
+      mv ".zsh_history.temp" ".zsh_history"
+    fi
+
+    cd "$prev_dir" 2>/dev/null
   }
 fi
 
