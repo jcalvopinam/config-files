@@ -1,0 +1,43 @@
+user: [137, 180, 250]          # #89B4FA blue (12)
+group: [77, 205, 237]          # #4DCDED cyan (6)
+permission:
+  read: [89, 246, 141]         # #59F68D green (2)
+  write: [245, 245, 67]        # #F5F543 yellow (3)
+  exec: [255, 110, 110]        # #FF6E6E red (1)
+  exec-sticky: [188, 63, 188]  # #BC3FBC magenta (5)
+  no-access: [108, 111, 134]   # #6C6F86 gray (0)
+  octal: [94, 197, 229]        # #5EC5E5 blue (4)
+  acl: [77, 205, 237]          # #4DCDED cyan (6)
+  context: [77, 205, 237]      # #4DCDED cyan (6)
+attributes:
+  archive: [169, 221, 157]     # #A9DD9D soft green (10)
+  read: [245, 245, 67]         # #F5F543 yellow (3)
+  hidden: [214, 112, 214]      # #D670D6 magenta (13)
+  system: [214, 112, 214]      # #D670D6 magenta (13)
+date:
+  hour-old: [169, 221, 157]    # #A9DD9D soft green (10)
+  day-old: [89, 246, 141]      # #59F68D green (2)
+  older: [108, 111, 134]       # #6C6F86 gray (0)
+size:
+  none: [108, 111, 134]        # #6C6F86 gray (0)
+  small: [89, 246, 141]        # #59F68D green (2)
+  medium: [245, 245, 67]       # #F5F543 yellow (3)
+  large: [255, 110, 110]       # #FF6E6E red (1)
+inode:
+  valid: [214, 112, 214]       # #D670D6 magenta (13)
+  invalid: [108, 111, 134]     # #6C6F86 gray (0)
+links:
+  valid: [77, 205, 237]        # #4DCDED cyan (6)
+  invalid: [255, 110, 110]     # #FF6E6E red (1)
+tree-edge: [108, 111, 134]     # #6C6F86 gray (0)
+git-status:
+  default: [108, 111, 134]     # #6C6F86 gray (0)
+  unmodified: [108, 111, 134]  # #6C6F86 gray (0)
+  ignored: [108, 111, 134]     # #6C6F86 gray (0)
+  new-in-index: [89, 246, 141] # #59F68D green (2)
+  new-in-workdir: [89, 246, 141] # #59F68D green (2)
+  typechange: [245, 245, 67]   # #F5F543 yellow (3)
+  deleted: [255, 110, 110]     # #FF6E6E red (1)
+  renamed: [77, 205, 237]      # #4DCDED cyan (6)
+  modified: [245, 245, 67]     # #F5F543 yellow (3)
+  conflicted: [255, 110, 110]  # #FF6E6E red (1)
