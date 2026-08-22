@@ -84,10 +84,9 @@
   "switcher:open": [
     {
       "modifiers": [
-        "Mod",
-        "Shift"
+        "Mod"
       ],
-      "key": "H"
+      "key": "P"
     }
   ],
   "command-palette:open": [
@@ -198,14 +197,6 @@
     }
   ],
   "obsidian-excalidraw-plugin:insert-link-to-element": [],
-  "open-with-default-app:open": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "O"
-    }
-  ],
   "obsidian-enhancing-mindmap:Toggle to markdown or mindmap": [
     {
       "modifiers": [
@@ -326,5 +317,37 @@
       "key": "Enter"
     }
   ],
-  "editor:open-link-in-new-leaf": []
+  "editor:open-link-in-new-leaf": [],
+  "window:zoom-in": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "+"
+    }
+  ],
+  "window:zoom-out": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "-"
+    }
+  ],
+  "window:reset-zoom": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "Numpad0"
+    }
+  ],
+  "open-with-default-app:open": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "F"
+    }
+  ]
 }
