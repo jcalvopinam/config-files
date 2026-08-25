@@ -205,7 +205,7 @@ function gdiff() {
             fi' \
         --bind "ctrl-e:execute($editor_cmd {})+reload(git diff $* --name-only)" \
         --bind "enter:execute($run_diff)" \
-        --preview "git -C \"\$(git rev-parse --show-toplevel)\" diff $* {} | awk '$_readable_diff_awk'")
+        --preview "if [ ! -f {} ]; then printf \"\n-------- {} --------\n\nThe file {} was deleted\n\"; else git -C \"\$(git rev-parse --show-toplevel)\" diff $* {} | awk '$_readable_diff_awk'; fi")
 
     [[ -z "$file" ]] && break
   done
