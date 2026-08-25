@@ -403,11 +403,15 @@ function themeToggle() {
 # rr! 7  -> deletes the last 7 commands
 #----------------------------------------------------------------------------------
 function rr\!() {
-  nloop=${1:-2}
+  local nloop=${1:-2}
 
   if ! [[ "$nloop" =~ ^[0-9]+$ ]]; then
     echo ":: Please, enter a valid number"
     return
+  fi
+
+  if [[ -n "$1" ]]; then
+    nloop=$((nloop + 1))
   fi
 
   if [[ "$SHELL" == *"zsh"* ]]; then
@@ -421,7 +425,7 @@ function rr\!() {
       fi
       fc -R
     done
-    echo ":: Deleted $((nloop - 1)) command(s) from zsh history"
+    echo ":: Deleted ${1:-1} command(s) from zsh history"
   elif [[ "$SHELL" == *"bash"* ]]; then
     FILENAME="${HISTFILE:-$HOME/.bash_history}"
     for i in $(seq 1 "$nloop"); do
@@ -433,7 +437,7 @@ function rr\!() {
       fi
       history -r
     done
-    echo ":: Deleted $((nloop - 1)) command(s) from bash history"
+    echo ":: Deleted ${1:-1} command(s) from bash history"
   else
     echo ":: I don't know which Shell you're using!"
     return
