@@ -184,14 +184,14 @@ function gdiff() {
   local run_diff
 
   if [[ -n "$git_tool" ]]; then
-    run_diff="git difftool -y $* {}"
+    run_diff="git difftool -y $* -- {}"
   else
     local diff_cmd="${FZF_DIFF:-cat}"
-    run_diff="git -C \"\$(git rev-parse --show-toplevel)\" diff $* --color=always {} | $diff_cmd | less -R"
+    run_diff="git diff $* --relative --color=always -- {} | $diff_cmd | less -R"
   fi
 
   while true; do
-    local modified_files=$(git diff "$@" --name-only)
+    local modified_files=$(git diff "$@" --relative --name-only)
     [ -z "$modified_files" ] && echo "No files modified" && break
 
     local file=$(echo "$modified_files" | \
@@ -203,9 +203,9 @@ function gdiff() {
             else
               echo -e "No file selected"
             fi' \
-        --bind "ctrl-e:execute($editor_cmd {})+reload(git diff $* --name-only)" \
+        --bind "ctrl-e:execute($editor_cmd {})+reload(git diff $* --relative --name-only)" \
         --bind "enter:execute($run_diff)" \
-        --preview "if [ ! -f {} ]; then printf \"\n-------- {} --------\n\nThe file {} was deleted\n\"; else git -C \"\$(git rev-parse --show-toplevel)\" diff $* {} | awk '$_readable_diff_awk'; fi")
+        --preview "if [ ! -f {} ]; then printf \"\n-------- {} --------\n\nThe file {} was deleted\n\"; else git diff $* --relative --color=always -- {} | awk '$_readable_diff_awk'; fi")
 
     [[ -z "$file" ]] && break
   done
