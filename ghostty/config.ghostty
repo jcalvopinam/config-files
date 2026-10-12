@@ -6,10 +6,11 @@
 # General
 #-------------------------------------------------------------
 theme = "light:fancylight,dark:fancydracula"
-macos-titlebar-style = tabs
-unfocused-split-opacity = 0.7
 confirm-close-surface = true
+macos-titlebar-style = tabs
 macos-option-as-alt = false
+unfocused-split-opacity = 0.7
+scrollback-limit = 4294967295
 #minimum-contrast = 1.5
 
 #-------------------------------------------------------------
@@ -29,8 +30,8 @@ window-padding-x = 20
 window-padding-y = 20
 window-decoration = true
 window-step-resize = false
-# window-background-opacity = 0.95
-# window-background-blur = true
+#window-background-opacity = 0.95
+#window-background-blur = true
 
 #-------------------------------------------------------------
 # Cursor
@@ -62,3 +63,12 @@ keybind = alt+up=text:\x1b\x1b[A
 keybind = alt+down=text:\x1b\x1b[B
 keybind = alt+right=text:\x1b\x1b[C
 keybind = alt+left=text:\x1b\x1b[D
+
+#-------------------------------------------------------------
+# Quick terminal
+#-------------------------------------------------------------
+#macos-hidden = always
+#quick-terminal-size = 100%,50%
+#quick-terminal-position = top
+#quick-terminal-animation-duration = 0.15
+#keybind = global:cmd+shift+t=toggle_quick_terminal
